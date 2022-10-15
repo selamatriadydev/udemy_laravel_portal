@@ -1,4 +1,4 @@
-@include('single_user.nav')
+@include('multi_user.nav')
 
 <h1>Welcome Reset Password page</h1>
  

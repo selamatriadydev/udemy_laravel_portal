@@ -13,15 +13,23 @@ use Illuminate\Support\Facades\Mail;
 class websiteController extends Controller 
 {
     public function index(){
-        return view('single_user.home');
+        return view('multi_user.home'); 
     }
 
-    public function dashboard(){
-        return view('single_user.dashboard');
+    public function dashboard_user(){
+        return view('multi_user.dashboard_user');
+    }
+    public function dashboard_admin(){
+        return view('multi_user.dashboard_admin');
+    }
+
+    public function settings(){
+
+        return view('multi_user.settings');
     }
 
     public function register(){
-        return view('single_user.register');
+        return view('multi_user.register');
     }
     public function register_submit(Request $request){
         // echo $request->name;
@@ -32,6 +40,7 @@ class websiteController extends Controller
         $user->password = Hash::make($request->password);
         $user->token = $token;
         $user->status = "Pending";
+        $user->role = 2;
         $user->save();
 
         // $veryfication_link = url('register/verify/'.$token."/".$request->email);
@@ -55,7 +64,7 @@ class websiteController extends Controller
     }
 
     public function login(){
-        return view('single_user.login');
+        return view('multi_user.login');
     }
 
     public function login_submit(Request $request){
@@ -66,7 +75,10 @@ class websiteController extends Controller
         ];
 
         if( Auth::attempt($credentials) ) {
-            return redirect()->route('dashboard');
+            if( Auth::guard('web')->user()->role == 1 ){
+                return redirect()->route('dashboard_admin');
+            }
+            return redirect()->route('dashboard_user');
         }else{
             return redirect()->route('login');
         }
@@ -74,7 +86,7 @@ class websiteController extends Controller
     }
 
     public function forget_password(){
-        return view('single_user.forget_password');
+        return view('multi_user.forget_password');
     }
     public function forget_password_submit(Request $request){
         // return view('forget_password');
@@ -100,7 +112,7 @@ class websiteController extends Controller
         if(!$user){
            return redirect()->route('login');
         }
-        return view('single_user.reset_password', compact('token', 'email'));
+        return view('multi_user.reset_password', compact('token', 'email'));
 
     }
     public function reset_password_submit(Request $request){

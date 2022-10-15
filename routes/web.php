@@ -3,7 +3,7 @@
 use App\Http\Controllers\websiteController;
 use Illuminate\Support\Facades\Route; 
 
-/*
+/* 
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [websiteController::class, 'index'])->name('home');
-Route::get('/dashboard', [websiteController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
+Route::get('/dashboard_user', [websiteController::class, 'dashboard_user'])->name('dashboard_user')->middleware('auth');
+
+Route::get('/dashboard_admin', [websiteController::class, 'dashboard_admin'])->name('dashboard_admin')->middleware('admin');
+
+Route::get('/settings', [websiteController::class, 'settings'])->name('settings')->middleware('admin');
 
 Route::get('/register', [websiteController::class, 'register'])->name('register');
 Route::post('/register_submit', [websiteController::class, 'register_submit'])->name('register_submit');

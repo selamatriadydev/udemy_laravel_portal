@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
+use Closure;
+use Illuminate\Http\Request;
+
 class Authenticate extends Middleware
 {
     /**
@@ -17,5 +20,13 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+    }
+
+    public function handle(Request $request, Closure $next)
+    {
+        if(auth()->user()->role == 2){
+            return $next($request);
+        }
+        return redirect()->route('home');
     }
 }
