@@ -35,11 +35,11 @@ class websiteController extends Controller
         $user->status = "Pending";
         $user->save();
 
-        // $veryfication_link = url('register/verify/'.$token."/".$request->email);
-        // $subject = "Register Confirm";
-        // $messge = 'Plesase click on thin link: <a href="'.$veryfication_link.'">click here</a>';
+        $veryfication_link = url('register/verify/'.$token."/".$request->email);
+        $subject = "Register Confirm";
+        $messge = 'Plesase click on thin link: <a href="'.$veryfication_link.'">click here</a>';
 
-        // Mail::to($request->email)->send( new websiteMail($subject, $messge));
+        \Mail::to($request->email)->send( new websiteMail($subject, $messge));
 
         echo  'Email is send';
     }
@@ -88,11 +88,11 @@ class websiteController extends Controller
         $user->token = $token;
         $user->update();
 
-        // $veryfication_link = url('reset-password/'.$token."/".$request->email);
-        // $subject = "Reset Password";
-        // $messge = 'Plesase click on thin link: <a href="'.$veryfication_link.'">click here</a>';
+        $veryfication_link = url('reset-password/'.$token."/".$request->email);
+        $subject = "Reset Password";
+        $messge = 'Plesase click on thin link: <a href="'.$veryfication_link.'">click here</a>';
 
-        // Mail::to($request->email)->send( new websiteMail($subject, $messge));
+        Mail::to($request->email)->send( new websiteMail($subject, $messge));
 
         echo ('check your email');
     }

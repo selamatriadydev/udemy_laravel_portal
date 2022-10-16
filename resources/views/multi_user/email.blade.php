@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <p>{!! $subject !!}</p>
+    <p>{!! $body !!}</p>
 </body>
 </html>
