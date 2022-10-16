@@ -30,7 +30,7 @@ class websiteMail extends Mailable
      */
     public function build()
     {
-        return $this->view('multi_user.email')->with([
+        return $this->view('email.email')->with([
             'body' => $this->body
         ]);
     }

@@ -8,13 +8,13 @@
     @include('admin.layout.css')
     @include('admin.layout.script_header')
 </head>
-@if (Auth::guard('web')->user())
+@if (Auth::guard('admin')->user())
     <body class="hold-transition sidebar-mini layout-fixed">
 @else
     <body class="hold-transition login-page">
 @endif
 
-@if (Auth::guard('web')->user())
+@if (Auth::guard('admin')->user())
     <div class="wrapper">
 
     <!-- Preloader -->
