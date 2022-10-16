@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Hash;
+// use Hash;
 // use Auth;
 use App\Mail\websiteMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class websiteController extends Controller 
@@ -16,16 +17,8 @@ class websiteController extends Controller
         return view('multi_user.home'); 
     }
 
-    public function dashboard_user(){
-        return view('multi_user.dashboard_user');
-    }
-    public function dashboard_admin(){
-        return view('multi_user.dashboard_admin');
-    }
-
-    public function settings(){
-
-        return view('multi_user.settings');
+    public function dashboard(){
+        return view('multi_user.dashboard');
     }
 
     public function register(){
@@ -40,7 +33,6 @@ class websiteController extends Controller
         $user->password = Hash::make($request->password);
         $user->token = $token;
         $user->status = "Pending";
-        $user->role = 2;
         $user->save();
 
         // $veryfication_link = url('register/verify/'.$token."/".$request->email);
@@ -74,11 +66,8 @@ class websiteController extends Controller
             'status' => 'Active'
         ];
 
-        if( Auth::attempt($credentials) ) {
-            if( Auth::guard('web')->user()->role == 1 ){
-                return redirect()->route('dashboard_admin');
-            }
-            return redirect()->route('dashboard_user');
+        if( Auth::guard('web')->attempt($credentials) ) {
+            return redirect()->route('dashboard');
         }else{
             return redirect()->route('login');
         }
