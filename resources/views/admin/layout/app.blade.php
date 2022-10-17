@@ -80,5 +80,22 @@
 @endif
 {{-- script  --}}
 @include('admin.layout.script_footer')
+@if(isset($errors) && $errors->any())
+    @foreach ($errors->all() as $error)
+        <script> toastr.error('{{ $error }}') </script>
+    @endforeach
+@endif
+
+@if(session()->get('error'))
+    <script> toastr.error('{{ session()->get('error') }}') </script>
+@endif
+
+@if(session()->get('success'))
+    <script> toastr.success('{{ session()->get('success') }}') </script>
+@endif
+
+@if(session()->get('warning'))
+    <script> toastr.warning('{{ session()->get('warning') }}') </script>
+@endif
 </body>
 </html>

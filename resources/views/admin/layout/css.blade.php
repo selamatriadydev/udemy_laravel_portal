@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('admin/plugins/toastr/toastr.min.css') }}">
 @else
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href=".{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">

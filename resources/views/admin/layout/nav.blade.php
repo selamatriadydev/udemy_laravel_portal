@@ -7,6 +7,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('admin_logout') }}" class="nav-link">logout</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('admin_profile') }}" class="nav-link">Profile</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->

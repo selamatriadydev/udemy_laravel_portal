@@ -1,15 +1,16 @@
 
 
-<!-- Bootstrap 4 -->
-<script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 <!-- jQuery -->
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
 
-@if (Auth::guard('web')->user())
-  <!-- jQuery UI 1.11.4 -->
-  <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+@if (Auth::guard('admin')->user())
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -35,5 +36,7 @@
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
+  {{-- <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script> --}}
+  <!-- Toastr -->
+  <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
 @endif
