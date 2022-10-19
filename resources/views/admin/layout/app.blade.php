@@ -19,7 +19,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" src="{{ asset('upload/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -51,11 +51,7 @@
 
         <!-- Main content -->
         <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-        @yield('main_content')
-            <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+            @yield('main_content')
         </section>
         <!-- /.content -->
     </div>

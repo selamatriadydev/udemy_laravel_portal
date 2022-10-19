@@ -31,87 +31,77 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-child-indent nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class  with font-awesome or any other icon font library -->
 
           <li class="nav-header">Home</li>
           <li class="nav-item">
-            <a href="{{ route('admin_home') }}" class="nav-link active">
+            <a href="{{ route('admin_home') }}" class="nav-link {{ Route::currentRouteName() =='admin_home' ? 'active' :'' }}">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                Dashboard
+                Dashboard 
               </p>
             </a>
           </li>
+          <li class="nav-header">Advertisement</li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Advertisement
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-header">News</li>
+          <li class="nav-item {{ Request::is('admin/category/*') || Request::is('admin/sub-category/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/category/*') || Request::is('admin/sub-category/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
+                Params 
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                <span class="badge badge-info right">3</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="{{ route('admin_category') }}" class="nav-link {{ Request::is('admin/category/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="{{ route('admin_sub_category') }}" class="nav-link {{ Request::is('admin/sub-category/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar <small>+ Custom Area</small></p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Navbar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Footer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Collapsed Sidebar</p>
+                  <p>Sub Category</p>
                 </a>
               </li>
             </ul>
           </li>
+          <li class="nav-item {{ Request::is('admin/post/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/post/*') ? 'active' :'' }}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Posts
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin_post_add') }}" class="nav-link {{ Route::currentRouteName() =='admin_post_add' ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New Post</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_post') }}" class="nav-link {{ Request::is('admin/post/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List Post</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -644,7 +634,7 @@
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Informational</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
