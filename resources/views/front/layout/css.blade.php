@@ -10,3 +10,11 @@
  
      <!-- Customized Bootstrap Stylesheet -->
      <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+     <style>
+          div.post-short-text {
+               display: -webkit-box;
+               -webkit-line-clamp:4;
+               -webkit-box-orient: vertical;
+               overflow: hidden;
+          }
+     </style>

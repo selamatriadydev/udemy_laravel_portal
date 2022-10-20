@@ -37,6 +37,11 @@
                     <input type="checkbox" name="sub_category_on_menu"  data-bootstrap-switch data-off-color="danger" value="Show"
                     data-on-color="success" data-on-text="Show" data-off-text="Hide" {{ old('sub_category_on_menu', $sub_category->show_on_menu) == 'Show' ? 'checked' : '' }} >
                 </div>
+                <div class="form-group">
+                    <label for="sub_category_on_home">Sub Category Show on Home</label> <br>
+                    <input type="checkbox" name="sub_category_on_home"  data-bootstrap-switch data-off-color="danger" value="Show"
+                    data-on-color="success" data-on-text="Show" data-off-text="Hide" {{ old('sub_category_on_home', $sub_category->show_on_home) == 'Show' ? 'checked' : '' }} >
+                </div>
                 <button class="btn btn-primary" type="submit"><i class="fa fa-save" aria-hidden="true"></i> Update</button>
             </form>
         </div>

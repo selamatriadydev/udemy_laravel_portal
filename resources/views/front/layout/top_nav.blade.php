@@ -51,6 +51,7 @@
                 </a>
             </div>
             <div class="col-lg-8 text-center text-lg-right">
+                {{-- setting global_header_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}
                 @if ($global_header_ad_data && $global_header_ad_data->above_ad)
                     @if ($global_header_ad_data->above_ad_url)
                         <a href="{{ $global_header_ad_data->above_ad_url }}"><img class="img-fluid" src="{{ asset('upload/advertisement/'.$global_header_ad_data->above_ad) }}" alt=""></a>

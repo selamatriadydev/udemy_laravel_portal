@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAdvertisementController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminFrontSettingController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminPostController;
@@ -10,6 +11,9 @@ use App\Http\Controllers\Admin\AdminSubCategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Front\FrontAboutController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\FrontPostCategoryController;
+use App\Http\Controllers\Front\FrontPostController;
+use App\Http\Controllers\Front\FrontPostTagController;
 use App\Http\Controllers\websiteController;
 use Illuminate\Support\Facades\Route; 
 
@@ -26,8 +30,10 @@ use Illuminate\Support\Facades\Route;
 // front 
 Route::get('/', [FrontHomeController::class, 'index'])->name('home');
 Route::get('/about', [FrontAboutController::class, 'index'])->name('about');
-Route::get('/category', [FrontHomeController::class, 'category_view'])->name('category');
-Route::get('/post/detail', [FrontHomeController::class, 'post_detail'])->name('post');
+Route::get('/category', [FrontPostCategoryController::class, 'index'])->name('news_category');
+Route::get('/category/detail/{id}', [FrontPostCategoryController::class, 'detail'])->name('news_category_detail');
+Route::get('/news/detail/{id}', [FrontPostController::class, 'detail'])->name('news_detail');
+Route::get('/tag/{tag_name}', [FrontPostTagController::class, 'index'])->name('news_tag');
 
 //admin
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin_login');
@@ -79,3 +85,7 @@ Route::get('/admin/post/{id}/edit', [AdminPostController::class, 'edit'])->name(
 Route::post('/admin/post/{id}/edit-submit', [AdminPostController::class, 'edit_submit'])->name('admin_post_edit_submit')->middleware('admin:admin');
 Route::get('/admin/post/{post_id}/tag/{tag_id}/delete', [AdminPostController::class, 'delete_tag'])->name('admin_post_delete_tag')->middleware('admin:admin');
 Route::get('/admin/post/{id}/delete', [AdminPostController::class, 'delete'])->name('admin_post_delete')->middleware('admin:admin');
+
+//admin >Setting
+Route::get('/admin/setting/front/tranding', [AdminFrontSettingController::class, 'tranding'])->name('admin_setting_front_tranding')->middleware('admin:admin');
+Route::post('/admin/setting/front/tranding-update', [AdminFrontSettingController::class, 'tranding_submit'])->name('admin_setting_front_tranding_submit')->middleware('admin:admin');

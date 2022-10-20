@@ -13,4 +13,8 @@ class Tag extends Model
         'post_id',
         'tag_name',
     ];
+
+    public function rFrontPost(){
+        return $this->hasMany(Post::class,'id', 'post_id')->where('is_publish', 1)->orderBy('id', 'DESC');
+    }
 }

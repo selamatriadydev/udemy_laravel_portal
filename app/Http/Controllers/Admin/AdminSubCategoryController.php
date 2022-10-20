@@ -24,11 +24,13 @@ class AdminSubCategoryController extends Controller
             'sub_category_name' => 'required',
             'sub_category_order' => 'required',
         ]);
-        $status_sub_category = $request->sub_category_on_menu == 'Show' ? 'Show' : 'Hide';
+        $show_on_menu = $request->sub_category_on_menu == 'Show' ? 'Show' : 'Hide';
+        $show_on_home = $request->sub_category_on_home == 'Show' ? 'Show' : 'Hide';
         $sub_category = new SubCategory();
         $sub_category->category_id = $request->category_id;
         $sub_category->sub_category_name = $request->sub_category_name;
-        $sub_category->show_on_menu = $status_sub_category;
+        $sub_category->show_on_menu = $show_on_menu;
+        $sub_category->show_on_home = $show_on_home;
         $sub_category->sub_category_order = $request->sub_category_order ? $request->sub_category_order : 0;
         $sub_category->save();
 
@@ -54,10 +56,12 @@ class AdminSubCategoryController extends Controller
         if(!$sub_category){
             return redirect()->route('admin_sub_category')->with('error', 'Data is not found!!');
         }
-        $status_sub_category = $request->sub_category_on_menu == 'Show' ? 'Show' : 'Hide';
+        $show_on_menu = $request->sub_category_on_menu == 'Show' ? 'Show' : 'Hide';
+        $show_on_home = $request->sub_category_on_home == 'Show' ? 'Show' : 'Hide';
         $sub_category->category_id = $request->category_id;
         $sub_category->sub_category_name = $request->sub_category_name;
-        $sub_category->show_on_menu = $status_sub_category;
+        $sub_category->show_on_menu = $show_on_menu;
+        $sub_category->show_on_home = $show_on_home;
         $sub_category->sub_category_order = $request->sub_category_order ? $request->sub_category_order : 0;
         $sub_category->update();
 

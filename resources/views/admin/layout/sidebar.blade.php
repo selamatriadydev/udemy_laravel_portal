@@ -101,6 +101,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin_setting_front_tranding') }}" class="nav-link {{ Route::currentRouteName() =='admin_setting_front_tranding' ? 'active' :'' }}">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Front Setting 
+              </p>
+            </a>
+          </li>
           {{-- </li>
           <li class="nav-item">
             <a href="#" class="nav-link">

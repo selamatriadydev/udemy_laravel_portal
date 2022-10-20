@@ -20,6 +20,7 @@
                         <th>Name</th>
                         <th>Category</th>
                         <th>Show On Menu</th>
+                        <th>Show On Home</th>
                         <th>Order</th>
                         <th>Action</th>
                     </tr>
@@ -33,6 +34,7 @@
                             </td>
                             <td>{{ $item->rCategory ? $item->rCategory->category_name : ''}}</td>
                             <td><span class="badge bg-{{ $item->show_on_menu =='Show' ? 'success' : 'danger' }}">{{ $item->show_on_menu }}</span></td>
+                            <td><span class="badge bg-{{ $item->show_on_home =='Show' ? 'success' : 'danger' }}">{{ $item->show_on_home }}</span></td>
                             <td>{{ $item->sub_category_order }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}

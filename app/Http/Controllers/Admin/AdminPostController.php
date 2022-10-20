@@ -170,7 +170,7 @@ class AdminPostController extends Controller
     }
 
     public function delete($id){
-        $post = Post::find($id);
+        $post = Post::with('rTag')->find($id);
         if(!$post){
             return redirect()->route('admin_post')->with('error', 'Data is not found!!');
         }

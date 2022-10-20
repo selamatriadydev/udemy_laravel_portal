@@ -16,75 +16,39 @@
         </div>
         <div class="col-lg-3 col-md-6 mb-5">
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">Popular News</h5>
-            <div class="mb-3">
-                <div class="mb-2">
-                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+            @foreach ($global_footer_news_popular as $item)
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{ $item->rSubCategory ? $item->rSubCategory->sub_category_name : '' }}</a>
+                        @php
+                        $updated_date = "";
+                        if($item->updated_at){
+                            $ts = strtotime($item->updated_at);
+                            $updated_date = date('d F, Y', $ts);
+                        }
+                        @endphp
+                        <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
+                    </div>
+                    <a class="small text-body text-uppercase font-weight-medium" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                 </div>
-                <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
-            </div>
-            <div class="mb-3">
-                <div class="mb-2">
-                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                </div>
-                <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
-            </div>
-            <div class="">
-                <div class="mb-2">
-                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                </div>
-                <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
-            </div>
+            @endforeach
         </div>
         <div class="col-lg-3 col-md-6 mb-5">
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
             <div class="m-n1">
-                <a href="" class="btn btn-sm btn-secondary m-1">Politics</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Corporate</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Health</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Education</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Science</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Foods</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Entertainment</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Travel</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Lifestyle</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Politics</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Corporate</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Health</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Education</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Science</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
-                <a href="" class="btn btn-sm btn-secondary m-1">Foods</a>
+                @foreach ($global_news_sub_category as $item)
+                    <a href="{{ route('news_category_detail', $item->id) }}" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">{{ $item->sub_category_name }} <span class="right badge badge-danger">{{ $item->r_front_post_count }}</span> </a>
+                @endforeach
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-5">
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">Flickr Photos</h5>
             <div class="row">
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-1.jpg" alt=""></a>
-                </div>
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-2.jpg" alt=""></a>
-                </div>
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-3.jpg" alt=""></a>
-                </div>
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-4.jpg" alt=""></a>
-                </div>
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-5.jpg" alt=""></a>
-                </div>
-                <div class="col-4 mb-3">
-                    <a href=""><img class="w-100" src="img/news-110x110-1.jpg" alt=""></a>
-                </div>
+                @foreach ($global_news_tranding as $item)
+                    <div class="col-4 mb-3">
+                        <a href="{{ route('news_detail', $item->id) }}"><img class="w-100" src="{{ asset('upload/post/'.$item->post_photo)}}" alt=""></a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

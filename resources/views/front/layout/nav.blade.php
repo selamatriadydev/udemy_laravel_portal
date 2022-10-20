@@ -9,8 +9,8 @@
         <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
             <div class="navbar-nav mr-auto py-0">
                 <a href="{{ route('home') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">Home</a>
-                <a href="{{ route('category') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'category' ? 'active' : '' }}">Category</a>
-                <a href="{{ route('post') }}" class="nav-item nav-link">Single News</a>
+                <a href="{{ route('news_category') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'news_category' ? 'active' : '' }}">Category</a>
+                {{-- <a href="{{ route('news_detail') }}" class="nav-item nav-link">Single News</a> --}}
                 {{-- <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                     <div class="dropdown-menu rounded-0 m-0">
