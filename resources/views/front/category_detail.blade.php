@@ -3,23 +3,31 @@
 @section('title', 'Category')
 
 @section('main_content') 
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $sub_category ? $sub_category->sub_category_name : '' }}</li>
+        </ol>
+    </nav>
+</div>
     <!-- News With Sidebar Start -->
     <div class="container-fluid mt-5 pt-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @if ($detail_category)
+                    @if ($sub_category)
                     {{-- category all  --}}
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">Category: {{ $detail_category->sub_category_name }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">Category: {{ $sub_category->sub_category_name }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
                                 <a href=""><img class="img-fluid w-100" src="img/ads-728x90.png" alt=""></a>
                             </div> --}}
-                            @foreach ($detail_category->rFrontPost as $post)
+                            @foreach ($news_category as $post)
                                 <div class="col-lg-6">
                                     <div class="position-relative mb-3">
                                         <img class="img-fluid w-100" src="{{ asset('upload/post/'.$post->post_photo)}}" style="object-fit: cover;">
@@ -36,7 +44,7 @@
                                                     @endphp
                                                 <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                             </div>
-                                            <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $post->post_title }}</a>
+                                            <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $post->id) }}">{{ $post->post_title }}</a>
                                             
                                             <div class="post-short-text m-0">
                                                 {!! $post->post_detail !!}
@@ -69,6 +77,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="col-lg-12 mb-3">
+                                {!! $news_category->links('vendor.pagination.bootstrap-4') !!}
+                            </div>
                             {{-- <div class="col-lg-12 mb-3">
                                 <a href=""><img class="img-fluid w-100" src="img/ads-728x90.png" alt=""></a>
                             </div> --}}

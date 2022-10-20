@@ -193,9 +193,9 @@
                         </div>
                     @endif
                     @php $i=0;  @endphp
-                        @foreach ($news_data as $item)
+                        @foreach ($news_data_all as $item)
                             @php $i++; @endphp
-                            @if ( $i>$news_setting->news_tranding_total)
+                            @if ( $i>$news_setting->news_tranding_total) 
                                 @break
                             @endif
                             <div class="col-lg-6">
@@ -246,7 +246,9 @@
                                 </div>
                             </div>
                     @endforeach
-
+                    <div class="col-lg-12 mb-3">
+                        {!! $news_data_all->links('vendor.pagination.bootstrap-4') !!}
+                    </div>
                     @if ($home_ad_bottom && $home_ad_bottom->above_ad)
                         <div class="col-lg-12 mb-3">
                             @if ($home_ad_bottom->above_ad_url)

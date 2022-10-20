@@ -3,6 +3,14 @@
 @section('title', 'Tag')
 
 @section('main_content') 
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $tag ? $tag->tag_name : 'Tag' }}</li>
+        </ol>
+    </nav>
+</div>
     <!-- News With Sidebar Start -->
     <div class="container-fluid mt-5 pt-3">
         <div class="container">
@@ -35,7 +43,7 @@
                                                     @endphp
                                                 <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                             </div>
-                                            <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $post->post_title }}</a>
+                                            <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $post->id) }}">{{ $post->post_title }}</a>
                                             <div class="post-short-text m-0">
                                                 {!! $post->post_detail !!}
                                             </div>
@@ -67,6 +75,10 @@
                                     </div>
                                 </div>
                             @endforeach
+
+                            <div class="col-lg-12 mb-3">
+                                {!! $news_tag->links('vendor.pagination.bootstrap-4') !!}
+                            </div>
                             {{-- <div class="col-lg-12 mb-3">
                                 <a href=""><img class="img-fluid w-100" src="img/ads-728x90.png" alt=""></a>
                             </div> --}}

@@ -15,7 +15,7 @@ class FrontPostTagController extends Controller
         ->whereHas('rTag', function($q) use ($tag_name){
             $q->where('tag_name', $tag_name);
         })
-        ->where('is_publish', 1)->orderBy('id', 'DESC')->get();
+        ->where('is_publish', 1)->orderBy('id', 'DESC')->paginate(10);
         // dd($news_tag);
         return view('front.tag', compact('news_tag', 'tag'));
     }

@@ -19,7 +19,8 @@ class FrontPostCategoryController extends Controller
     }
 
     public function detail($id){
-        $detail_category = SubCategory::with('rFrontPost')->where('show_on_home', 'Show')->orderBy('sub_category_order','ASC')->find($id);
-        return view('front.category_detail', compact('detail_category'));
+        $sub_category = SubCategory::find($id);
+        $news_category = Post::with('rSubCategory')->where('sub_category_id', $id)->orderBy('id','DESC')->paginate(10);
+        return view('front.category_detail', compact('news_category', 'sub_category'));
     }
 }

@@ -16,8 +16,9 @@ class FrontHomeController extends Controller
         $home_ad_bottom = HomeAdvertisement::where('above_ad_position', 'home-bottom')->where('above_ad_status', 'Show')->first();
         $news_setting  = FrontSetting::where('news_tranding_status', 'Show')->first();
         $news_data = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id','DESC')->limit(10)->get();
+        $news_data_all = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
         // $news_sub_category = SubCategory::where('show_on_home', 'Show')->orderBy('sub_category_order', 'asc')->get();
-        return view('front.home', compact('home_ad_top', 'home_ad_bottom', 'news_setting', 'news_data'));
+        return view('front.home', compact('home_ad_top', 'home_ad_bottom', 'news_setting', 'news_data','news_data_all'));
     }
 
 }

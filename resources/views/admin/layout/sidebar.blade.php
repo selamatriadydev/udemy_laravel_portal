@@ -45,7 +45,7 @@
           </li>
           <li class="nav-header">Advertisement</li>
           <li class="nav-item">
-            <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement/*') ? 'active' :'' }}">
+            <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement') || Request::is('admin/advertisement/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Advertisement
@@ -100,6 +100,14 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin_photo') }}" class="nav-link {{ Route::currentRouteName() =='admin_photo' ? 'active' :'' }}">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Photo Galery 
+              </p>
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin_setting_front_tranding') }}" class="nav-link {{ Route::currentRouteName() =='admin_setting_front_tranding' ? 'active' :'' }}">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminFrontSettingController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminPhotoController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminSubCategoryController;
@@ -89,3 +90,11 @@ Route::get('/admin/post/{id}/delete', [AdminPostController::class, 'delete'])->n
 //admin >Setting
 Route::get('/admin/setting/front/tranding', [AdminFrontSettingController::class, 'tranding'])->name('admin_setting_front_tranding')->middleware('admin:admin');
 Route::post('/admin/setting/front/tranding-update', [AdminFrontSettingController::class, 'tranding_submit'])->name('admin_setting_front_tranding_submit')->middleware('admin:admin');
+
+//admin >Photo Galery
+Route::get('/admin/photo', [AdminPhotoController::class, 'index'])->name('admin_photo')->middleware('admin:admin');
+Route::get('/admin/photo/add', [AdminPhotoController::class, 'create'])->name('admin_photo_add')->middleware('admin:admin');
+Route::post('/admin/photo/add-submit', [AdminPhotoController::class, 'create_submit'])->name('admin_photo_add_submit')->middleware('admin:admin');
+Route::get('/admin/photo/{id}/edit', [AdminPhotoController::class, 'edit'])->name('admin_photo_edit')->middleware('admin:admin');
+Route::post('/admin/photo/{id}/edit-submit', [AdminPhotoController::class, 'edit_submit'])->name('admin_photo_edit_submit')->middleware('admin:admin');
+Route::get('/admin/photo/{id}/delete', [AdminPhotoController::class, 'delete'])->name('admin_photo_delete')->middleware('admin:admin');

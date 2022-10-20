@@ -3,6 +3,15 @@
 @section('title', 'Detail')
 
 @section('main_content') 
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('news_category_detail', $news_detail->rSubCategory->id) }}">{{ $news_detail->rSubCategory ? $news_detail->rSubCategory->sub_category_name : 'Category' }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $news_detail->post_title }}</li>
+        </ol>
+    </nav>
+</div>
 <!-- Breaking News Start -->
 <div class="container-fluid mt-5 mb-3 pt-3">
     <div class="container">

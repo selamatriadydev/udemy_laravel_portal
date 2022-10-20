@@ -170,11 +170,14 @@ class AdminPostController extends Controller
     }
 
     public function delete($id){
-        $post = Post::with('rTag')->find($id);
-        if(!$post){
+        $post_single = Post::with('rTag')->find($id);
+        if(!$post_single){
             return redirect()->route('admin_post')->with('error', 'Data is not found!!');
         }
-        $post->delete();
+        if(file_exists(public_path('upload/post/'.$post_single->post_photo))){
+            File::deleteDirectory('upload/post/'.$post_single->post_photo);
+        }
+        $post_single->delete();
 
         return redirect()->route('admin_post')->with('success', 'Data is deleted successfully');
     }
