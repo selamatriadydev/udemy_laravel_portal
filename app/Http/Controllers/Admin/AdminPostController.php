@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\websiteMail;
+use App\Models\Subscriber;
 
 class AdminPostController extends Controller
 {
@@ -82,6 +85,19 @@ class AdminPostController extends Controller
                 if(!$tag_count){
                     Tag::create(['post_id'=> $post->id, 'tag_name' => $tag]);
                 }
+            }
+        }
+        //sending this post to subscribers
+        if($request->is_publish == 1 && $request->subscriber_send_option == 1){
+            // Email is Send
+            $subject ="A new post is published";
+            $messge  = "Hi, a new post is published into our website. Please go to see that post: <br>";
+            $messge .= '<a href="'.route('news_detail', $post->id).'" target="_blank">';
+            $messge .= $request->post_title;
+            $messge .= '</a>';
+            $subscribers = Subscriber::select('email')->distinct()->where('status', 'Active')->get();
+            foreach($subscribers as $item){
+                Mail::to($item->email)->send( new websiteMail($subject, $messge));
             }
         }
 

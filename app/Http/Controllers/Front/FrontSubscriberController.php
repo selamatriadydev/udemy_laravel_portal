@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Http\Controllers\Controller;
+use App\Mail\websiteMail;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Subscriber;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
+class FrontSubscriberController extends Controller
+{
+    public function index(Request $request){
+        // $subscriber = Subscriber::get();
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if($validator->fails()){
+            return response()->json( ['code'=> 0, 'error_message' => $validator->errors()->toArray()] );
+        }else{
+            $token = hash('sha256', time());
+            $subscriber_new = new Subscriber();
+            $subscriber_new->email = $request->email;
+            $subscriber_new->token = $token;
+            $subscriber_new->status = 'Pending';
+            $subscriber_new->save();
+            // Email is Send
+            $verification_link = url('subscriber/verify/'.$token.'/'.$request->email);
+            $subject = "Subscriber Email Verify";
+            $messge = 'Please Click On the following link in order to verify as subscriber <br>';
+            $messge .= '<a href="'.$verification_link.'"> Click Here</a>';
+            Mail::to($request->email)->send( new websiteMail($subject, $messge));
+
+            // return response()->json( ['code'=> 1, 'success_message' => 'Email is Send!'] );
+            return response()->json( ['code'=> 1, 'success_message' => 'Please check your email to verify as subscriber'] );
+        }
+    }
+
+    public function subscriber_verify($token, $email){
+        $subscriber = Subscriber::where('token', $token)->where('email', $email)->first();
+        if(!$subscriber){
+            $error_verify = "Email address not found!!";
+            return view('front.subscriber_verify', compact('error_verify'));
+        }
+        $subscriber->token = "";
+        $subscriber->status = "Active";
+        $subscriber->update();
+
+        $success_verify = "You are successfully verified as a subscriber";
+        return view('front.subscriber_verify', compact('success_verify'));
+    }
+}

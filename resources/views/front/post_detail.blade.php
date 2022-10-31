@@ -7,12 +7,15 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('news_category_detail', $news_detail->rSubCategory->id) }}">{{ $news_detail->rSubCategory ? $news_detail->rSubCategory->sub_category_name : 'Category' }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ $news_detail->post_title }}</li>
+        @if ($news_detail)
+            <li class="breadcrumb-item"><a href="{{ route('news_category_detail', $news_detail->rSubCategory->id) }}">{{ $news_detail->rSubCategory ? $news_detail->rSubCategory->sub_category_name : 'Category' }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $news_detail->post_title }}</li>
+        @endif
         </ol>
     </nav>
 </div>
 <!-- Breaking News Start -->
+@if ($global_news_tranding)
 <div class="container-fluid mt-5 mb-3 pt-3">
     <div class="container">
         <div class="row align-items-center">
@@ -23,14 +26,16 @@
                     </div>
                     <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center bg-white border border-left-0"
                         style="width: calc(100% - 180px); padding-right: 100px;">
-                        <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit. Proin interdum lacus eget ante tincidunt, sed faucibus nisl sodales</a></div>
-                        <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="">Lorem ipsum dolor sit amet elit. Proin interdum lacus eget ante tincidunt, sed faucibus nisl sodales</a></div>
+                        @foreach ($global_news_tranding as $item)
+                            <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a></div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
 <!-- Breaking News End -->
 
 @if ($news_detail)

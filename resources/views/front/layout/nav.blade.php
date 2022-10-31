@@ -19,15 +19,24 @@
                         <a href="#" class="dropdown-item">Menu item 3</a>
                     </div>
                 </div> --}}
-                {{-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Advertisement</a>
+                {{-- setting global_nav_categories di app/provider/AppServiceProvider.php di bagian boot  --}}
+                @foreach ($global_nav_categories as $item)
+                    <div class="nav-item dropdown">
+                    <a href="javascript:void;" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $item->category_name }}</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="#" class="dropdown-item">Top Advertisement</a>
-                        <a href="#" class="dropdown-item">Home Advertisement</a>
-                        <a href="#" class="dropdown-item">Sidebar Advertisement</a>
+                        @foreach ($item->rSubCategory as $sub)
+                            <a href="{{ route('news_category_detail', $sub->id) }}" class="dropdown-item">{{ $sub->sub_category_name }}</a>
+                        @endforeach
                     </div>
-                </div> --}}
-                <a href="{{ route('about') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'about' ? 'active' : '' }}">About</a>
+                </div>
+                @endforeach
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('galery/*') ? 'active' :'' }}" data-toggle="dropdown">Galery</a>
+                    <div class="dropdown-menu rounded-0 m-0">
+                        <a href="{{ route('news_galery_photo') }}" class="dropdown-item">Photo</a>
+                        <a href="{{ route('news_galery_video') }}" class="dropdown-item">Video</a>
+                    </div>
+                </div>
             </div>
             <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                 <input type="text" class="form-control border-0" placeholder="Keyword">

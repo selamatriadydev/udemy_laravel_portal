@@ -67,6 +67,11 @@
                     <input type="checkbox" name="is_publish"  data-bootstrap-switch data-off-color="danger" value="1"
                     data-on-color="success" data-on-text="PUBLISH" data-off-text="DRAFT" {{ old('is_publish') == '1' ? 'checked' : '' }} >
                 </div>
+                <div class="form-group">
+                    <label for="subscriber_send_option">Want to send this to subscribers ?</label> <br>
+                    <input type="checkbox" name="subscriber_send_option"  data-bootstrap-switch data-off-color="danger" value="1"
+                    data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('subscriber_send_option') == '1' ? 'checked' : '' }} >
+                </div>
                 <button class="btn btn-primary" type="submit"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
             </form>
         </div>

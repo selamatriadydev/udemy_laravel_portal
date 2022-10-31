@@ -2,25 +2,42 @@
 
 use App\Http\Controllers\Admin\AdminAdvertisementController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminFagController;
 use App\Http\Controllers\Admin\AdminFrontSettingController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminLiveChannelController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminOnlinePollController;
+use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPhotoController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminSubCategoryController;
+use App\Http\Controllers\Admin\AdminSubscriberController;
+use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\Front\FrontAboutController;
+use App\Http\Controllers\Front\FrontContactController;
+use App\Http\Controllers\Front\FrontDisclaimerController;
+use App\Http\Controllers\Front\FrontFaqController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\FrontLoginController;
+use App\Http\Controllers\Front\FrontOnlinePollController;
+use App\Http\Controllers\Front\FrontPhotoController;
 use App\Http\Controllers\Front\FrontPostCategoryController;
 use App\Http\Controllers\Front\FrontPostController;
 use App\Http\Controllers\Front\FrontPostTagController;
+use App\Http\Controllers\Front\FrontPrivacyController;
+use App\Http\Controllers\Front\FrontSubscriberController;
+use App\Http\Controllers\Front\FrontTermsController;
+use App\Http\Controllers\Front\FrontVideoController;
 use App\Http\Controllers\websiteController;
 use Illuminate\Support\Facades\Route; 
 
 /* 
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes 
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -31,10 +48,24 @@ use Illuminate\Support\Facades\Route;
 // front 
 Route::get('/', [FrontHomeController::class, 'index'])->name('home');
 Route::get('/about', [FrontAboutController::class, 'index'])->name('about');
+Route::get('/contact', [FrontContactController::class, 'index'])->name('contact');
+Route::post('/contact/send-email', [FrontContactController::class, 'send_email'])->name('contact_form_submit');
+Route::get('/faq', [FrontFaqController::class, 'index'])->name('faq');
+Route::get('/terms-and-condition', [FrontTermsController::class, 'index'])->name('terms');
+Route::get('/privacy-policy', [FrontPrivacyController::class, 'index'])->name('privacy');
+Route::get('/disclaimer', [FrontDisclaimerController::class, 'index'])->name('disclaimer');
+Route::get('/login', [FrontLoginController::class, 'index'])->name('login');
+Route::post('/login-submit', [FrontLoginController::class, 'login_submit'])->name('login_submit');
 Route::get('/category', [FrontPostCategoryController::class, 'index'])->name('news_category');
 Route::get('/category/detail/{id}', [FrontPostCategoryController::class, 'detail'])->name('news_category_detail');
 Route::get('/news/detail/{id}', [FrontPostController::class, 'detail'])->name('news_detail');
 Route::get('/tag/{tag_name}', [FrontPostTagController::class, 'index'])->name('news_tag');
+Route::get('/galery/photo', [FrontPhotoController::class, 'index'])->name('news_galery_photo');
+Route::get('/galery/video', [FrontVideoController::class, 'index'])->name('news_galery_video');
+Route::post('/subscriber', [FrontSubscriberController::class, 'index'])->name('subscriber');
+Route::get('/subscriber/verify/{token}/{email}', [FrontSubscriberController::class, 'subscriber_verify'])->name('subscriber_verify');
+Route::get('/online-poll-previous', [FrontOnlinePollController::class, 'poll_previous'])->name('poll_previous');
+Route::post('/online-poll-submit', [FrontOnlinePollController::class, 'poll_submit'])->name('poll_submit');
 
 //admin
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin_login');
@@ -92,9 +123,76 @@ Route::get('/admin/setting/front/tranding', [AdminFrontSettingController::class,
 Route::post('/admin/setting/front/tranding-update', [AdminFrontSettingController::class, 'tranding_submit'])->name('admin_setting_front_tranding_submit')->middleware('admin:admin');
 
 //admin >Photo Galery
-Route::get('/admin/photo', [AdminPhotoController::class, 'index'])->name('admin_photo')->middleware('admin:admin');
-Route::get('/admin/photo/add', [AdminPhotoController::class, 'create'])->name('admin_photo_add')->middleware('admin:admin');
-Route::post('/admin/photo/add-submit', [AdminPhotoController::class, 'create_submit'])->name('admin_photo_add_submit')->middleware('admin:admin');
-Route::get('/admin/photo/{id}/edit', [AdminPhotoController::class, 'edit'])->name('admin_photo_edit')->middleware('admin:admin');
-Route::post('/admin/photo/{id}/edit-submit', [AdminPhotoController::class, 'edit_submit'])->name('admin_photo_edit_submit')->middleware('admin:admin');
-Route::get('/admin/photo/{id}/delete', [AdminPhotoController::class, 'delete'])->name('admin_photo_delete')->middleware('admin:admin');
+Route::get('/admin/galery/photo', [AdminPhotoController::class, 'index'])->name('admin_photo')->middleware('admin:admin');
+Route::get('/admin/galery/photo/add', [AdminPhotoController::class, 'create'])->name('admin_photo_add')->middleware('admin:admin');
+Route::post('/admin/galery/photo/add-submit', [AdminPhotoController::class, 'create_submit'])->name('admin_photo_add_submit')->middleware('admin:admin');
+Route::get('/admin/galery/photo/{id}/edit', [AdminPhotoController::class, 'edit'])->name('admin_photo_edit')->middleware('admin:admin');
+Route::post('/admin/galery/photo/{id}/edit-submit', [AdminPhotoController::class, 'edit_submit'])->name('admin_photo_edit_submit')->middleware('admin:admin');
+Route::get('/admin/galery/photo/{id}/delete', [AdminPhotoController::class, 'delete'])->name('admin_photo_delete')->middleware('admin:admin');
+
+//admin >Video Galery
+Route::get('/admin/galery/video', [AdminVideoController::class, 'index'])->name('admin_video')->middleware('admin:admin');
+Route::get('/admin/galery/video/add', [AdminVideoController::class, 'create'])->name('admin_video_add')->middleware('admin:admin');
+Route::post('/admin/galery/video/add-submit', [AdminVideoController::class, 'create_submit'])->name('admin_video_add_submit')->middleware('admin:admin');
+Route::get('/admin/galery/video/{id}/edit', [AdminVideoController::class, 'edit'])->name('admin_video_edit')->middleware('admin:admin');
+Route::post('/admin/galery/video/{id}/edit-submit', [AdminVideoController::class, 'edit_submit'])->name('admin_video_edit_submit')->middleware('admin:admin');
+Route::get('/admin/galery/video/{id}/delete', [AdminVideoController::class, 'delete'])->name('admin_video_delete')->middleware('admin:admin');
+
+
+//admin >page > about
+Route::get('/admin/page/about/show', [AdminPageController::class, 'about'])->name('admin_page_about')->middleware('admin:admin');
+Route::post('/admin/page/about/edit-submit', [AdminPageController::class, 'about_edit_submit'])->name('admin_page_about_edit_submit')->middleware('admin:admin');
+
+//admin >page > faq
+Route::get('/admin/page/faq/show', [AdminPageController::class, 'faq'])->name('admin_page_faq')->middleware('admin:admin');
+Route::post('/admin/page/faq/edit-submit', [AdminPageController::class, 'faq_edit_submit'])->name('admin_page_faq_edit_submit')->middleware('admin:admin');
+
+//admin >page > contact
+Route::get('/admin/page/contact/show', [AdminPageController::class, 'contact'])->name('admin_page_contact')->middleware('admin:admin');
+Route::post('/admin/page/contact/edit-submit', [AdminPageController::class, 'contact_edit_submit'])->name('admin_page_contact_edit_submit')->middleware('admin:admin');
+
+//admin >page > login
+Route::get('/admin/page/login/show', [AdminPageController::class, 'login'])->name('admin_page_login')->middleware('admin:admin');
+Route::post('/admin/page/login/edit-submit', [AdminPageController::class, 'login_edit_submit'])->name('admin_page_login_edit_submit')->middleware('admin:admin');
+
+//admin >page > terms
+Route::get('/admin/page/terms/show', [AdminPageController::class, 'terms'])->name('admin_page_terms')->middleware('admin:admin');
+Route::post('/admin/page/terms/edit-submit', [AdminPageController::class, 'terms_edit_submit'])->name('admin_page_terms_edit_submit')->middleware('admin:admin');
+
+//admin >page > privacy
+Route::get('/admin/page/privacy/show', [AdminPageController::class, 'privacy'])->name('admin_page_privacy')->middleware('admin:admin');
+Route::post('/admin/page/privacy/edit-submit', [AdminPageController::class, 'privacy_edit_submit'])->name('admin_page_privacy_edit_submit')->middleware('admin:admin');
+
+//admin >page > disclaimer
+Route::get('/admin/page/disclaimer/show', [AdminPageController::class, 'disclaimer'])->name('admin_page_disclaimer')->middleware('admin:admin');
+Route::post('/admin/page/disclaimer/edit-submit', [AdminPageController::class, 'disclaimer_edit_submit'])->name('admin_page_disclaimer_edit_submit')->middleware('admin:admin');
+
+//admin >FAQ
+Route::get('/admin/faq/show', [AdminFagController::class, 'index'])->name('admin_faq')->middleware('admin:admin');
+Route::get('/admin/faq/add', [AdminFagController::class, 'create'])->name('admin_faq_add')->middleware('admin:admin');
+Route::post('/admin/faq/add-submit', [AdminFagController::class, 'create_submit'])->name('admin_faq_add_submit')->middleware('admin:admin');
+Route::get('/admin/faq/{id}/edit', [AdminFagController::class, 'edit'])->name('admin_faq_edit')->middleware('admin:admin');
+Route::post('/admin/faq/{id}/edit-submit', [AdminFagController::class, 'edit_submit'])->name('admin_faq_edit_submit')->middleware('admin:admin');
+Route::get('/admin/faq/{id}/delete', [AdminFagController::class, 'delete'])->name('admin_faq_delete')->middleware('admin:admin');
+
+//admin >Subscriber
+Route::get('/admin/subscribers/all', [AdminSubscriberController::class, 'index'])->name('admin_subscriber')->middleware('admin:admin');
+Route::get('/admin/subscribers/send-email', [AdminSubscriberController::class, 'send_email'])->name('admin_subscriber_send_email')->middleware('admin:admin');
+Route::post('/admin/subscribers/send-email/submit', [AdminSubscriberController::class, 'send_email_submit'])->name('admin_subscriber_send_email_submit')->middleware('admin:admin');
+
+//admin >Live Channel
+Route::get('/admin/live-channel/show', [AdminLiveChannelController::class, 'index'])->name('admin_live_channel')->middleware('admin:admin');
+Route::get('/admin/live-channel/active-show', [AdminLiveChannelController::class, 'show_active'])->name('admin_live_channel_active')->middleware('admin:admin');
+Route::get('/admin/live-channel/add', [AdminLiveChannelController::class, 'create'])->name('admin_live_channel_add')->middleware('admin:admin');
+Route::post('/admin/live-channel/add-submit', [AdminLiveChannelController::class, 'create_submit'])->name('admin_live_channel_add_submit')->middleware('admin:admin');
+Route::get('/admin/live-channel/{id}/edit', [AdminLiveChannelController::class, 'edit'])->name('admin_live_channel_edit')->middleware('admin:admin');
+Route::post('/admin/live-channel/{id}/edit-submit', [AdminLiveChannelController::class, 'edit_submit'])->name('admin_live_channel_edit_submit')->middleware('admin:admin');
+Route::get('/admin/live-channel/{id}/delete', [AdminLiveChannelController::class, 'delete'])->name('admin_live_channel_delete')->middleware('admin:admin');
+
+//admin >Online Poll
+Route::get('/admin/online-poll/show', [AdminOnlinePollController::class, 'index'])->name('admin_online_poll_show')->middleware('admin:admin');
+Route::get('/admin/online-poll/add', [AdminOnlinePollController::class, 'create'])->name('admin_online_poll_add')->middleware('admin:admin');
+Route::post('/admin/online-poll/add-submit', [AdminOnlinePollController::class, 'create_submit'])->name('admin_online_poll_add_submit')->middleware('admin:admin');
+Route::get('/admin/online-poll/{id}/edit', [AdminOnlinePollController::class, 'edit'])->name('admin_online_poll_edit')->middleware('admin:admin');
+Route::post('/admin/online-poll/{id}/edit-submit', [AdminOnlinePollController::class, 'edit_submit'])->name('admin_online_poll_edit_submit')->middleware('admin:admin');
+Route::get('/admin/online-poll/{id}/delete', [AdminOnlinePollController::class, 'delete'])->name('admin_online_poll_delete')->middleware('admin:admin');

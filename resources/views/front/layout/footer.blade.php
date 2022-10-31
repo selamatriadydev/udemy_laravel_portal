@@ -15,29 +15,39 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-5">
-            <h5 class="mb-4 text-white text-uppercase font-weight-bold">Popular News</h5>
-            @foreach ($global_footer_news_popular as $item)
-                <div class="mb-3">
-                    <div class="mb-2">
-                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{ $item->rSubCategory ? $item->rSubCategory->sub_category_name : '' }}</a>
-                        @php
-                        $updated_date = "";
-                        if($item->updated_at){
-                            $ts = strtotime($item->updated_at);
-                            $updated_date = date('d F, Y', $ts);
-                        }
-                        @endphp
-                        <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
-                    </div>
-                    <a class="small text-body text-uppercase font-weight-medium" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
-                </div>
-            @endforeach
+            <ul class="navbar-nav ml-auto mr-n2">
+                <li class="nav-item">
+                    <a class="nav-link small text-white" href="{{ route('home') }}">Home</a>
+                </li>
+                @if ($global_page_data)
+                    @if ($global_page_data->terms_status == 'Show')
+                        <li class="nav-item">
+                            <a class="nav-link small text-white" href="{{ route('terms') }}">{{ $global_page_data->terms_title }}</a>
+                        </li>
+                    @endif
+                    @if ($global_page_data->privacy_status == 'Show')
+                        <li class="nav-item">
+                            <a class="nav-link small text-white" href="{{ route('privacy') }}">{{ $global_page_data->privacy_title }}</a>
+                        </li>
+                    @endif
+                    @if ($global_page_data->disclaimer_status == 'Show')
+                        <li class="nav-item">
+                            <a class="nav-link small text-white" href="{{ route('disclaimer') }}">{{ $global_page_data->disclaimer_title }}</a>
+                        </li>
+                    @endif
+                    @if ($global_page_data->contact_status == 'Show')
+                        <li class="nav-item">
+                            <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $global_page_data->contact_title }}</a>
+                        </li>
+                    @endif
+                @endif
+            </ul>
         </div>
         <div class="col-lg-3 col-md-6 mb-5">
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
             <div class="m-n1">
                 @foreach ($global_news_sub_category as $item)
-                    <a href="{{ route('news_category_detail', $item->id) }}" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2">{{ $item->sub_category_name }} <span class="right badge badge-danger">{{ $item->r_front_post_count }}</span> </a>
+                    <a href="{{ route('news_category_detail', $item->id) }}" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 mb-2">{{ $item->sub_category_name }} <span class="right badge badge-danger">{{ $item->r_front_post_count }}</span> </a>
                 @endforeach
             </div>
         </div>

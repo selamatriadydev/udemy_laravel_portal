@@ -19,7 +19,6 @@
                         <th>#</th>
                         <th>Photo</th>
                         <th>Caption</th>
-                        <th>Visitor</th>
                         <th>Is Publish</th>
                         <th>Action</th>
                     </tr>
@@ -28,9 +27,8 @@
                     @foreach ($photo as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td> <img class="img-fluid" style="width: 200px" src="{{ asset('upload/galery/'.$item->photo)}}" alt="Photo" > </td>
+                            <td> <img class="img-fluid" style="width: 200px" src="{{ asset('upload/galery/photo/'.$item->photo)}}" alt="Photo" > </td>
                             <td>{{ $item->caption }}</td>
-                            <td>{{ $item->visitor }}</td>
                             <td><span class="badge bg-{{ $item->is_publish =='1' ? 'success' : 'danger' }}">{{ $item->is_publish == 1 ? 'Publish' : 'Daft' }}</span></td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}

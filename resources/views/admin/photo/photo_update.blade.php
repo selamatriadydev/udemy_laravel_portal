@@ -17,7 +17,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="photos_show"> Existing Post Photo</label><br>
-                    <img class="img-fluid" id="photos_show" style="width: 300px" src="{{ asset('upload/galery/'.$photo_single->photo)}}" alt="Photo" >
+                    <img class="img-fluid" id="photos_show" style="width: 300px" src="{{ asset('upload/galery/photo/'.$photo_single->photo)}}" alt="Photo" >
                 </div>
                 <div class="form-group">
                     <label for="photo">Photo *</label>

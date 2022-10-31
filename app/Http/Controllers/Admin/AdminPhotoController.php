@@ -30,7 +30,7 @@ class AdminPhotoController extends Controller
             $now = time();
             $final_name = 'galery-photo-'.$now.'.'.$ext;
             $date = date('Y');
-            $path = 'upload/galery/'.$date."/";
+            $path = 'upload/galery/photo/'.$date."/";
             $request->file('photo')->move(public_path($path),$final_name);
             $file_final_name = $date."/".$final_name;
         }
@@ -67,15 +67,15 @@ class AdminPhotoController extends Controller
                 'photo' => 'image|mimes:png,jpg,jpeg,gif',
             ]);
 
-            if(file_exists(public_path('upload/galery/'.$photo->photo))){
-                File::deleteDirectory('upload/galery/'.$photo->photo);
+            if(file_exists(public_path('upload/galery/photo/'.$photo->photo))){
+                File::deleteDirectory('upload/galery/photo/'.$photo->photo);
             }
 
             $ext = $request->file('photo')->extension();
             $now = time();
             $final_name = 'galery-photo-'.$now.'.'.$ext;
             $date = date('Y');
-            $path = 'upload/galery/'.$date."/";
+            $path = 'upload/galery/photo/'.$date."/";
             $request->file('photo')->move(public_path($path),$final_name);
             $file_final_name = $date."/".$final_name;
             $photo->photo = $file_final_name;
@@ -92,8 +92,8 @@ class AdminPhotoController extends Controller
         if(!$photo){
             return redirect()->route('admin_photo')->with('error', 'Data is not found!!');
         }
-        if(file_exists(public_path('upload/galery/'.$photo->photo))){
-            File::deleteDirectory('upload/galery/'.$photo->photo);
+        if(file_exists(public_path('upload/galery/photo/'.$photo->photo))){
+            File::deleteDirectory('upload/galery/photo/'.$photo->photo);
         }
         $photo->delete();
 

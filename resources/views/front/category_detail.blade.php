@@ -27,7 +27,7 @@
                             {{-- <div class="col-lg-12 mb-3">
                                 <a href=""><img class="img-fluid w-100" src="img/ads-728x90.png" alt=""></a>
                             </div> --}}
-                            @foreach ($news_category as $post)
+                            @forelse ($news_category as $post)
                                 <div class="col-lg-6">
                                     <div class="position-relative mb-3">
                                         <img class="img-fluid w-100" src="{{ asset('upload/post/'.$post->post_photo)}}" style="object-fit: cover;">
@@ -76,7 +76,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                            <div class="col-lg-12 mb-3">
+                                <h2 class="text-danger">No result is found</h2>
+                            </div>
+                            @endforelse
                             <div class="col-lg-12 mb-3">
                                 {!! $news_category->links('vendor.pagination.bootstrap-4') !!}
                             </div>

@@ -43,18 +43,17 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">Advertisement</li>
+          <li class="nav-header">News</li>
           <li class="nav-item">
             <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement') || Request::is('admin/advertisement/*') ? 'active' :'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fa fa-ad"></i>
               <p>
                 Advertisement
               </p>
             </a>
           </li>
-          <li class="nav-header">News</li>
-          <li class="nav-item {{ Request::is('admin/category/*') || Request::is('admin/sub-category/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/category/*') || Request::is('admin/sub-category/*') ? 'active' :'' }}">
+          <li class="nav-item {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') ||  Request::is('admin/sub-category/*') || Request::is('admin/faq/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') || Request::is('admin/sub-category/*') || Request::is('admin/faq/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Params 
@@ -64,15 +63,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin_category') }}" class="nav-link {{ Request::is('admin/category/*') ? 'active' :'' }}">
+                <a href="{{ route('admin_category') }}" class="nav-link {{ Request::is('admin/category/*') || Request::is('admin/category') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin_sub_category') }}" class="nav-link {{ Request::is('admin/sub-category/*') ? 'active' :'' }}">
+                <a href="{{ route('admin_sub_category') }}" class="nav-link {{ Request::is('admin/sub-category') || Request::is('admin/sub-category/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sub Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_faq') }}" class="nav-link {{ Request::is('admin/faq/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>FAQ</p>
                 </a>
               </li>
             </ul>
@@ -101,19 +106,148 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('admin_photo') }}" class="nav-link {{ Route::currentRouteName() =='admin_photo' ? 'active' :'' }}">
-              <i class="nav-icon far fa-calendar-alt"></i>
+          <li class="nav-item {{ Request::is('admin/galery/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/galery/*') ? 'active' :'' }}">
+              <i class="nav-icon fas fa-copy"></i>
               <p>
-                Photo Galery 
+                Galery
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">2</span>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin_photo') }}" class="nav-link {{ Request::is('admin/galery/photo/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Photo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_video') }}" class="nav-link {{ Request::is('admin/galery/video/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Video</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin_setting_front_tranding') }}" class="nav-link {{ Route::currentRouteName() =='admin_setting_front_tranding' ? 'active' :'' }}">
-              <i class="nav-icon far fa-calendar-alt"></i>
+              <i class="nav-icon fa fa-cog"></i>
               <p>
                 Front Setting 
+              </p>
+            </a>
+          </li>
+          <li class="nav-item {{ Request::is('admin/page/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/page/*') ? 'active' :'' }}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Pages
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin_page_about') }}" class="nav-link {{ Request::is('admin/page/about/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>About</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_faq') }}" class="nav-link {{ Request::is('admin/page/faq/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Faq</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_contact') }}" class="nav-link {{ Request::is('admin/page/contact/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Contact</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_login') }}" class="nav-link {{ Request::is('admin/page/login/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Login</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_terms') }}" class="nav-link {{ Request::is('admin/page/terms/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Terms & Conditions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_privacy') }}" class="nav-link {{ Request::is('admin/page/privacy/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Privacy Policy</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_page_disclaimer') }}" class="nav-link {{ Request::is('admin/page/disclaimer/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Disclaimer</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{ Request::is('admin/subscribers/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/subscribers/*') ? 'active' :'' }}">
+              <i class="nav-icon fa fa-envelope"></i>
+              <p>
+                Subscribers
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin_subscriber') }}" class="nav-link {{ Request::is('admin/subscribers/all') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Subscribers</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_subscriber_send_email') }}" class="nav-link {{ Request::is('admin/subscribers/send-email') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Send Email to all</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item {{ Request::is('admin/live-channel/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/live-channel/*') ? 'active' :'' }}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Live Channels
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin_live_channel_add') }}" class="nav-link {{ Request::is('admin/live-channel/add') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New Live Channels</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_live_channel_active') }}" class="nav-link {{ Request::is('admin/live-channel/active-show') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Active Live Channels</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_live_channel') }}" class="nav-link {{ Request::is('admin/live-channel/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Live Channels</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin_online_poll_show') }}" class="nav-link {{ Request::is('admin/online-poll/*') ? 'active' :'' }}">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Online Poll
               </p>
             </a>
           </li>

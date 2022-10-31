@@ -1,44 +1,68 @@
 
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center bg-dark px-lg-5">
-            <div class="col-lg-9">
+            <div class="col-lg-8">
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
                     <ul class="navbar-nav ml-n2">
+                        {{-- <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small text-white" href="#">Monday, January 1, 2045</a>
+                        </li> --}}
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Monday, January 1, 2045</a>
-                        </li>
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Advertise</a>
-                        </li>
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body small" href="#">Login</a>
+                            <a class="nav-link small text-white" href="#">Monday, January 1, 2045</a>
                         </li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3 text-right d-none d-md-block">
+            <div class="col-lg-4 text-right d-none d-md-block">
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
                     <ul class="navbar-nav ml-auto mr-n2">
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-linkedin-in"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-instagram"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-google-plus-g"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
+                        {{-- <li class="nav-item border-right border-secondary">
+                            <a class="nav-link small text-white" href="#">FAQ</a>
+                        </li> --}}
+                        @if ($global_page_data)
+                            @if ($global_page_data->faq_status == 'Show')
+                                <li class="nav-item">
+                                    <a class="nav-link small text-white" href="{{ route('faq') }}">{{ $global_page_data->faq_title }}</a>
+                                </li>
+                            @endif
+                            @if ($global_page_data->about_status == 'Show')
+                                <li class="nav-item">
+                                    <a class="nav-link small text-white" href="{{ route('about') }}">{{ $global_page_data->about_title }}</a>
+                                </li>
+                            @endif
+                            @if ($global_page_data->contact_status == 'Show')
+                                <li class="nav-item">
+                                    <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $global_page_data->contact_title }}</a>
+                                </li>
+                            @endif
+                            @if ($global_page_data->login_status == 'Show')
+                                @if (Auth::guard('web')->user())
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link small text-white dropdown-toggle" href="#" id="navbarDropdownLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ Auth::guard('web')->user()->name }}
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
+                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="#">Logout</a>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link small text-white" href="{{ route('login') }}">{{ $global_page_data->login_title }}</a>
+                                    </li>
+                                @endif
+                            @endif
+                        @endif
+                        <li class="nav-item dropdown">
+                            <a class="nav-link small text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Language
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="#">English</a>
+                              <a class="dropdown-item" href="#">Indonesia</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Indonesia</a>
+                            </div>
                         </li>
                     </ul>
                 </nav>
