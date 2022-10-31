@@ -32,7 +32,7 @@ Portal news
 - Setting front
 - Setting page
 - Live channel
-- Online Poll
+- Online Poll/vote
 
 ## tips Portal
 - laravel clear route : php artisan route:clear
