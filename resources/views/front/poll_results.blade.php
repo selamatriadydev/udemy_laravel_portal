@@ -33,8 +33,8 @@
                                 $total_no_percentage = ceil($total_no_percentage);
                             }
                             $updated_date = "";
-                            if($item->updated_at){
-                                $ts = strtotime($item->updated_at);
+                            if($item->created_at){
+                                $ts = strtotime($item->created_at);
                                 $updated_date = date('d F, Y', $ts);
                             }
                         @endphp

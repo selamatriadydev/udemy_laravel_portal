@@ -49,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $sidebar_recent_news = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id', 'DESC')->limit(5)->get();
         $sidebar_popular_news = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('visitor', 'DESC')->limit(5)->get();
         $online_poll_data = OnlinePoll::orderBy('id', 'DESC')->first();
+        $archive_news_data = Post::select('created_at')->where('is_publish', 1)->orderBy('id', 'desc')->get();
 
         view()->share('global_header_ad_data', $header_ad_data);
         view()->share('global_sidebar_ad_data', $sidebar_ad_data);
@@ -63,5 +64,6 @@ class AppServiceProvider extends ServiceProvider
         view()->share('global_page_data', $page_data);
         view()->share('global_live_channel_data', $live_channel_data);
         view()->share('global_online_poll_data', $online_poll_data);
+        view()->share('global_archive_news_data', $archive_news_data);
     }
 }

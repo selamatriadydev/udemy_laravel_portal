@@ -94,21 +94,21 @@
     <!-- Live channel End -->
 
      <!-- Ads Start -->
-     <div class="mb-3">
-        <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Advertisement</h4>
-        </div>
-        <div class="bg-white text-center border border-top-0 p-3">
-            {{-- setting global_sidebar_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}
-            @if ($global_sidebar_ad_data && $global_sidebar_ad_data->above_ad)
+     @if ($global_sidebar_ad_data && $global_sidebar_ad_data->above_ad)
+        <div class="mb-3">
+            <div class="section-title mb-0">
+                <h4 class="m-0 text-uppercase font-weight-bold">Advertisement</h4>
+            </div>
+            <div class="bg-white text-center border border-top-0 p-3">
+                {{-- setting global_sidebar_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}
                 @if ($global_sidebar_ad_data->above_ad_url)
                     <a href="{{ $global_sidebar_ad_data->above_ad_url }}"><img class="img-fluid" src="{{ asset('upload/advertisement/'.$global_sidebar_ad_data->above_ad) }}" alt="Sidebar"></a>
                 @else
                     <img class="img-fluid" src="{{ asset('upload/advertisement/'.$global_sidebar_ad_data->above_ad) }}" alt="Sidebar">
                 @endif
-            @endif
+            </div>
         </div>
-    </div>
+    @endif
     <!-- Ads End -->
 
 
@@ -122,6 +122,41 @@
                 @foreach ($global_news_sub_category as $item)
                     <a href="{{ route('news_category_detail', $item->id) }}" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 mb-2">{{ $item->sub_category_name }} <span class="right badge badge-danger">{{ $item->r_front_post_count }}</span></a>
                 @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Category End -->
+
+    <!-- Category Start -->
+    <div class="mb-3">
+        <div class="section-title mb-0">
+            <h4 class="m-0 text-uppercase font-weight-bold">Archive News</h4>
+        </div>
+        <div class="bg-white border border-top-0 p-3">
+            <div class="d-flex flex-wrap m-n1">
+                @php
+                    $archive_arr = [];
+                    foreach ($global_archive_news_data as $item){
+                        $ts = strtotime($item->created_at);
+                        // $created_date = date('d F, Y', $ts);
+                        $created_month = date('F', $ts);
+                        $created_month_int = date('m', $ts);
+                        $created_year = date('Y', $ts);
+
+                        $archive_arr[] = $created_month_int."-".$created_month."-".$created_year;
+                    }
+                    $archive_arr = array_values(array_unique($archive_arr));
+                    // print_r($archive_arr);
+                @endphp
+                <select class="form-control" id="exampleFormControlSelect2">
+                    <option>Select Month </option>
+                    @foreach ($archive_arr as $item)
+                        @php
+                            $arr_item = explode('-', $item);
+                        @endphp
+                        <option value="{{ $arr_item[0]."-".$arr_item[2] }}">{{ $arr_item[1] }}, {{ $arr_item[2] }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
@@ -278,7 +313,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="{{ route('poll_previous') }}" class="btn btn-light">Previous Poll</a>
+                                    <a href="{{ route('poll_previous') }}" class="btn btn-primary">Previous Poll</a>
                                 </td>
                             </tr>
                         </tbody>
