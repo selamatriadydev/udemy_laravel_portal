@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Front\FrontAboutController;
+use App\Http\Controllers\Front\FrontArchiveController;
 use App\Http\Controllers\Front\FrontContactController;
 use App\Http\Controllers\Front\FrontDisclaimerController;
 use App\Http\Controllers\Front\FrontFaqController;
@@ -66,6 +67,8 @@ Route::post('/subscriber', [FrontSubscriberController::class, 'index'])->name('s
 Route::get('/subscriber/verify/{token}/{email}', [FrontSubscriberController::class, 'subscriber_verify'])->name('subscriber_verify');
 Route::get('/online-poll-previous', [FrontOnlinePollController::class, 'poll_previous'])->name('poll_previous');
 Route::post('/online-poll-submit', [FrontOnlinePollController::class, 'poll_submit'])->name('poll_submit');
+route::post('/archive/show', [FrontArchiveController::class, 'index'])->name('archive');
+route::get('/archive/{tahun}/{month}', [FrontArchiveController::class, 'detail'])->name('archive_detail');
 
 //admin
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin_login');

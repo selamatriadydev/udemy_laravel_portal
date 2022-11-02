@@ -148,15 +148,18 @@
                     $archive_arr = array_values(array_unique($archive_arr));
                     // print_r($archive_arr);
                 @endphp
-                <select class="form-control" id="exampleFormControlSelect2">
-                    <option>Select Month </option>
-                    @foreach ($archive_arr as $item)
-                        @php
-                            $arr_item = explode('-', $item);
-                        @endphp
-                        <option value="{{ $arr_item[0]."-".$arr_item[2] }}">{{ $arr_item[1] }}, {{ $arr_item[2] }}</option>
-                    @endforeach
-                </select>
+                <form action="{{ route('archive') }}" method="post" style="width: 100%;">
+                    @csrf
+                    <select class="form-control" id="archive_news" name="archive_news" onchange="this.form.submit()">
+                        <option value="">Select Month </option>
+                        @foreach ($archive_arr as $item)
+                            @php
+                                $arr_item = explode('-', $item);
+                            @endphp
+                            <option value="{{ $arr_item[0]."-".$arr_item[2] }}">{{ $arr_item[1] }}, {{ $arr_item[2] }}</option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
         </div>
     </div>

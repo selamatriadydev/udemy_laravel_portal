@@ -20,7 +20,7 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">Tag: {{ $tag ? $tag->tag_name : 'Tag' }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">All posts of {{ $tag ? $tag->tag_name : 'Tag' }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">

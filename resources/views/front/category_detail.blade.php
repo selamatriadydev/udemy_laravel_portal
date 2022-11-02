@@ -21,7 +21,7 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">Category: {{ $sub_category->sub_category_name }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold"> All posts of {{ $sub_category->sub_category_name }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
