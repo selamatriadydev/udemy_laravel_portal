@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAdvertisementController;
+use App\Http\Controllers\Admin\AdminAuthorcontroller;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminFagController;
 use App\Http\Controllers\Admin\AdminFrontSettingController;
@@ -210,3 +211,13 @@ Route::post('/admin/social-item/add-submit', [AdminSocialItemcontroller::class, 
 Route::get('/admin/social-item/{id}/edit', [AdminSocialItemcontroller::class, 'edit'])->name('admin_social_item_edit')->middleware('admin:admin');
 Route::post('/admin/social-item/{id}/edit-submit', [AdminSocialItemcontroller::class, 'edit_submit'])->name('admin_social_item_edit_submit')->middleware('admin:admin');
 Route::get('/admin/social-item/{id}/delete', [AdminSocialItemcontroller::class, 'delete'])->name('admin_social_item_delete')->middleware('admin:admin');
+
+//admin >Author Section list
+Route::get('/admin/author/list', [AdminAuthorcontroller::class, 'index'])->name('admin_author_section_list')->middleware('admin:admin');
+Route::get('/admin/author/add', [AdminAuthorcontroller::class, 'create'])->name('admin_author_section_add')->middleware('admin:admin');
+Route::post('/admin/author/add-submit', [AdminAuthorcontroller::class, 'create_submit'])->name('admin_author_section_add_submit')->middleware('admin:admin');
+Route::get('/admin/author/{id}/edit', [AdminAuthorcontroller::class, 'edit'])->name('admin_author_section_edit')->middleware('admin:admin');
+Route::post('/admin/author/{id}/edit-submit', [AdminAuthorcontroller::class, 'edit_submit'])->name('admin_author_section_edit_submit')->middleware('admin:admin');
+Route::get('/admin/author/{id}/delete', [AdminAuthorcontroller::class, 'delete'])->name('admin_author_section_delete')->middleware('admin:admin');
+//admin >Author Section list post
+Route::get('/admin/author/posts', [AdminAuthorcontroller::class, 'posts'])->name('admin_author_section_posts')->middleware('admin:admin');

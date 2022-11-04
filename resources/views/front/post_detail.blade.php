@@ -38,7 +38,8 @@
 @endif
 <!-- Breaking News End -->
 
-@if ($news_detail)
+
+@if ($news_detail) 
 <!-- News With Sidebar Start -->
 <div class="container-fluid">
     <div class="container">
@@ -179,7 +180,38 @@
                         </div>
                     </div>
                     <!-- Comment Form End -->
-                    
+                @endif
+                
+                @if ($news_related)
+                    <!-- Related News Slider Start -->
+                    <div class="mb-3">
+                        <div class="section-title  mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Related News</h4>
+                        </div>
+                        <div class="owl-carousel news-carousel carousel-item-3 position-relative">
+                            @foreach ($news_related as $item)
+                                <div class="position-relative overflow-hidden" style="height: 300px;">
+                                    <img class="img-fluid h-100" src="{{ asset('upload/post/'.$item->post_photo)}}" style="object-fit: cover;">
+                                    <div class="overlay">
+                                        <div class="mb-2">
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                                href="">{{ $item->rSubCategory ? $item->rSubCategory->sub_category_name : '' }}</a>
+                                                @php
+                                                $updated_date = "";
+                                                if($item->updated_at){
+                                                    $ts = strtotime($item->updated_at);
+                                                    $updated_date = date('d F, Y', $ts);
+                                                }
+                                                @endphp
+                                            <a class="text-white" href=""><small>{{ $updated_date }}</small></a>
+                                        </div>
+                                        <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <!-- Related News Slider End -->
                 @endif
             </div>
 
@@ -188,7 +220,8 @@
     </div>
 </div>
 <!-- News With Sidebar End -->
-    
+
+
 @else
 <!-- News With Sidebar Start -->
 <div class="container-fluid">

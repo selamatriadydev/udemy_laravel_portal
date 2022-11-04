@@ -35,6 +35,8 @@ Portal news
 - Online Poll/vote
 - Social Media
 - news Search 
+- Related News
+- Page Author (Dashbord, Post)
 
 ## tips Portal
 - laravel clear route : php artisan route:clear

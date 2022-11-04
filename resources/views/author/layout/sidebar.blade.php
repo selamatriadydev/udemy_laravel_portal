@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{ route('admin_home') }}" class="brand-link">
       <img src="{{ asset('upload/img/AdminLTELogo.png') }}" alt="AdminPanel Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminPanel</span>
+      <span class="brand-text font-weight-light">AuthorPanel</span>
     </a>
 
     <!-- Sidebar -->
@@ -44,29 +44,6 @@
             </a>
           </li>
           <li class="nav-header">News</li>
-          <li class="nav-item {{ Request::is('admin/author/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/author/*') ? 'active' :'' }}">
-              <i class="nav-icon fa fa-users"></i>
-              <p>
-                Author Section
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_author_section_list') }}" class="nav-link {{ Request::is('admin/author/list') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Author List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_author_section_posts') }}" class="nav-link {{ Request::is('admin/author/posts/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Author Posts</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item">
             <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement') || Request::is('admin/advertisement/*') ? 'active' :'' }}">
               <i class="nav-icon fa fa-ad"></i>

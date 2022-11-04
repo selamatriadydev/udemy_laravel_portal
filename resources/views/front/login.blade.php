@@ -15,7 +15,7 @@
 <div class="container-fluid mt-5 pt-3">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="section-title mb-0">
                     <h4 class="m-0 text-uppercase font-weight-bold">{{ $page_login ? $page_login->login_title : 'Login' }}</h4>
                 </div>
@@ -48,13 +48,11 @@
                             <input type="password" class="form-control p-4 @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                         </div>
                         <div>
-                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;"
-                                type="submit">Login</button>
+                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">Login</button>
                         </div>
                     </form>
                 </div>
             </div>
-            @include('front.layout.sidebar')
         </div>
     </div>
 </div>
