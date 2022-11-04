@@ -3,6 +3,7 @@
 @section('title', 'Category')
 
 @section('heading', 'Category')
+@section('heading_nav', 'Category')
 
 @section('main_content')
       <div class="card card-primary">

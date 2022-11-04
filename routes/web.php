@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\AdminPhotoController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminSocialItemcontroller;
 use App\Http\Controllers\Admin\AdminSubCategoryController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminVideoController;
@@ -48,6 +49,8 @@ use Illuminate\Support\Facades\Route;
 */
 // front 
 Route::get('/', [FrontHomeController::class, 'index'])->name('home');
+Route::post('/search/result', [FrontHomeController::class, 'search'])->name('search_result');
+
 Route::get('/about', [FrontAboutController::class, 'index'])->name('about');
 Route::get('/contact', [FrontContactController::class, 'index'])->name('contact');
 Route::post('/contact/send-email', [FrontContactController::class, 'send_email'])->name('contact_form_submit');
@@ -199,3 +202,11 @@ Route::post('/admin/online-poll/add-submit', [AdminOnlinePollController::class, 
 Route::get('/admin/online-poll/{id}/edit', [AdminOnlinePollController::class, 'edit'])->name('admin_online_poll_edit')->middleware('admin:admin');
 Route::post('/admin/online-poll/{id}/edit-submit', [AdminOnlinePollController::class, 'edit_submit'])->name('admin_online_poll_edit_submit')->middleware('admin:admin');
 Route::get('/admin/online-poll/{id}/delete', [AdminOnlinePollController::class, 'delete'])->name('admin_online_poll_delete')->middleware('admin:admin');
+
+//admin >Social Media Item
+Route::get('/admin/social-item/show', [AdminSocialItemcontroller::class, 'index'])->name('admin_social_item')->middleware('admin:admin');
+Route::get('/admin/social-item/add', [AdminSocialItemcontroller::class, 'create'])->name('admin_social_item_add')->middleware('admin:admin');
+Route::post('/admin/social-item/add-submit', [AdminSocialItemcontroller::class, 'create_submit'])->name('admin_social_item_add_submit')->middleware('admin:admin');
+Route::get('/admin/social-item/{id}/edit', [AdminSocialItemcontroller::class, 'edit'])->name('admin_social_item_edit')->middleware('admin:admin');
+Route::post('/admin/social-item/{id}/edit-submit', [AdminSocialItemcontroller::class, 'edit_submit'])->name('admin_social_item_edit_submit')->middleware('admin:admin');
+Route::get('/admin/social-item/{id}/delete', [AdminSocialItemcontroller::class, 'delete'])->name('admin_social_item_delete')->middleware('admin:admin');

@@ -52,8 +52,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') ||  Request::is('admin/sub-category/*') || Request::is('admin/faq/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') || Request::is('admin/sub-category/*') || Request::is('admin/faq/*') ? 'active' :'' }}">
+          <li class="nav-item {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') ||  Request::is('admin/sub-category/*') || Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') || Request::is('admin/sub-category/*') || Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Params 
@@ -78,6 +78,12 @@
                 <a href="{{ route('admin_faq') }}" class="nav-link {{ Request::is('admin/faq/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>FAQ</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_social_item') }}" class="nav-link {{ Request::is('admin/social-item/*') ? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Social Item</p>
                 </a>
               </li>
             </ul>

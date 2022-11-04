@@ -1,14 +1,13 @@
 @extends('front.layout.app')
 
-@section('title', 'Tag')
+@section('title', 'Search Result')
 
 @section('main_content') 
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page">Tag</li>
-        <li class="breadcrumb-item active" aria-current="page">{{ $tagName ? $tagName : 'Tag' }}</li>
+        <li class="breadcrumb-item" aria-current="page">Seach Result</li>
         </ol>
     </nav>
 </div>
@@ -21,14 +20,14 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">All posts of tag : {{ $tagName ? $tagName : 'Tag' }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">All posts of search result</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
                                 <a href=""><img class="img-fluid w-100" src="img/ads-728x90.png" alt=""></a>
                             </div> --}}
-                            @if ( count($news_tag) )
-                                @foreach ($news_tag as $post)
+                            @if ( count($news_search_data) )
+                                @foreach ($news_search_data as $post)
                                     <div class="col-lg-6">
                                         <div class="position-relative mb-3">
                                             <img class="img-fluid w-100" src="{{ asset('upload/post/'.$post->post_photo)}}" style="object-fit: cover;">
@@ -79,7 +78,7 @@
                                 @endforeach
 
                                 <div class="col-lg-12 mb-3">
-                                    {!! $news_tag->links('vendor.pagination.bootstrap-4') !!}
+                                    {!! $news_search_data->links('vendor.pagination.bootstrap-4') !!}
                                 </div>
                                     
                             @else

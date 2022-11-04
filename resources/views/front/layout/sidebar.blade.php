@@ -115,17 +115,32 @@
     <!-- Category Start -->
     <div class="mb-3">
         <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Category News</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">CATEGORIES</h4>
         </div>
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
                 @foreach ($global_news_sub_category as $item)
-                    <a href="{{ route('news_category_detail', $item->id) }}" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 mb-2">{{ $item->sub_category_name }} <span class="right badge badge-danger">{{ $item->r_front_post_count }}</span></a>
+                    <a href="{{ route('news_category_detail', $item->id) }}" class="btn btn-sm btn-outline-secondary text-uppercase m-1">{{ $item->sub_category_name }} <span class="right badge badge-primary">{{ $item->r_front_post_count }}</span></a>
                 @endforeach
             </div>
         </div>
     </div>
     <!-- Category End -->
+
+    <!-- Tags Start -->
+    <div class="mb-3">
+        <div class="section-title mb-0">
+            <h4 class="m-0 text-uppercase font-weight-bold">Tags</h4>
+        </div>
+        <div class="bg-white border border-top-0 p-3">
+            <div class="d-flex flex-wrap m-n1">
+                @foreach ($global_news_tags as $item)
+                    <a href="{{ route('news_tag', $item->tag_name) }}" class="btn btn-sm btn-outline-secondary text-uppercase m-1">{{ $item->tag_name }}</a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Tags End -->
 
     <!-- Category Start -->
     <div class="mb-3">
@@ -234,12 +249,11 @@
     <!-- Popular News End -->
 
     <!-- Newsletter Start -->
-    <div class="mb-3"> 
+    {{-- <div class="mb-3"> 
         <div class="section-title mb-0">
             <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
         </div>
         <div class="bg-white text-center border border-top-0 p-3">
-            {{-- <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p> --}}
             <form action="{{ route('subscriber') }}" method="post" class="subcriber_form_ajax">
                 @csrf
                 <div class="input-group mb-2" style="width: 100%;">
@@ -248,28 +262,12 @@
                         <button class="btn btn-primary font-weight-bold px-3" type="submit">Subscibe Now</button>
                     </div>
                 </div>
-                {{-- <span class="text-danger error-text email_error"></span> --}}
                 <div class="alert alert-success email_success" role="alert" style="display: none"></div> 
                 <div class="alert alert-danger email_error" role="alert" style="display: none"></div> 
             </form>
         </div>
-    </div>
+    </div> --}}
     <!-- Newsletter End -->
-
-    <!-- Tags Start -->
-    <div class="mb-3">
-        <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Tags</h4>
-        </div>
-        <div class="bg-white border border-top-0 p-3">
-            <div class="d-flex flex-wrap m-n1">
-                @foreach ($global_news_tags as $item)
-                    <a href="{{ route('news_tag', $item->tag_name) }}" class="btn btn-sm btn-outline-secondary m-1">{{ $item->tag_name }}</a>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!-- Tags End -->
 
     <!-- Online Poll Start -->
     @if ($global_online_poll_data)
@@ -352,41 +350,41 @@
     @endif
     <!-- Online Poll End -->
 </div>
-<div id="form_subcriber_loader" class="form_subcriber_spinner form_subcriber_loading"></div>
+{{-- <div id="form_subcriber_loader" class="form_subcriber_spinner form_subcriber_loading"></div> --}}
 @push('script')
     <script>
         (function($){
-            $('.subcriber_form_ajax').on('submit', function(event){
-                event.preventDefault();
-                $('#form_subcriber_loader').show();
-                var form = this;
-                $.ajax({
-                    url: $(form).attr('action'),
-                    type: $(form).attr('method'),
-                    data: new FormData(form),
-                    processData: false,
-                    dataType: 'json',
-                    contentType: false,
-                    beforeSend: function(){
-                        $(form).find('div.email_success').attr('style', 'display: none').text('');
-                        $(form).find('div.email_error').attr('style', 'display: none').text('');
-                    },
-                    success: function(data){
-                        $('#form_subcriber_loader').hide();
-                        if(data.code == 0){
-                            $.each(data.error_message, function(prefix, val){
-                                $(form).find('div.'+prefix+'_error').attr('style', '').text(val[0]);
-                            })
-                        }else if(data.code == 1){
-                            $(form)[0].reset();
-                            $(form).find('div.email_success').attr('style', '').text(data.success_message);
-                        }else{
-                            $(form)[0].reset();
-                            $(form).find('div.email_success').attr('style', '').text(data.success_message);
-                        }
-                    }
-                })
-            })
+            // $('.subcriber_form_ajax').on('submit', function(event){
+            //     event.preventDefault();
+            //     $('#form_subcriber_loader').show();
+            //     var form = this;
+            //     $.ajax({
+            //         url: $(form).attr('action'),
+            //         type: $(form).attr('method'),
+            //         data: new FormData(form),
+            //         processData: false,
+            //         dataType: 'json',
+            //         contentType: false,
+            //         beforeSend: function(){
+            //             $(form).find('div.email_success').attr('style', 'display: none').text('');
+            //             $(form).find('div.email_error').attr('style', 'display: none').text('');
+            //         },
+            //         success: function(data){
+            //             $('#form_subcriber_loader').hide();
+            //             if(data.code == 0){
+            //                 $.each(data.error_message, function(prefix, val){
+            //                     $(form).find('div.'+prefix+'_error').attr('style', '').text(val[0]);
+            //                 })
+            //             }else if(data.code == 1){
+            //                 $(form)[0].reset();
+            //                 $(form).find('div.email_success').attr('style', '').text(data.success_message);
+            //             }else{
+            //                 $(form)[0].reset();
+            //                 $(form).find('div.email_success').attr('style', '').text(data.success_message);
+            //             }
+            //         }
+            //     })
+            // })
 
             $('.poll_form_ajax').on('submit', function(event){
                 event.preventDefault();

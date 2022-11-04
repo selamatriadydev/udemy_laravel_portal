@@ -20,7 +20,11 @@ class FrontPostCategoryController extends Controller
 
     public function detail($id){
         $sub_category = SubCategory::find($id);
+        $subCategoryName = "Category Name";
+        if($sub_category){
+            $subCategoryName = $sub_category->sub_category_name;
+        }
         $news_category = Post::with('rSubCategory')->where('sub_category_id', $id)->orderBy('id','DESC')->paginate(10);
-        return view('front.category_detail', compact('news_category', 'sub_category'));
+        return view('front.category_detail', compact('news_category', 'subCategoryName'));
     }
 }

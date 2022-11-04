@@ -7,7 +7,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ $sub_category ? $sub_category->sub_category_name : '' }}</li>
+        <li class="breadcrumb-item active" aria-current="page">Category</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $subCategoryName ? $subCategoryName : 'Category' }}</li>
         </ol>
     </nav>
 </div>
@@ -16,12 +17,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @if ($sub_category)
                     {{-- category all  --}}
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold"> All posts of {{ $sub_category->sub_category_name }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold"> All posts of category : {{ $subCategoryName ? $subCategoryName : 'Category' }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
@@ -89,7 +89,6 @@
                             </div> --}}
                         </div>
                     {{-- category all  --}}
-                    @endif
                 </div>
                 
                 @include('front.layout.sidebar')

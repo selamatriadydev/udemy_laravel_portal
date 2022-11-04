@@ -136,6 +136,64 @@
 <!-- Featured News Slider End -->
 
 
+<!-- Featured News Slider Start -->
+<div class="container-fluid pt-5 mb-3">
+    <div class="container">
+        <div class="bg-white border border-top-0 p-4">
+            <form id="search" action="{{ route('search_result') }}" method="POST">
+                @csrf
+                <div class="form-row">
+                  <div class="col-5">
+                    <input type="text" class="form-control" name="search_item" placeholder="Title or Description">
+                  </div>
+                  <div class="col">
+                    <select name="search_category" id="search_category" class="form-control search_category">
+                        <option value="">Select Category</option>
+                        @foreach ($search_category_data as $item)
+                            <option value="{{ $item->id }}">{{ $item->category_name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="col">
+                    <select name="search_sub_category" id="sub_category" class="form-control search_subCategory">
+                        <option value="">Select Sub Category</option>
+                        @foreach ($search_category_data as $item)
+                            <optgroup id="{{ $item->id }}" label="{{ $item->category_name }}">
+                                @foreach ($item->rSubCategory as $sub)
+                                    <option value="{{ $sub->id }}">{{ $sub->sub_category_name }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                  </div>
+                </div>
+            </form>
+            @push('script')
+                <script>
+                    (function($){
+                        $(document).ready( function(){
+                            var $subCategory = $(".search_subCategory > optgroup").clone();
+                            $('#search_category').on("change", function() {
+                                var selectedCategory = $(this).val();
+                                // console.log(selectedCategory);
+                                if(selectedCategory){ 
+                                    $(this).closest('#search').find(".search_subCategory").html($subCategory.clone().filter('[id="' + selectedCategory + '"]'));
+                                }else{
+                                    $(this).closest('#search').find(".search_subCategory").html($subCategory);
+                                }
+                            });
+                        });
+                    })(jQuery);
+                </script>
+            @endpush
+        </div>
+    </div>
+</div>
+<!-- Featured News Slider End -->
+
 <!-- News With Sidebar Start -->
 <div class="container-fluid">
     <div class="container">
