@@ -26,8 +26,8 @@ class FrontLoginController extends Controller
             'password' => $request->password
         ];
 
-        if( Auth::guard('web')->attempt($credentials) ){
-            return redirect()->route('home');
+        if( Auth::guard('author')->attempt($credentials) ){
+            return redirect()->route('author_home')->with('success', 'Welcome back '.Auth::guard('author')->user()->name);
         }
         return redirect()->route('login')->with('error', 'User not found!!');
     }
@@ -50,5 +50,9 @@ class FrontLoginController extends Controller
         $user_add->save();
 
         return redirect()->route('login')->with('error', 'User not found!!');
+    }
+    public function logout(){
+        Auth::guard('author')->logout();
+        return redirect()->route('login');
     }
 }

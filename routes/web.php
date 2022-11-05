@@ -18,7 +18,8 @@ use App\Http\Controllers\Admin\AdminSubCategoryController;
 use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\Author\AuthorHomeController;
+use App\Http\Controllers\Author\AuthorProfileController;
 use App\Http\Controllers\Front\FrontAboutController;
 use App\Http\Controllers\Front\FrontArchiveController;
 use App\Http\Controllers\Front\FrontContactController;
@@ -59,8 +60,6 @@ Route::get('/faq', [FrontFaqController::class, 'index'])->name('faq');
 Route::get('/terms-and-condition', [FrontTermsController::class, 'index'])->name('terms');
 Route::get('/privacy-policy', [FrontPrivacyController::class, 'index'])->name('privacy');
 Route::get('/disclaimer', [FrontDisclaimerController::class, 'index'])->name('disclaimer');
-Route::get('/login', [FrontLoginController::class, 'index'])->name('login');
-Route::post('/login-submit', [FrontLoginController::class, 'login_submit'])->name('login_submit');
 Route::get('/category', [FrontPostCategoryController::class, 'index'])->name('news_category');
 Route::get('/category/detail/{id}', [FrontPostCategoryController::class, 'detail'])->name('news_category_detail');
 Route::get('/news/detail/{id}', [FrontPostController::class, 'detail'])->name('news_detail');
@@ -73,6 +72,23 @@ Route::get('/online-poll-previous', [FrontOnlinePollController::class, 'poll_pre
 Route::post('/online-poll-submit', [FrontOnlinePollController::class, 'poll_submit'])->name('poll_submit');
 route::post('/archive/show', [FrontArchiveController::class, 'index'])->name('archive');
 route::get('/archive/{tahun}/{month}', [FrontArchiveController::class, 'detail'])->name('archive_detail');
+
+// =======================================================================================
+
+// author 
+// author > login 
+Route::get('/login', [FrontLoginController::class, 'index'])->name('login');
+Route::post('/login/submit', [FrontLoginController::class, 'login_submit'])->name('author_login_submit');
+Route::get('/logout', [FrontLoginController::class, 'logout'])->name('author_logout')->middleware('author:author');
+
+// author > home 
+Route::get('/author/home', [AuthorHomeController::class, 'index'])->name('author_home')->middleware('author:author');
+
+//author > Profile
+Route::get('/author/profile', [AuthorProfileController::class, 'index'])->name('author_profile')->middleware('author:author');
+Route::post('/author/profile-submit', [AuthorProfileController::class, 'profile_submit'])->name('author_profile_submit')->middleware('author:author');
+
+// =======================================================================================
 
 //admin
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin_login');

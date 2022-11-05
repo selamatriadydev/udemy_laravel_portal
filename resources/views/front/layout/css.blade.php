@@ -13,6 +13,8 @@
  
      <!-- Customized Bootstrap Stylesheet -->
      <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+     <!-- Toastr -->
+     <link rel="stylesheet" href="{{ asset('admin/plugins/toastr/toastr.min.css') }}">
      <style>
           div.post-short-text {
                display: -webkit-box;

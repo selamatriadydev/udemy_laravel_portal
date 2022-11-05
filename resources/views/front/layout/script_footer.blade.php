@@ -6,4 +6,5 @@
 
  <!-- Template Javascript -->
  <script src="{{ asset('front/js/main.js') }}"></script>
+ <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
  @stack('script')

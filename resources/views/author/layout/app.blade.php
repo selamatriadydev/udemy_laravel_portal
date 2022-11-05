@@ -5,29 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title')</title>
 {{-- style  --}}
-    @include('admin.layout.css')
-    @include('admin.layout.script_header')
+    @include('author.layout.css')
+    @include('author.layout.script_header')
 </head>
-@if (Auth::guard('admin')->user())
+@if (Auth::guard('author')->user())
     <body class="hold-transition sidebar-mini layout-fixed">
 @else
     <body class="hold-transition login-page">
 @endif
 
-@if (Auth::guard('admin')->user())
+@if (Auth::guard('author')->user())
     <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <div class="preloader transparent flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset('upload/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
     </div>
 
     <!-- Navbar -->
-    @include('admin.layout.nav')
+    @include('author.layout.nav')
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-        @include('admin.layout.sidebar')
+        @include('author.layout.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -40,7 +40,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin_home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('author_home') }}">Home</a></li>
                 <li class="breadcrumb-item active">@yield('heading_nav', 'Show Page')</li>
                 </ol>
             </div><!-- /.col -->
@@ -75,7 +75,7 @@
     @yield('main_content')
 @endif
 {{-- script  --}}
-@include('admin.layout.script_footer')
+@include('author.layout.script_footer')
 @if(isset($errors) && $errors->any())
     @foreach ($errors->all() as $error)
         <script> toastr.error('{{ $error }}') </script>

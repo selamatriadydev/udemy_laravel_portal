@@ -127,17 +127,17 @@
        <!-- Notifications Dropdown Menu -->
        <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <img src="{{ Auth::guard('admin')->user()->photo ? asset('upload/profile/'.Auth::guard('admin')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-size-30 img-circle mr-3" style="width: 30px;" alt="User Image">
-          {{ Auth::guard('admin')->user()->name }}
+          <img src="{{ Auth::guard('author')->user()->photo ? asset('upload/author/'.Auth::guard('author')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-size-30 img-circle mr-3" style="width: 30px;" alt="User Image">
+          {{ Auth::guard('author')->user()->name }}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Hi {{ Auth::guard('admin')->user()->name }}</span>
+          <span class="dropdown-item dropdown-header">Hi {{ Auth::guard('author')->user()->name }}</span>
           <div class="dropdown-divider"></div>
-          <a href="{{ route('admin_profile') }}" class="dropdown-item">
+          <a href="{{ route('author_profile') }}" class="dropdown-item">
             <i class="fas fa-user mr-2"></i> Profile
           </a>
           <div class="dropdown-divider"></div>
-          <a href="{{ route('admin_logout') }}" class="dropdown-item">
+          <a href="{{ route('author_logout') }}" class="dropdown-item">
             <i class="fas fa-sign-out-alt mr-2"></i> Logout
           </a>
         </div>

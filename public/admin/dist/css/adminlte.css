@@ -10666,6 +10666,8 @@ a.text-dark:hover, a.text-dark:focus {
   z-index: 9999;
 }
 
+.preloader.transparent {background-color: #000000bf !important;}
+
 .dark-mode .preloader {
   background-color: #454d55 !important;
   color: #fff;

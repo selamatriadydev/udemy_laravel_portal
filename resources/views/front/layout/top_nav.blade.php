@@ -36,14 +36,14 @@
                                 </li>
                             @endif
                             @if ($global_page_data->login_status == 'Show')
-                                @if (Auth::guard('web')->user())
+                                @if (Auth::guard('author')->user())
                                     <li class="nav-item dropdown">
                                         <a class="nav-link small text-white dropdown-toggle" href="#" id="navbarDropdownLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ Auth::guard('web')->user()->name }}
+                                            {{ Auth::guard('author')->user()->name }}
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
-                                        <a class="dropdown-item" href="#">Profile</a>
-                                        <a class="dropdown-item" href="#">Logout</a>
+                                        <a class="dropdown-item" href="#">Author Panel</a>
+                                        <a class="dropdown-item" href="{{ route('author_logout') }}">Logout</a>
                                         </div>
                                     </li>
                                 @else

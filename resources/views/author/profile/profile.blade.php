@@ -1,8 +1,9 @@
-@extends('admin.layout.app')
+@extends('author.layout.app')
 
 @section('title', 'Profile')
 
 @section('heading', 'Profile')
+@section('heading_nav', 'Profile')
 
 @section('main_content')
 <div class="row">
@@ -13,13 +14,13 @@
         <div class="card-body box-profile">
           <div class="text-center">
             <img class="profile-user-img img-fluid"
-                 src="{{ asset('upload/profile/'.Auth::guard('admin')->user()->photo) }}"
+                 src="{{ asset('upload/author/'.Auth::guard('author')->user()->photo) }}"
                  alt="User profile picture">
           </div>
 
-          <h3 class="profile-username text-center">{{ Auth::guard('admin')->user()->name }}</h3>
+          <h3 class="profile-username text-center">{{ Auth::guard('author')->user()->name }}</h3>
 
-          <p class="text-muted text-center">Admin</p>
+          <p class="text-muted text-center">Author</p>
 
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
@@ -29,8 +30,6 @@
               <b>Comment</b> <a class="float-right">543</a>
             </li>
           </ul>
-
-          {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
         </div>
         <!-- /.card-body -->
       </div>
@@ -81,7 +80,7 @@
     <div class="col-md-9">
       <div class="card  card-primary card-outline">
         <div class="card-body">
-            <form class="form-horizontal" action="{{ route('admin_profile_submit') }}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{ route('author_profile_submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
             <div class="form-group row">
               <label for="inputName" class="col-sm-2 col-form-label">Name *</label>
@@ -114,9 +113,12 @@
               </div>
             </div>
             <div class="text-center">
+              @if (Auth::guard('author')->user()->photo)
                 <img class="profile-user-img img-fluid"
-                        src="{{ asset('upload/profile/'.Auth::guard('admin')->user()->photo) }}"
+                        src="{{ asset('upload/author/'.Auth::guard('author')->user()->photo) }}"
                         alt="User profile picture">
+                  
+              @endif
             </div>
             <div class="form-group row">
               <div class="offset-sm-2 col-sm-10">

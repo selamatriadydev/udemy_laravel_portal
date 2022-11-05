@@ -9,7 +9,7 @@
 <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
-@if (Auth::guard('admin')->user())
+@if (Auth::guard('author')->user())
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button)
