@@ -36,14 +36,14 @@ class AuthorProfileController extends Controller
                 'photo' => 'image|mimes:png,jpg,gif',
             ]);
 
-            if(file_exists(public_path('upload/author/'.$admin->photo))){
-                File::deleteDirectory('upload/author/'.$admin->photo);
+            if(file_exists(public_path('upload/profile/'.$admin->photo))){
+                File::deleteDirectory('upload/profile/'.$admin->photo);
             }
 
             $ext = $request->file('photo')->extension();
             $name_admin = str_replace(" ", "-", $admin->name);
             $final_name = 'author-'.$name_admin.'-'.time().'.'.$ext;
-            $request->file('photo')->move('upload/author',$final_name);
+            $request->file('photo')->move('upload/profile',$final_name);
             $admin->photo = $final_name;
         }
         $admin->name = $request->name;

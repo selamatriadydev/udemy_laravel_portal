@@ -1,13 +1,14 @@
-@extends('admin.layout.app')
+@extends('author.layout.app')
 
 @section('title', 'Posts')
 
 @section('heading', 'Posts')
+@section('heading_nav', 'Posts')
 
 @section('main_content')
     <div class="card card-primary">
         <div class="card-body">
-            <form action="{{ route('admin_post_search') }}" method="post">
+            <form action="{{ route('author_post_search') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-3">
@@ -22,17 +23,17 @@
                     </div>
                     <div class="col-3">
                         <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i></button>
-                        <a href="{{ route('admin_post') }}" class="btn btn-danger" >Reset</a>
+                        <a href="{{ route('author_post') }}" class="btn btn-danger" >Reset</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-      <div class="card card-primary">
+      <div class="card card-primary card-outline">
         <div class="card-header">
             <h3 class="card-title">Posts</h3> 
             <div class="card-tools">
-                <a href="{{ route('admin_post_add') }}" class="btn btn-success" ><i class="fas fa-plus"></i></a>
+                <a href="{{ route('author_post_add') }}" class="btn btn-success" ><i class="fas fa-plus"></i></a>
             </div>
         </div>
         <div class="card-body">
@@ -44,8 +45,7 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Sub Category</th>
-                        <th>Author</th>
-                        <th>Admin</th>
+                        <th>Visitor</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -64,29 +64,12 @@
                                 @endif
                             </td>
                             <td>{{ $item->rSubCategory ? $item->rSubCategory->sub_category_name : '' }}</td>
-                            <td>
-                                @if ($item->author_id !=0 && $item->rAuthor)
-                                    @if ($item->rAuthor->photo)
-                                        <img src="{{ asset('upload/profile/'.$item->rAuthor->photo) }}" alt="Product 1" class=" img-size-32 mr-2">
-                                    @endif
-                                    <div>{{ $item->rAuthor->name }}</div>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($item->admin_id !=0 && $item->rAdmin)
-                                    @if ($item->rAdmin->photo)
-                                        <img src="{{ asset('upload/profile/'.$item->rAdmin->photo) }}" alt="Product 1" class=" img-size-32 mr-2">
-                                    @endif
-                                    <div>{{ $item->rAdmin->name }}</div>
-                                @endif
-                            </td>
+                            <td>{{ $item->visitor }}</td>
                             <td> <span class="badge badge-{{ $item->is_publish == 1 ? 'success' : 'danger' }}"> {{ $item->is_publish == 1 ? 'Publish' : 'Draft' }}</span> </td>
                             <td>
                                 <a class="btn btn-primary btn-sm" href="{{ route('news_detail', $item->id) }}" target="_blank"><i class="fas fa-eye"></i> Show</a>
-                                @if ($item->admin_id !=0)
-                                    <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_post_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="{{ route('admin_post_delete', $item->id) }}" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i> Delete </a>
-                                @endif
+                                <a class="btn btn-warning btn-sm text-white" href="{{ route('author_post_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{{ route('author_post_delete', $item->id) }}" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i> Delete </a>
                             </td>
                         </tr>
                     @endforeach

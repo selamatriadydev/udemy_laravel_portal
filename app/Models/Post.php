@@ -14,7 +14,7 @@ class Post extends Model
     }
 
     public function rAuthor(){
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function rAdmin(){

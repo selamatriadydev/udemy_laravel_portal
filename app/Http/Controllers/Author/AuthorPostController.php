@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\SubCategory;
-use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\websiteMail;
 use App\Models\Subscriber;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\SubCategory;
+use App\Models\Tag;
+use Illuminate\Support\Facades\Auth;
 
-class AdminPostController extends Controller
+class AuthorPostController extends Controller
 {
     public function index(Request $request){ 
-        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'author'=>'Author', 'status'=>'Status'];
+        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'status'=>'Status'];
 
         $posts = Post::with('rSubCategory.rCategory')
         ->when($request->key_search, function($q) use ($request){
@@ -32,24 +31,20 @@ class AdminPostController extends Controller
                 $q->whereHas('rSubCategory', function ($query) use ($request) {
                     $query->where('sub_category_name', 'like', '%'.$request->val_search.'%');
                 });
-            }elseif($request->key_search == 'author'){
-                $q->whereHas('rAuthor', function ($query) use ($request) {
-                    $query->where('name', 'like', '%'.$request->val_search.'%');
-                });
             }elseif($request->key_search == 'status'){
                 $q->where('is_publish', 'like', '%'.$request->val_search.'%');
             }
         })
-        ->paginate(10);
-        return view('admin.post.post_show', compact('posts', 'filter_list'));
+        ->where('author_id', Auth::guard('author')->user()->id)->paginate(10);
+        return view('author.post.post_show', compact('posts','filter_list'));
     }
 
     public function create(){
         $category = Category::orderBy('category_order', 'asc')->get();
-        // $sub_category = SubCategory::orderBy('sub_category_order', 'asc')->get();
-        return view('admin.post.post_add', compact('category'));
+        return view('author.post.post_add', compact('category'));
     }
     public function create_submit(Request $request){
+        // dd($tag_array);
         $request->validate([
             'category_name' => 'required',
             'post_title' => 'required',
@@ -60,8 +55,8 @@ class AdminPostController extends Controller
         $is_comment = $request->is_comment == '1' ? '1' : '0';
         $is_publish = $request->is_publish == '1' ? '1' : '0';
 
-        $q = DB::select("SHOW TABLE STATUS LIKE 'posts'");
-        $ai_id = $q[0]->Auto_increment;
+        // $q = DB::select("SHOW TABLE STATUS LIKE 'posts'");
+        // $ai_id = $q[0]->Auto_increment;
         // dd($ai_id);
 
         if($request->hasFile('post_photo')){
@@ -83,8 +78,8 @@ class AdminPostController extends Controller
         $post->post_detail = $request->post_detail;
         $post->post_photo = $file_final_name;
         $post->visitor = 1;
-        $post->author_id = 0;
-        $post->admin_id = Auth::guard('admin')->user() ? Auth::guard('admin')->user()->id : 0;
+        $post->author_id = Auth::guard('author')->user() ? Auth::guard('author')->user()->id : 0;
+        $post->admin_id = 0;
         $post->is_share = $is_share;
         $post->is_comment = $is_comment;
         $post->is_publish = $is_publish;
@@ -117,20 +112,18 @@ class AdminPostController extends Controller
             }
         }
 
-        return redirect()->route('admin_post')->with('success', 'Data is created successfully');
+        return redirect()->route('author_post')->with('success', 'Data is created successfully');
     }
 
     public function edit($id){
         $category = Category::orderBy('category_order', 'asc')->get();
         $post_single = Post::with('rTag')->find($id);
-        // $existing_tag = Tag::where('post_id', $post_single->id)->get();
-        // dd($existing_tag);
         if(!$post_single){
-            return redirect()->route('admin_post')->with('error', 'Data is not found!!');
-        }elseif($post_single->author_id !=0){
-            return redirect()->route('admin_home')->with('error', 'Data is not found!!');
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
+        }elseif($post_single->author_id != Auth::guard('author')->user()->id){
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
         }
-        return view('admin.post.post_update', compact('category','post_single'));
+        return view('author.post.post_update', compact('category','post_single'));
     }
 
     public function edit_submit(Request $request,$id){
@@ -141,9 +134,9 @@ class AdminPostController extends Controller
         ]);
         $post_single = Post::find($id);
         if(!$post_single){
-            return redirect()->route('admin_post')->with('error', 'Data is not found!!');
-        }elseif($post_single->author_id !=0){
-            return redirect()->route('admin_home')->with('error', 'Data is not found!!');
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
+        }elseif($post_single->author_id != Auth::guard('author')->user()->id){
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
         }
         $is_share = $request->is_share == '1' ? '1' : '0';
         $is_comment = $request->is_comment == '1' ? '1' : '0';
@@ -160,6 +153,9 @@ class AdminPostController extends Controller
 
             $ext = $request->file('post_photo')->extension();
             $now = time();
+            // $name = str_replace(' ', '-', $request->post_title);
+            // $name = strtolower($name);
+            // $final_name = $name.'-'.$now.'.'.$ext;
             $final_name = 'post-photo-'.$now.'.'.$ext;
             $date = date('Y');
             $path = 'upload/post/'.$date."/";
@@ -187,31 +183,35 @@ class AdminPostController extends Controller
                 }
             }
         }
-        return redirect()->route('admin_post')->with('success', 'Data is updated successfully');
+        return redirect()->route('author_post')->with('success', 'Data is updated successfully');
     }
 
     public function delete_tag($id_post, $id_tag){
+        $post_count = Post::where('id', $id_post)->where('author_id', Auth::guard('author')->user()->id)->count();
+        if(!$post_count){
+            return redirect()->route('author_post_edit', $id_post)->with('error', 'Data post is not found!!');
+        }
         $tag = Tag::find($id_tag);
         if(!$tag){
-            return redirect()->route('admin_post_edit', $id_post)->with('error', 'Data is not found!!');
+            return redirect()->route('author_post_edit', $id_post)->with('error', 'Data is not found!!');
         }
         $tag->delete();
 
-        return redirect()->route('admin_post_edit', $id_post)->with('success', 'Data is deleted successfully');
+        return redirect()->route('author_post_edit', $id_post)->with('success', 'Data is deleted successfully');
     }
 
     public function delete($id){
         $post_single = Post::with('rTag')->find($id);
         if(!$post_single){
-            return redirect()->route('admin_post')->with('error', 'Data is not found!!');
-        }elseif($post_single->author_id !=0){
-            return redirect()->route('admin_home')->with('error', 'Data is not found!!');
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
+        }elseif($post_single->author_id != Auth::guard('author')->user()->id){
+            return redirect()->route('author_post')->with('error', 'Data is not found!!');
         }
         if(file_exists(public_path('upload/post/'.$post_single->post_photo))){
             File::deleteDirectory('upload/post/'.$post_single->post_photo);
         }
         $post_single->delete();
 
-        return redirect()->route('admin_post')->with('success', 'Data is deleted successfully');
+        return redirect()->route('author_post')->with('success', 'Data is deleted successfully');
     }
 }

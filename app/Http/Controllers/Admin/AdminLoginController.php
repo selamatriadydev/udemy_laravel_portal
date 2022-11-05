@@ -67,7 +67,7 @@ class AdminLoginController extends Controller
     public function recover_password_submit(Request $request ){
         $request->validate([
             'password' => 'required',
-            'confirm_password' => 'required|same:confirm_password',
+            'confirm_password' => 'required|same:password',
         ]);
         $admin = Admin::where('token', $request->token)->where('email', $request->email)->first();
         if(!$admin){

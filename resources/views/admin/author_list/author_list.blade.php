@@ -33,7 +33,7 @@
                             <td>
                                 @if ($item->photo)
                                     <div class="image">
-                                        <img src="{{ $item->photo ? asset('upload/author/'.$item->photo) : asset('upload/img/user2-160x160.jpg') }}" class=" elevation-2" style="width:60px;" alt="Author Image">
+                                        <img src="{{ $item->photo ? asset('upload/profile/'.$item->photo) : asset('upload/img/user2-160x160.jpg') }}" class=" elevation-2" style="width:60px;" alt="Author Image">
                                     </div>
                                 @endif
                             </td>

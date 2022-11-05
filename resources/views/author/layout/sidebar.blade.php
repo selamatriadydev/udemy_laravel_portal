@@ -10,7 +10,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ Auth::guard('author')->user()->photo ? asset('upload/author/'.Auth::guard('author')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ Auth::guard('author')->user()->photo ? asset('upload/profile/'.Auth::guard('author')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::guard('author')->user()->name }}</a>
@@ -44,8 +44,8 @@
             </a>
           </li>
           <li class="nav-header">News</li>
-          <li class="nav-item {{ Request::is('admin/post/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/post/*') ? 'active' :'' }}">
+          <li class="nav-item {{ Request::is('author/post/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('author/post/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Posts
@@ -55,13 +55,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin_post_add') }}" class="nav-link {{ Route::currentRouteName() =='admin_post_add' ? 'active' :'' }}">
+                <a href="{{ route('author_post_add') }}" class="nav-link {{ Route::currentRouteName() =='author_post_add' ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>New Post</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin_post') }}" class="nav-link {{ Request::is('admin/post/*') ? 'active' :'' }}">
+                <a href="{{ route('author_post') }}" class="nav-link {{ Request::is('author/post/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Post</p>
                 </a>

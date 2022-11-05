@@ -44,28 +44,13 @@
             </a>
           </li>
           <li class="nav-header">News</li>
-          <li class="nav-item {{ Request::is('admin/author/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/author/*') ? 'active' :'' }}">
+          <li class="nav-item">
+            <a href="{{ route('admin_author_section_list') }}" class="nav-link {{ Request::is('admin/author/*') ? 'active' :'' }}">
               <i class="nav-icon fa fa-users"></i>
               <p>
-                Author Section
-                <i class="fas fa-angle-left right"></i>
+                Author List
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_author_section_list') }}" class="nav-link {{ Request::is('admin/author/list') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Author List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_author_section_posts') }}" class="nav-link {{ Request::is('admin/author/posts/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Author Posts</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin_ad') }}" class="nav-link {{ Request::is('admin/advertisement') || Request::is('admin/advertisement/*') ? 'active' :'' }}">
@@ -75,8 +60,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') ||  Request::is('admin/sub-category/*') || Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/category') || Request::is('admin/category/*') || Request::is('admin/sub-category') || Request::is('admin/sub-category/*') || Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'active' :'' }}">
+          <li class="nav-item {{  Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'menu-open' :'' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/faq/*') || Request::is('admin/sosial-item/*') ? 'active' :'' }}">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Params 
@@ -85,18 +70,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_category') }}" class="nav-link {{ Request::is('admin/category/*') || Request::is('admin/category') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_sub_category') }}" class="nav-link {{ Request::is('admin/sub-category') || Request::is('admin/sub-category/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Sub Category</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="{{ route('admin_faq') }}" class="nav-link {{ Request::is('admin/faq/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
@@ -121,14 +94,20 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_post_add') }}" class="nav-link {{ Route::currentRouteName() =='admin_post_add' ? 'active' :'' }}">
+              <li class="nav-item"> 
+                <a href="{{ route('admin_category') }}" class="nav-link {{ Request::is('admin/post/category/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>New Post</p>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin_post') }}" class="nav-link {{ Request::is('admin/post/*') ? 'active' :'' }}">
+                <a href="{{ route('admin_sub_category') }}" class="nav-link {{ Request::is('admin/post/sub-category/*')? 'active' :'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sub Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin_post') }}" class="nav-link {{ Request::is('admin/post/list/*') ? 'active' :'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Post</p>
                 </a>

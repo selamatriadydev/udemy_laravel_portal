@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <label for="author_photo">Preview Photo</label>
                             <div class="image">
-                                <img src="{{ $author_single->photo ? asset('upload/author/'.$author_single->photo) : asset('upload/img/user2-160x160.jpg') }}" style="width:300px;" alt="Author Image">
+                                <img src="{{ $author_single->photo ? asset('upload/profile/'.$author_single->photo) : asset('upload/img/user2-160x160.jpg') }}" style="width:300px;" alt="Author Image">
                             </div>
                         </div>
                         <div class="form-group">

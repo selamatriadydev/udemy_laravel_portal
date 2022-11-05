@@ -127,7 +127,7 @@
        <!-- Notifications Dropdown Menu -->
        <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <img src="{{ Auth::guard('author')->user()->photo ? asset('upload/author/'.Auth::guard('author')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-size-30 img-circle mr-3" style="width: 30px;" alt="User Image">
+          <img src="{{ Auth::guard('author')->user()->photo ? asset('upload/profile/'.Auth::guard('author')->user()->photo) : asset('upload/img/user2-160x160.jpg') }}" class="img-size-30 img-circle mr-3" style="width: 30px;" alt="User Image">
           {{ Auth::guard('author')->user()->name }}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">

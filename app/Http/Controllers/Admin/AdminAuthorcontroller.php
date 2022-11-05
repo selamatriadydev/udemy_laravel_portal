@@ -47,7 +47,7 @@ class AdminAuthorcontroller extends Controller
             $ext = $request->file('author_photo')->extension();
             $name_author = str_replace(" ", "-", $request->author_name);
             $final_name = 'author-'.$name_author.'-'.time().'.'.$ext;
-            $request->file('author_photo')->move('upload/author',$final_name);
+            $request->file('author_photo')->move('upload/profile',$final_name);
             $author_add->photo = $final_name;
         }else{
             $author_add->photo = "";
@@ -115,14 +115,14 @@ class AdminAuthorcontroller extends Controller
                 'author_photo' => 'image|mimes:png,jpg,gif',
             ]);
 
-            if(file_exists(public_path('upload/author/'.$author_update->photo))){
-                File::deleteDirectory('upload/author/'.$author_update->photo);
+            if(file_exists(public_path('upload/profile/'.$author_update->photo))){
+                File::deleteDirectory('upload/profile/'.$author_update->photo);
             }
 
             $ext = $request->file('author_photo')->extension();
             $name_author = str_replace(" ", "-", $request->author_name);
             $final_name = 'author-'.$name_author.'-'.time().'.'.$ext;
-            $request->file('author_photo')->move('upload/author',$final_name);
+            $request->file('author_photo')->move('upload/profile',$final_name);
             $author_update->photo = $final_name;
         }
         $author_update->status = $author_status;
@@ -152,8 +152,8 @@ class AdminAuthorcontroller extends Controller
             return redirect()->route('admin_author_section_list')->with('error', 'Data is not found!!');
         }
         if($author_delete->photo !=""){
-            if(file_exists(public_path('upload/author/'.$author_delete->photo))){
-                File::deleteDirectory('upload/author/'.$author_delete->photo);
+            if(file_exists(public_path('upload/profile/'.$author_delete->photo))){
+                File::deleteDirectory('upload/profile/'.$author_delete->photo);
             }
         }
         $author_delete->delete();

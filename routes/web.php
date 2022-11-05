@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AdminSubscriberController;
 use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Author\AuthorHomeController;
+use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Author\AuthorProfileController;
 use App\Http\Controllers\Front\FrontAboutController;
 use App\Http\Controllers\Front\FrontArchiveController;
@@ -80,6 +81,10 @@ route::get('/archive/{tahun}/{month}', [FrontArchiveController::class, 'detail']
 Route::get('/login', [FrontLoginController::class, 'index'])->name('login');
 Route::post('/login/submit', [FrontLoginController::class, 'login_submit'])->name('author_login_submit');
 Route::get('/logout', [FrontLoginController::class, 'logout'])->name('author_logout')->middleware('author:author');
+Route::get('/forget-password', [FrontLoginController::class, 'forget_password'])->name('author_forget_password');
+Route::post('/forget-password/submit', [FrontLoginController::class, 'forget_password_submit'])->name('author_forget_password_submit');
+Route::get('/reset-password/{token}/{email}', [FrontLoginController::class, 'reset_password'])->name('author_reset_password');
+Route::post('/reset-password/submit', [FrontLoginController::class, 'reset_password_submit'])->name('author_reset_password_submit');
 
 // author > home 
 Route::get('/author/home', [AuthorHomeController::class, 'index'])->name('author_home')->middleware('author:author');
@@ -88,6 +93,15 @@ Route::get('/author/home', [AuthorHomeController::class, 'index'])->name('author
 Route::get('/author/profile', [AuthorProfileController::class, 'index'])->name('author_profile')->middleware('author:author');
 Route::post('/author/profile-submit', [AuthorProfileController::class, 'profile_submit'])->name('author_profile_submit')->middleware('author:author');
 
+//author >Post
+Route::get('/author/post/show', [AuthorPostController::class, 'index'])->name('author_post')->middleware('author:author');
+Route::post('/author/post/search', [AuthorPostController::class, 'index'])->name('author_post_search')->middleware('author:author');
+Route::get('/author/post/add', [AuthorPostController::class, 'create'])->name('author_post_add')->middleware('author:author');
+Route::post('/author/post/add-submit', [AuthorPostController::class, 'create_submit'])->name('author_post_add_submit')->middleware('author:author');
+Route::get('/author/post/{id}/edit', [AuthorPostController::class, 'edit'])->name('author_post_edit')->middleware('author:author');
+Route::post('/author/post/{id}/edit-submit', [AuthorPostController::class, 'edit_submit'])->name('author_post_edit_submit')->middleware('author:author');
+Route::get('/author/post/{post_id}/tag/{tag_id}/delete', [AuthorPostController::class, 'delete_tag'])->name('author_post_delete_tag')->middleware('author:author');
+Route::get('/author/post/{id}/delete', [AuthorPostController::class, 'delete'])->name('author_post_delete')->middleware('author:author');
 // =======================================================================================
 
 //admin
@@ -117,29 +131,30 @@ Route::get('/admin/advertisement/sidebar', [AdminAdvertisementController::class,
 Route::post('/admin/advertisement/update-sidebar', [AdminAdvertisementController::class, 'home_ad_sidebar_update'])->name('admin_home_ad_sidebar_update')->middleware('admin:admin');
 
 //admin > Category
-Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin_category')->middleware('admin:admin');
-Route::get('/admin/category/add', [AdminCategoryController::class, 'create'])->name('admin_category_add')->middleware('admin:admin');
-Route::post('/admin/category/add-submit', [AdminCategoryController::class, 'create_submit'])->name('admin_category_add_submit')->middleware('admin:admin');
-Route::get('/admin/category/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin_category_edit')->middleware('admin:admin');
-Route::post('/admin/category/{id}/edit-submit', [AdminCategoryController::class, 'edit_submit'])->name('admin_category_edit_submit')->middleware('admin:admin');
-Route::get('/admin/category/{id}/delete', [AdminCategoryController::class, 'delete'])->name('admin_category_delete')->middleware('admin:admin');
+Route::get('/admin/post/category/show', [AdminCategoryController::class, 'index'])->name('admin_category')->middleware('admin:admin');
+Route::get('/admin/post/category/add', [AdminCategoryController::class, 'create'])->name('admin_category_add')->middleware('admin:admin');
+Route::post('/admin/post/category/add-submit', [AdminCategoryController::class, 'create_submit'])->name('admin_category_add_submit')->middleware('admin:admin');
+Route::get('/admin/post/category/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin_category_edit')->middleware('admin:admin');
+Route::post('/admin/post/category/{id}/edit-submit', [AdminCategoryController::class, 'edit_submit'])->name('admin_category_edit_submit')->middleware('admin:admin');
+Route::get('/admin/post/category/{id}/delete', [AdminCategoryController::class, 'delete'])->name('admin_category_delete')->middleware('admin:admin');
 
 //admin >Sub Category
-Route::get('/admin/sub-category', [AdminSubCategoryController::class, 'index'])->name('admin_sub_category')->middleware('admin:admin');
-Route::get('/admin/sub-category/add', [AdminSubCategoryController::class, 'create'])->name('admin_sub_category_add')->middleware('admin:admin');
-Route::post('/admin/sub-category/add-submit', [AdminSubCategoryController::class, 'create_submit'])->name('admin_sub_category_add_submit')->middleware('admin:admin');
-Route::get('/admin/sub-category/{id}/edit', [AdminSubCategoryController::class, 'edit'])->name('admin_sub_category_edit')->middleware('admin:admin');
-Route::post('/admin/sub-category/{id}/edit-submit', [AdminSubCategoryController::class, 'edit_submit'])->name('admin_sub_category_edit_submit')->middleware('admin:admin');
-Route::get('/admin/sub-category/{id}/delete', [AdminSubCategoryController::class, 'delete'])->name('admin_sub_category_delete')->middleware('admin:admin');
+Route::get('/admin/post/sub-category/show', [AdminSubCategoryController::class, 'index'])->name('admin_sub_category')->middleware('admin:admin');
+Route::get('/admin/post/sub-category/add', [AdminSubCategoryController::class, 'create'])->name('admin_sub_category_add')->middleware('admin:admin');
+Route::post('/admin/post/sub-category/add-submit', [AdminSubCategoryController::class, 'create_submit'])->name('admin_sub_category_add_submit')->middleware('admin:admin');
+Route::get('/admin/post/sub-category/{id}/edit', [AdminSubCategoryController::class, 'edit'])->name('admin_sub_category_edit')->middleware('admin:admin');
+Route::post('/admin/post/sub-category/{id}/edit-submit', [AdminSubCategoryController::class, 'edit_submit'])->name('admin_sub_category_edit_submit')->middleware('admin:admin');
+Route::get('/admin/post/sub-category/{id}/delete', [AdminSubCategoryController::class, 'delete'])->name('admin_sub_category_delete')->middleware('admin:admin');
 
 //admin >Post
-Route::get('/admin/post', [AdminPostController::class, 'index'])->name('admin_post')->middleware('admin:admin');
-Route::get('/admin/post/add', [AdminPostController::class, 'create'])->name('admin_post_add')->middleware('admin:admin');
-Route::post('/admin/post/add-submit', [AdminPostController::class, 'create_submit'])->name('admin_post_add_submit')->middleware('admin:admin');
-Route::get('/admin/post/{id}/edit', [AdminPostController::class, 'edit'])->name('admin_post_edit')->middleware('admin:admin');
-Route::post('/admin/post/{id}/edit-submit', [AdminPostController::class, 'edit_submit'])->name('admin_post_edit_submit')->middleware('admin:admin');
-Route::get('/admin/post/{post_id}/tag/{tag_id}/delete', [AdminPostController::class, 'delete_tag'])->name('admin_post_delete_tag')->middleware('admin:admin');
-Route::get('/admin/post/{id}/delete', [AdminPostController::class, 'delete'])->name('admin_post_delete')->middleware('admin:admin');
+Route::get('/admin/post/list/show', [AdminPostController::class, 'index'])->name('admin_post')->middleware('admin:admin');
+Route::post('/admin/post/list/search', [AdminPostController::class, 'index'])->name('admin_post_search')->middleware('admin:admin');
+Route::get('/admin/post/list/add', [AdminPostController::class, 'create'])->name('admin_post_add')->middleware('admin:admin');
+Route::post('/admin/post/list/add-submit', [AdminPostController::class, 'create_submit'])->name('admin_post_add_submit')->middleware('admin:admin');
+Route::get('/admin/post/list/{id}/edit', [AdminPostController::class, 'edit'])->name('admin_post_edit')->middleware('admin:admin');
+Route::post('/admin/post/list/{id}/edit-submit', [AdminPostController::class, 'edit_submit'])->name('admin_post_edit_submit')->middleware('admin:admin');
+Route::get('/admin/post/list/{post_id}/tag/{tag_id}/delete', [AdminPostController::class, 'delete_tag'])->name('admin_post_delete_tag')->middleware('admin:admin');
+Route::get('/admin/post/list/{id}/delete', [AdminPostController::class, 'delete'])->name('admin_post_delete')->middleware('admin:admin');
 
 //admin >Setting
 Route::get('/admin/setting/front/tranding', [AdminFrontSettingController::class, 'tranding'])->name('admin_setting_front_tranding')->middleware('admin:admin');

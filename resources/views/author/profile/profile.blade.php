@@ -14,7 +14,7 @@
         <div class="card-body box-profile">
           <div class="text-center">
             <img class="profile-user-img img-fluid"
-                 src="{{ asset('upload/author/'.Auth::guard('author')->user()->photo) }}"
+                 src="{{ asset('upload/profile/'.Auth::guard('author')->user()->photo) }}"
                  alt="User profile picture">
           </div>
 
@@ -85,13 +85,13 @@
             <div class="form-group row">
               <label for="inputName" class="col-sm-2 col-form-label">Name *</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name" value="{{ Auth::guard('admin')->user()->name }}" placeholder="Name">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" name="name" value="{{ Auth::guard('author')->user()->name }}" placeholder="Name">
               </div>
             </div>
             <div class="form-group row">
               <label for="inputEmail" class="col-sm-2 col-form-label">Email *</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control @error('email') is-invalid @enderror" id="inputEmail" name="email" value="{{ Auth::guard('admin')->user()->email }}" placeholder="Email">
+                <input type="text" class="form-control  @error('email') is-invalid @enderror" id="inputEmail" name="email" value="{{ Auth::guard('author')->user()->email }}" placeholder="Email">
               </div>
             </div>
             <div class="form-group row">
@@ -115,7 +115,7 @@
             <div class="text-center">
               @if (Auth::guard('author')->user()->photo)
                 <img class="profile-user-img img-fluid"
-                        src="{{ asset('upload/author/'.Auth::guard('author')->user()->photo) }}"
+                        src="{{ asset('upload/profile/'.Auth::guard('author')->user()->photo) }}"
                         alt="User profile picture">
                   
               @endif

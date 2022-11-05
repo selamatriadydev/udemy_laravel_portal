@@ -18,7 +18,7 @@ class FrontHomeController extends Controller
         $news_setting  = FrontSetting::where('news_tranding_status', 'Show')->first();
         $news_data = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id','DESC')->limit(10)->get();
         $featured_news_data = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('visitor', 'DESC')->limit(20)->get();
-        $news_data_all = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
+        $news_data_all = Post::with('rSubCategory', 'rAuthor', 'rAdmin')->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
         //search
         $search_category_data = Category::with('rSubCategory')->get();
         // dd($search_subCategory_data);

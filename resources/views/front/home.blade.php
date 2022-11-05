@@ -252,10 +252,10 @@
                                                     $news_author = $item->rAdmin;
                                                 }
                                             @endphp
-                                            @if ($news_author->photo)
+                                            @if ( $news_author && $news_author->photo)
                                                 <img class="rounded-circle mr-2" src="{{ asset('upload/profile/'.$news_author->photo) }}" width="25" height="25" alt="">
                                             @endif
-                                            @if ($news_author)
+                                            @if ($news_author && $news_author)
                                                 <small>{{ $news_author->name }}</small>
                                             @endif
                                         </div>
