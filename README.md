@@ -37,6 +37,7 @@ Portal news
 - news Search 
 - Related News
 - Page Author (Dashbord, Post)
+- reset password author
 
 ## tips Portal
 - laravel clear route : php artisan route:clear
