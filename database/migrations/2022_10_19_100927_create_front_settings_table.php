@@ -17,6 +17,17 @@ class CreateFrontSettingsTable extends Migration
             $table->id();
             $table->integer('news_tranding_total')->default(0);
             $table->string('news_tranding_status')->default('Hide');
+            $table->integer('video_total')->default(0);
+            $table->string('video_status')->default('Hide');
+            $table->text('favicon')->nullable();
+            $table->text('logo')->nullable();
+            $table->string('top_bar_date_status')->default('Hide');
+            $table->text('top_bar_email')->nullable();
+            $table->string('top_bar_email_status')->default('Hide');
+            $table->text('theme_color_1')->nullable();
+            $table->text('theme_color_2')->nullable();
+            $table->text('analytic_id')->nullable();
+            $table->string('analytic_id_status')->default('Hide');
             $table->timestamps();
         });
     }

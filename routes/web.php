@@ -157,8 +157,8 @@ Route::get('/admin/post/list/{post_id}/tag/{tag_id}/delete', [AdminPostControlle
 Route::get('/admin/post/list/{id}/delete', [AdminPostController::class, 'delete'])->name('admin_post_delete')->middleware('admin:admin');
 
 //admin >Setting
-Route::get('/admin/setting/front/tranding', [AdminFrontSettingController::class, 'tranding'])->name('admin_setting_front_tranding')->middleware('admin:admin');
-Route::post('/admin/setting/front/tranding-update', [AdminFrontSettingController::class, 'tranding_submit'])->name('admin_setting_front_tranding_submit')->middleware('admin:admin');
+Route::get('/admin/setting/front', [AdminFrontSettingController::class, 'setting'])->name('admin_setting_front')->middleware('admin:admin');
+Route::post('/admin/setting/front/update', [AdminFrontSettingController::class, 'setting_submit'])->name('admin_setting_front_submit')->middleware('admin:admin');
 
 //admin >Photo Galery
 Route::get('/admin/galery/photo', [AdminPhotoController::class, 'index'])->name('admin_photo')->middleware('admin:admin');

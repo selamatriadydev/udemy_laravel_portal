@@ -139,7 +139,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin_setting_front_tranding') }}" class="nav-link {{ Route::currentRouteName() =='admin_setting_front_tranding' ? 'active' :'' }}">
+            <a href="{{ route('admin_setting_front') }}" class="nav-link {{ Route::currentRouteName() =='admin_setting_front' ? 'active' :'' }}">
               <i class="nav-icon fa fa-cog"></i>
               <p>
                 Front Setting 

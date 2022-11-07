@@ -9,10 +9,28 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    @php
+        $img_favicon = "img/favicon.ico";
+        if($global_setting_data && $global_setting_data->favicon !=""){
+            $img_favicon = 'upload/setting/front/'.$global_setting_data->favicon;
+        }
+    @endphp
+    <link href="{{ asset($img_favicon)  }}" rel="icon">
 
    @include('front.layout.css')
-   @include('front.layout.script_header')
+   @include('front.layout.script_header') 
+   @if ($global_setting_data && $global_setting_data->analytic_id_status == 'Show')
+   <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $global_setting_data->analytic_id }}"></script>
+
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ $global_setting_data->analytic_id }}');
+    </script>
+       
+   @endif
 </head>
 
 <body>

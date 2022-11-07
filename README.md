@@ -38,6 +38,8 @@ Portal news
 - Related News
 - Page Author (Dashbord, Post)
 - reset password author
+- change theme color
+- google analytic
 
 ## tips Portal
 - laravel clear route : php artisan route:clear

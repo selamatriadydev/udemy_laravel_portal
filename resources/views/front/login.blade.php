@@ -33,7 +33,7 @@
                         </div>
                         <div>
                             <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">Login</button>
-                            <a href="{{ route('author_forget_password') }}">Forget Password</a>
+                            <a href="{{ route('author_forget_password') }}" class="forget_password">Forget Password</a>
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,11 @@
 
 @section('title', 'Home')
 
+
+@push('script')
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+@endpush
+
 @section('main_content')
 <!-- Main News Slider Start -->
 <div class="container-fluid">
@@ -28,7 +33,7 @@
                                     @endphp
                                 <a class="text-white" href="">{{ $updated_date }}</a>
                             </div>
-                            <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                            <a class="h2 m-0 text-white text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                         </div>
                     </div>
                 @endforeach
@@ -58,7 +63,7 @@
                                             @endphp
                                         <a class="text-white" href=""><small>{{ $updated_date }}</small></a>
                                     </div>
-                                    <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                                    <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                                 </div>
                             </div>
                     </div>
@@ -87,7 +92,7 @@
                                 @break
                             @endif
                             <div class="text-truncate">
-                                <a class="text-white text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">
+                                <a class="text-white text-uppercase font-weight-semi-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">
                                     {{ $item->post_title }}
                                 </a>
                             </div>
@@ -126,7 +131,7 @@
                                 @endphp
                             <a class="text-white" href=""><small>{{ $updated_date }}</small></a>
                         </div>
-                        <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                        <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                     </div>
                 </div>
             @endforeach
@@ -237,7 +242,7 @@
                                                 @endphp
                                             <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                         </div>
-                                        <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                                        <a class="h6 d-block mb-3 text-secondary text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                                         <div class="post-short-text m-0">
                                             {!! $item->post_detail !!}
                                         </div>
@@ -334,5 +339,96 @@
 </div>
 <!-- News With Sidebar End -->
 
+<!-- Video Slider Start -->
+@if ($setting_video && $setting_video->video_status == 'Show')
+    <div class="container-fluid pt-5 mb-3">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="m-0 text-uppercase font-weight-bold">Video</h4>
+            </div>
+            @if ($video_data)
+                @foreach ($video_data as $item)
+                    @if ($loop->iteration > $setting_video->video_total)
+                        @break
+                    @endif
+                    <div class="modal fade bd-example-modal-lg" id="videoData{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="videoData{{ $loop->iteration }}Label" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ $item->video_id }}?rel=0" allowfullscreen></iframe>
+                                            </div>
+                                            {{-- <img class="img-fluid h-100 img-thumbnail" src="{{ asset('upload/galery/photo/'.$item->photo)}}" style="object-fit: cover;"> --}}
+                                            <blockquote class="blockquote mb-0">
+                                                <p>{{ $item->caption }}</p>
+                                                <footer class="blockquote-footer">
+                                                    @php
+                                                        $md_video_author = "";
+                                                        if($item->rAuthor){
+                                                            $md_video_author = $item->rAuthor;
+                                                        }elseif($item->rAdmin){
+                                                            $md_video_author = $item->rAdmin;
+                                                        }
+                                                        $updated_date = "";
+                                                        if($item->updated_at){
+                                                            $ts = strtotime($item->updated_at);
+                                                            $updated_date = date('d F, Y', $ts);
+                                                        }
+                                                    @endphp
+                                                    {{ $md_video_author->name }} <cite title="Source Title">{{ $updated_date }}</cite>
+                                                </footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                <div class="owl-carousel news-carousel carousel-item-{{ count($video_data) > 4 ? '4' : '2' }} position-relative">
+                    @foreach ($video_data as $item)
+                        @if ($loop->iteration > $setting_video->video_total)
+                            @break
+                        @endif
+                        <div class="position-relative overflow-hidden" style="height: 300px;">
+                            <img class="img-fluid h-100" src="//img.youtube.com/vi/{{ $item->video_id }}/0.jpg" style="object-fit: cover;">
+                            <div class="overlay">
+                                <div class="mb-2">
+                                    @php
+                                        $video_author = "";
+                                        if($item->rAuthor){
+                                            $video_author = $item->rAuthor;
+                                        }elseif($item->rAdmin){
+                                            $video_author = $item->rAdmin;
+                                        }
+                                    @endphp
+                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                        href="">{{ $news_author->name }}</a>
+                                        @php
+                                        $updated_date = "";
+                                        if($item->updated_at){
+                                            $ts = strtotime($item->updated_at);
+                                            $updated_date = date('d F, Y', $ts);
+                                        }
+                                        @endphp
+                                    <br><a class="text-white" href=""><small>{{ $updated_date }}</small></a>
+                                </div>
+                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" data-toggle="modal" data-target="#videoData{{ $loop->iteration }}" href="">Show</a>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+@endif
+<!-- Video Slider End -->
+
 @endsection
+
     

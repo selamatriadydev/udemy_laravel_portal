@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\HomeAdvertisement;
 use App\Models\Post;
 use App\Models\SubCategory;
+use App\Models\Video;
 
 class FrontHomeController extends Controller
 {
@@ -21,8 +22,12 @@ class FrontHomeController extends Controller
         $news_data_all = Post::with('rSubCategory', 'rAuthor', 'rAdmin')->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
         //search
         $search_category_data = Category::with('rSubCategory')->get();
+        //video 
+        $setting_video = FrontSetting::orderBy('id', 'asc')->first();
+        $video_data = Video::where('is_publish', 1)->orderBy('id','desc')->get();
+        // dd($video_data);
         // dd($search_subCategory_data);
-        return view('front.home', compact('home_ad_top', 'home_ad_bottom', 'news_setting', 'news_data','news_data_all', 'featured_news_data', 'search_category_data'));
+        return view('front.home', compact('home_ad_top', 'home_ad_bottom', 'news_setting', 'news_data','news_data_all', 'featured_news_data', 'search_category_data','video_data','setting_video'));
     }
 
     public function search(Request $request){

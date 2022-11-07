@@ -3,7 +3,10 @@
 @section('title', 'Galery')
 
 @section('main_content') 
-<div><script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+@push('script')
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+@endpush
+<div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>

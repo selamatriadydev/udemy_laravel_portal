@@ -7,9 +7,19 @@
                         {{-- <li class="nav-item border-right border-secondary">
                             <a class="nav-link text-body small text-white" href="#">Monday, January 1, 2045</a>
                         </li> --}}
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link small text-white" href="#">Monday, January 1, 2045</a>
-                        </li>
+                        @if ($global_setting_data)
+                            @if ($global_setting_data->top_bar_date_status == 'Show')
+                                <li class="nav-item border-right border-secondary">
+                                    <a class="nav-link small text-white" href="#"> <i class="fa fa-calendar"></i> Today : {{ date('d F, Y')  }}</a>
+                                </li>
+                            @endif
+                            @if ($global_setting_data->top_bar_email != '' && $global_setting_data->top_bar_email_status == 'Show')
+                                <li class="nav-item border-right border-secondary">
+                                    <a class="nav-link small text-white" href="#"><i class="fa fa-envelope"></i> {{ $global_setting_data->top_bar_email }}</a>
+                                </li>
+                            @endif
+                            
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -70,9 +80,17 @@
         </div>
         <div class="row align-items-center bg-white py-3 px-lg-5">
             <div class="col-lg-4">
-                <a href="index.html" class="navbar-brand p-0 d-none d-lg-block">
-                    <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-secondary font-weight-normal">News</span></h1>
-                </a>
+                    @if ($global_setting_data && $global_setting_data->logo !="")
+                        <div class="logo">
+                            <a href="index.html" class="navbar-brand p-0 d-none d-lg-block">
+                                <img class="m-0 display-4" style="width: 287px;" src="{{ asset('upload/setting/front/'.$global_setting_data->logo) }}" alt="">
+                            </a>
+                        </div>
+                    @else
+                    <a href="index.html" class="navbar-brand p-0 d-none d-lg-block">
+                        <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-secondary font-weight-normal">News</span></h1>
+                    </a>
+                    @endif
             </div>
             <div class="col-lg-8 text-center text-lg-right">
                 {{-- setting global_header_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}

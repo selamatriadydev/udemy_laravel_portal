@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\FrontSetting;
 use App\Models\HomeAdvertisement;
 use App\Models\LiveChannel;
 use App\Models\OnlinePoll;
@@ -57,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
 
         $footer_social_items = SocialItem::where('status', 'Show')->get();
 
+        $setting_data = FrontSetting::orderBy('id', 'asc')->first();
+
         view()->share('global_header_ad_data', $header_ad_data);
         view()->share('global_sidebar_ad_data', $sidebar_ad_data);
         view()->share('global_news_sub_category', $news_sub_category);
@@ -72,5 +75,6 @@ class AppServiceProvider extends ServiceProvider
         view()->share('global_archive_news_data', $archive_news_data);
 
         view()->share('global_footer_social_items', $footer_social_items);
+        view()->share('global_setting_data', $setting_data);
     }
 }

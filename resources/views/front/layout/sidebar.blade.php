@@ -187,7 +187,7 @@
         </div>
         <div class="bg-white border border-top-0 p-3">
             <nav>
-                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs nav-fill popular_recent" id="nav-tab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-RecentNews-tab" data-toggle="tab" href="#nav-RecentNews" role="tab" aria-controls="nav-RecentNews" aria-selected="true"> Recent News</a>
                   <a class="nav-item nav-link" id="nav-PopularNews-tab" data-toggle="tab" href="#nav-PopularNews" role="tab" aria-controls="nav-PopularNews" aria-selected="false">Popular News</a>
                 </div>
@@ -210,7 +210,7 @@
                                         @endphp
                                         <br><a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                     </div>
-                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                                 </div>
                             </div>
                         @endforeach
@@ -235,7 +235,7 @@
                                         @endphp
                                          <br><a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                     </div>
-                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
+                                    <a class="h6 m-0 text-secondary text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                                 </div>
                             </div>
                         @endforeach

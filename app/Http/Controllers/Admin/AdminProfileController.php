@@ -43,7 +43,8 @@ class AdminProfileController extends Controller
 
             $ext = $request->file('photo')->extension();
             $name_admin = str_replace(" ", "-", $admin->name);
-            $final_name = 'admin-'.$name_admin.'.'.$ext;
+            $time = time();
+            $final_name = 'admin-'.$name_admin.'-'.$time.'.'.$ext;
             $request->file('photo')->move('upload/profile',$final_name);
             $admin->photo = $final_name;
         }

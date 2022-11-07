@@ -45,7 +45,7 @@
                                                     @endphp
                                                 <a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                             </div>
-                                            <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('news_detail', $item->id) }}">{{ $post->post_title }}</a>
+                                            <a class="h6 d-block mb-3 text-secondary text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $post->post_title }}</a>
                                             <div class="post-short-text m-0">
                                                 {!! $post->post_detail !!}
                                             </div>
