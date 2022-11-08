@@ -53,7 +53,7 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ $page_contact ? $page_contact->contact_title : 'Contact' }}</li>
         </ol>
     </nav>
@@ -81,35 +81,35 @@
                             @endif
                         </div>
                     </div>
-                    <h6 class="text-uppercase font-weight-bold mb-3">Contact Us</h6> 
+                    <h6 class="text-uppercase font-weight-bold mb-3">{{ CONTACT_US }}</h6> 
                     <div id="message_form_contact"></div>
                     <div id="form_contact_loader" class="form_contact_spinner form_contact_loading"></div>
                     
                     <form method="POST" action="{{ route('contact_form_submit') }}" class="contact_form_ajax">
                         @csrf
                         <div class="form-row">
-                            <div class="col-md-6">
+                            <div class="col-md-6"> 
                                 <div class="form-group">
                                     <label for="name">Name *</label>
-                                    <input type="text" class="form-control p-4" name="name" value="{{ old('name') }}" placeholder="Your Name" />
+                                    <input type="text" class="form-control p-4" name="name" value="{{ old('name') }}" placeholder="{{ NAME }}" />
                                     <span class="text-danger error-text name_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Email Address *</label>
-                                    <input type="email" class="form-control p-4" name="email" placeholder="Your Email" value="{{ old('email') }}" />
+                                    <label for="email">{{ EMAIL_ADDRESS }} *</label>
+                                    <input type="email" class="form-control p-4" name="email" placeholder="{{ EMAIL_ADDRESS }}" value="{{ old('email') }}" />
                                     <span class="text-danger error-text email_error"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="message">Message *</label>
+                            <label for="message">{{ MESSAGE }} *</label>
                             <textarea class="form-control" rows="4" name="message" placeholder="Message" >{{ old('message') }}</textarea>
                             <span class="text-danger error-text message_error"></span>
                         </div>
                         <div>
-                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">Send Message</button>
+                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">{{ SEND_MESSAGE }}</button>
                         </div>
                     </form>
                 </div>

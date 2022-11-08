@@ -1,3 +1,18 @@
+@php
+    $current_short_name = "en";
+    $current_lang_name ="English";
+    if (!session()->get('lang_short_name')){
+        if ($global_lang_default_data && $global_lang_default_data->short_name !=""){
+            $current_short_name = $global_lang_default_data->short_name;
+            $current_lang_name = $global_lang_default_data->name;
+        }
+    }else {
+        if(session()->get('lang_name')){
+            $current_lang_name= session()->get('lang_name');
+        }
+        $current_short_name = session()->get('lang_short_name');
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 

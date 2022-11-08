@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class FrontContactController extends Controller 
 {
     public function index(){
+        Helpers::read_json();
         $page_contact = Page::select('contact_title', 'contact_detail','contact_map','contact_status')->first();
         return view('front.contact', compact('page_contact'));
     }

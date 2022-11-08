@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Page;
@@ -15,6 +16,7 @@ use App\Mail\websiteMail;
 class FrontLoginController extends Controller
 {
     public function index(){
+        Helpers::read_json();
         $page_login = Page::select('login_title','login_status')->first();
         return view('front.login', compact('page_login'));
     }
@@ -56,6 +58,7 @@ class FrontLoginController extends Controller
     }
 
     public function forget_password(){
+        Helpers::read_json();
         return view('front.forget_password');
     }
     public function forget_password_submit(Request $request){
@@ -80,6 +83,7 @@ class FrontLoginController extends Controller
     }
 
     public function reset_password($token, $email){
+        Helpers::read_json();
         $author = Author::where('token', $token)->where('email', $email)->first();
         if(!$author){
             return redirect()->route('home')->with('error', 'Email address not found!!');

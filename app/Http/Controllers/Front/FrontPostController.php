@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 class FrontPostController extends Controller
 {
     public function detail($id){
+        Helpers::read_json();
         $news_detail = Post::with('rSubCategory', 'rTag')->find($id);
 
         $news_tag = "";

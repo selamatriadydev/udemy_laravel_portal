@@ -42,6 +42,7 @@ Portal news
 - change theme color
 - google analytic
 - disqus
+- multi languages
 
 ## tips Portal
 - laravel clear route : php artisan route:clear

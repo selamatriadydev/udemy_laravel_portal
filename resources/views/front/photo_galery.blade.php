@@ -6,8 +6,8 @@
 <div><script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Galery</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ GALLERY }}</li>
         </ol>
     </nav>
 </div>
@@ -20,7 +20,7 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">Galery Photo</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">{{ PHOTO_GALLERY }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
@@ -51,7 +51,7 @@
                                                     @endphp
                                                 <a class="text-white" href=""><small>{{ $updated_date }}</small></a>
                                             </div>
-                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2" data-toggle="modal" data-target="#galeryPhoto{{ $item->id }}"href="">Show</a>
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2" data-toggle="modal" data-target="#galeryPhoto{{ $item->id }}"href="">{{ SHOW }}</a>
                                             {{-- <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="" >{{ $item->caption }}</a> --}}
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                                         <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h5 class="modal-title" id="galeryPhoto{{ $item->id }}Label">Galery</h5>
+                                            <h5 class="modal-title" id="galeryPhoto{{ $item->id }}Label">{{ GALLERY }}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -92,7 +92,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ CLOSE }}</button>
                                             </div>
                                         </div>
                                         </div>

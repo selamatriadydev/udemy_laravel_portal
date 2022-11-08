@@ -6,8 +6,8 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Previous Polls</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ OLD_RESULT }}</li>
         </ol>
     </nav>
 </div>
@@ -44,19 +44,19 @@
                                         <td colspan="2"><b>{{ $item->question }}</b></td>
                                     </tr>
                                     <tr style="background: #80808040;">
-                                        <td colspan="2"><b>Poll Date</b>: {{ $updated_date }}</td>
+                                        <td colspan="2"><b>{{ POLL_DATE }}</b>: {{ $updated_date }}</td>
                                     </tr>
                                     <tr style="background: #80808040;">
-                                        <td colspan="2"> <b>Total Votes</b>: {{ $total_vote }}</td>
+                                        <td colspan="2"> <b>{{ TOTAL_VOTE }}</b>: {{ $total_vote }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="20%">Yes ({{ $item->yes_vote }})</td>                  
+                                        <td width="20%">{{ YES }} ({{ $item->yes_vote }})</td>                  
                                         <td>
                                             <div class="progress-bar bg-success" role="progressbar" style="width: {{ $total_yes_percentage }}%;" aria-valuenow="{{ $total_yes_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_yes_percentage }}%</div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>No ({{ $item->no_vote }})</td>
+                                        <td>{{ NO }} ({{ $item->no_vote }})</td>
                                         <td>
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{ $total_no_percentage }}%;" aria-valuenow="{{ $total_no_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_no_percentage }}%</div>
                                         </td>

@@ -6,8 +6,8 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Category</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ CATEGORIES }}</li>
         <li class="breadcrumb-item active" aria-current="page">{{ $subCategoryName ? $subCategoryName : 'Category' }}</li>
         </ol>
     </nav>
@@ -21,7 +21,7 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold"> All posts of category : {{ $subCategoryName ? $subCategoryName : 'Category' }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold"> {{ ALL_POSTS_OF }} {{ CATEGORIES }} : {{ $subCategoryName ? $subCategoryName : 'Category' }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
@@ -78,7 +78,7 @@
                                 </div>
                             @empty
                             <div class="col-lg-12 mb-3">
-                                <h2 class="text-danger">No result is found</h2>
+                                <h2 class="text-danger">{{ NO_DATA }}</h2>
                             </div>
                             @endforelse
                             <div class="col-lg-12 mb-3">

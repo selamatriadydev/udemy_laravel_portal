@@ -82,7 +82,8 @@
         <div class="row align-items-center bg-dark">
             <div class="col-12">
                 <div class="d-flex justify-content-between">
-                    <div class="bg-primary text-dark text-center font-weight-medium py-2" style="width: 170px;">Breaking News</div>
+                    {{-- <div class="bg-primary text-dark text-center font-weight-medium py-2" style="width: 170px;">Breaking News</div> --}}
+                    <div class="bg-primary text-dark text-center font-weight-medium py-2" style="width: 170px;">{{ BREAKING_NEWS }}</div>
                     <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-3"
                         style="width: calc(100% - 170px); padding-right: 90px;">
                         @php $i=0; @endphp
@@ -112,7 +113,7 @@
 <div class="container-fluid pt-5 mb-3">
     <div class="container">
         <div class="section-title">
-            <h4 class="m-0 text-uppercase font-weight-bold">Featured News</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">{{ FEATURED_NEWS }}</h4>
         </div>
         <div class="owl-carousel news-carousel carousel-item-4 position-relative">
             @foreach ($featured_news_data as $item)
@@ -149,11 +150,11 @@
                 @csrf
                 <div class="form-row">
                   <div class="col-5">
-                    <input type="text" class="form-control" name="search_item" placeholder="Title or Description">
+                    <input type="text" class="form-control" name="search_item" placeholder="{{ TITLE_DESCRIPTION }}">
                   </div>
                   <div class="col">
                     <select name="search_category" id="search_category" class="form-control search_category">
-                        <option value="">Select Category</option>
+                        <option value="">{{ SELECT_CATEGORY }}</option>
                         @foreach ($search_category_data as $item)
                             <option value="{{ $item->id }}">{{ $item->category_name }}</option>
                         @endforeach
@@ -161,7 +162,7 @@
                   </div>
                   <div class="col">
                     <select name="search_sub_category" id="sub_category" class="form-control search_subCategory">
-                        <option value="">Select Sub Category</option>
+                        <option value="">{{ SELECT_SUBCATEGORY }}</option>
                         @foreach ($search_category_data as $item)
                             <optgroup id="{{ $item->id }}" label="{{ $item->category_name }}">
                                 @foreach ($item->rSubCategory as $sub)
@@ -172,7 +173,7 @@
                     </select>
                   </div>
                   <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                    <button type="submit" class="btn btn-primary mb-2">{{ SEARCH }}</button>
                   </div>
                 </div>
             </form>
@@ -207,8 +208,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Latest News</h4>
-                            <a class="text-secondary font-weight-medium text-decoration-none" href="{{ route('news_category') }}">View All</a>
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ LATEST_NEWS }}</h4>
+                            <a class="text-secondary font-weight-medium text-decoration-none" href="{{ route('news_category') }}">{{ VIEW_ALL }}</a>
                         </div>
                     </div>
                     @if ($home_ad_top && $home_ad_top->above_ad)
@@ -286,50 +287,6 @@
                             @endif
                         </div>
                     @endif
-                    {{-- <div class="col-lg-6">
-                        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                            <img class="img-fluid" src="img/news-110x110-1.jpg" alt="">
-                            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
-                                <div class="mb-2">
-                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                                </div>
-                                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit...</a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                            <img class="img-fluid" src="img/news-110x110-2.jpg" alt="">
-                            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
-                                <div class="mb-2">
-                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                                </div>
-                                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                            <img class="img-fluid" src="img/news-110x110-3.jpg" alt="">
-                            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
-                                <div class="mb-2">
-                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                                </div>
-                                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit...</a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                            <img class="img-fluid" src="img/news-110x110-4.jpg" alt="">
-                            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
-                                <div class="mb-2">
-                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
-                                    <a class="text-body" href=""><small>Jan 01, 2045</small></a>
-                                </div>
-                                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet elit...</a>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
             
@@ -344,7 +301,7 @@
     <div class="container-fluid pt-5 mb-3">
         <div class="container">
             <div class="section-title">
-                <h4 class="m-0 text-uppercase font-weight-bold">Video</h4>
+                <h4 class="m-0 text-uppercase font-weight-bold">{{ VIDEO }}</h4>
             </div>
             @if ($video_data)
                 @foreach ($video_data as $item)
@@ -384,7 +341,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ CLOSE }}</button>
                                 </div>
                             </div>
                         </div>
@@ -418,7 +375,7 @@
                                         @endphp
                                     <br><a class="text-white" href=""><small>{{ $updated_date }}</small></a>
                                 </div>
-                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" data-toggle="modal" data-target="#videoData{{ $loop->iteration }}" href="">Show</a>
+                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" data-toggle="modal" data-target="#videoData{{ $loop->iteration }}" href="">{{ SHOW }}</a>
                             </div>
                         </div>
                     @endforeach

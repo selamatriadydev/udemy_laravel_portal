@@ -6,7 +6,7 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
         @php
             $created_date = "";
             if($archive_data && $archive_data->created_at){
@@ -14,7 +14,7 @@
                 $created_date = date('F, Y', $ts);
             }
         @endphp
-        <li class="breadcrumb-item">Archive</li>
+        <li class="breadcrumb-item">{{ ARCHIVE_NEWS }}</li>
         <li class="breadcrumb-item active" aria-current="page"> {{ $created_date ? $created_date : 'Show' }}</li>
         </ol>
     </nav>
@@ -37,7 +37,7 @@
                                     $created_date = date('F, Y', $ts);
                                 }
                                 @endphp
-                                <h4 class="m-0 text-uppercase font-weight-bold">All posts of  {{ $created_date }} </h4>
+                                <h4 class="m-0 text-uppercase font-weight-bold">{{ ALL_POSTS_OF }}  {{ $created_date }} </h4>
                             </div>
                         </div>
                         {{-- <div class="col-lg-12 mb-3">
@@ -116,7 +116,7 @@
                 <!-- News Detail Start -->
                 <div class="position-relative mb-3">
                     <div class="bg-white border border-top-0 p-4">
-                        <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">Not Found</h1>
+                        <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{ NO_DATA }}</h1>
                     </div>
                 </div>
                 <!-- News Detail End -->

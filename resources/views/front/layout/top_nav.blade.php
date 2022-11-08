@@ -10,7 +10,8 @@
                         @if ($global_setting_data)
                             @if ($global_setting_data->top_bar_date_status == 'Show')
                                 <li class="nav-item border-right border-secondary">
-                                    <a class="nav-link small text-white" href="#"> <i class="fa fa-calendar"></i> Today : {{ date('d F, Y')  }}</a>
+                                    {{-- <a class="nav-link small text-white" href="#"> <i class="fa fa-calendar"></i> Today : {{ date('d F, Y')  }}</a> --}}
+                                    <a class="nav-link small text-white" href="#"> <i class="fa fa-calendar"></i> {{ TODAY }} : {{ date('d F, Y')  }}</a>
                                 </li>
                             @endif
                             @if ($global_setting_data->top_bar_email != '' && $global_setting_data->top_bar_email_status == 'Show')
@@ -65,13 +66,31 @@
                         @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link small text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Language
+                                {{ $current_lang_name ? $current_lang_name : 'Language' }}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="#">English</a>
-                              <a class="dropdown-item" href="#">Indonesia</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Indonesia</a>
+                            <form action="{{ route('front_language_switch') }}" method="post" id="form_language_swith">
+                                @csrf
+                                <input type="hidden" name="short_name" id="short_name" value="">
+                            </form>
+                            @push('script')
+                            <script type="text/javascript">
+                                (function($){
+                                    $('.list_language_swith a').click(function () {
+                                        var lang_val = $(this).attr("data-value");
+                                        // alert(lang_val);
+                                        var $frm = $('#form_language_swith');
+                                        //set the value of the hidden element
+                                        $frm.find('input[name="short_name"]').val(lang_val);
+                                        //submit the form
+                                        $frm.submit();
+                                    });
+                                })(jQuery);
+                            </script>
+                            @endpush
+                            <div class="dropdown-menu list_language_swith" aria-labelledby="navbarDropdown">
+                                @foreach ($global_language_data as $item)
+                                    <a class="dropdown-item" href="#" data-value="{{ $item->short_name }}" {{ $current_short_name==$item->short_name ? 'style=font-style:italic;' : '' }}>{{ $item->name }}</a>
+                                @endforeach
                             </div>
                         </li>
                     </ul>

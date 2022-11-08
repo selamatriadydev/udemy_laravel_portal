@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\FrontSetting;
@@ -14,6 +15,8 @@ use App\Models\Video;
 class FrontHomeController extends Controller
 {
     public function index(){
+        Helpers::read_json();
+
         $home_ad_top = HomeAdvertisement::where('above_ad_position', 'home-top')->where('above_ad_status', 'Show')->first();
         $home_ad_bottom = HomeAdvertisement::where('above_ad_position', 'home-bottom')->where('above_ad_status', 'Show')->first();
         $news_setting  = FrontSetting::where('news_tranding_status', 'Show')->first();

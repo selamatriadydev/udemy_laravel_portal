@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\OnlinePoll;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class FrontOnlinePollController extends Controller
 {
     public function poll_previous(){
+        Helpers::read_json();
         $poll_results = OnlinePoll::orderBy('id','desc')->paginate(10);
         return view('front.poll_results', compact('poll_results'));
     }

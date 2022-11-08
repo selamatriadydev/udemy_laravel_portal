@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class FrontArchiveController extends Controller
 {
     public function index(Request $request){
+        Helpers::read_json();
         $validator = Validator::make($request->all(), [
             'archive_news' => 'required',
         ]);

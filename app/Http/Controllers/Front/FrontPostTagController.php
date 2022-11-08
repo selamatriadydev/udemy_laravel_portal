@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Tag;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 class FrontPostTagController extends Controller
 {
     public function index($tag_name){
+        Helpers::read_json();
         $tag = Tag::where('tag_name', $tag_name)->first();
         $tagName = $tag_name;
         if($tag){

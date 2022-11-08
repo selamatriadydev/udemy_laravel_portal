@@ -8,8 +8,8 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
             <div class="navbar-nav mr-auto py-0">
-                <a href="{{ route('home') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">Home</a>
-                <a href="{{ route('news_category') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'news_category' ? 'active' : '' }}">Category</a>
+                <a href="{{ route('home') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">{{ HOME }}</a>
+                <a href="{{ route('news_category') }}" class="nav-item nav-link {{ Route::currentRouteName() == 'news_category' ? 'active' : '' }}">{{ CATEGORIES }}</a>
                 {{-- <a href="{{ route('news_detail') }}" class="nav-item nav-link">Single News</a> --}}
                 {{-- <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
@@ -31,10 +31,10 @@
                 </div>
                 @endforeach
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('galery/*') ? 'active' :'' }}" data-toggle="dropdown">Galery</a>
+                    <a href="#" class="nav-link dropdown-toggle {{ Request::is('galery/*') ? 'active' :'' }}" data-toggle="dropdown">{{ GALLERY }}</a>
                     <div class="dropdown-menu rounded-0 m-0">
-                        <a href="{{ route('news_galery_photo') }}" class="dropdown-item">Photo</a>
-                        <a href="{{ route('news_galery_video') }}" class="dropdown-item">Video</a>
+                        <a href="{{ route('news_galery_photo') }}" class="dropdown-item">{{ PHOTO_GALLERY }}</a>
+                        <a href="{{ route('news_galery_video') }}" class="dropdown-item">{{ VIDEO_GALLERY }}</a>
                     </div>
                 </div>
             </div>

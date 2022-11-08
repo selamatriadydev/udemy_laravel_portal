@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Helper\Helpers;
 use App\Http\Controllers\Controller;
 use App\Mail\websiteMail;
 use App\Models\Admin;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 class FrontSubscriberController extends Controller
 {
     public function index(Request $request){
+        Helpers::read_json();
         // $subscriber = Subscriber::get();
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',

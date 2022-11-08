@@ -6,7 +6,7 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
         @if ($news_detail)
             <li class="breadcrumb-item"><a href="{{ route('news_category_detail', $news_detail->rSubCategory->id) }}">{{ $news_detail->rSubCategory ? $news_detail->rSubCategory->sub_category_name : 'Category' }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $news_detail->post_title }}</li>
@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between">
                     <div class="section-title border-right-0 mb-0" style="width: 180px;">
-                        <h4 class="m-0 text-uppercase font-weight-bold">Tranding</h4>
+                        <h4 class="m-0 text-uppercase font-weight-bold">{{ TRANDING }}</h4>
                     </div>
                     <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center bg-white border border-left-0"
                         style="width: calc(100% - 180px); padding-right: 100px;">
@@ -72,7 +72,7 @@
 
                         @if ($news_tag)
                             <div class="bg-white p-3">
-                                <h5 class="text-uppercase font-weight-bold">Tags</h5>
+                                <h5 class="text-uppercase font-weight-bold">{{ TAGS }}</h5>
                                 <div class="d-flex flex-wrap m-n1">
                                     @foreach ($news_tag as $item)
                                         <a href="" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 m-1">{{ $item->tag_name }}</a>
@@ -84,7 +84,7 @@
                     <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                         <div class="d-flex align-items-center">
                             @if ($news_detail->is_share)
-                                <a href="" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 m-1">Share</a>
+                                <a href="" class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2 m-1">{{ SHARE }}</a>
                             @endif
                         </div>
                         <div class="d-flex align-items-center">
@@ -197,7 +197,7 @@
                     <!-- Related News Slider Start -->
                     <div class="mb-3">
                         <div class="section-title  mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Related News</h4>
+                            <h4 class="m-0 text-uppercase font-weight-bold">{{ RELATED_NEWS }}</h4>
                         </div>
                         <div class="owl-carousel news-carousel carousel-item-3 position-relative">
                             @foreach ($news_related as $item)

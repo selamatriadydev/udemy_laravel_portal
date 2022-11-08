@@ -6,8 +6,8 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Category</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ CATEGORIES }}</li>
         </ol>
     </nav>
 </div>
@@ -21,8 +21,8 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">Category: {{ $item->sub_category_name }}</h4>
-                                    <a class="text-secondary font-weight-medium text-decoration-none" href="{{ route('news_category_detail', $item->id) }}">View All </a>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">{{ CATEGORIES }}: {{ $item->sub_category_name }}</h4>
+                                    <a class="text-secondary font-weight-medium text-decoration-none" href="{{ route('news_category_detail', $item->id) }}">{{ VIEW_ALL }} </a>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">

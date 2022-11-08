@@ -6,7 +6,7 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ $page_about ? $page_about->about_title : 'About' }}</li>
         </ol>
     </nav>
@@ -27,7 +27,7 @@
                             @endif
                         </div>
                     </div>
-                    <h6 class="text-uppercase font-weight-bold mb-3">Contact Us</h6>
+                    <h6 class="text-uppercase font-weight-bold mb-3">{{ CONTACT_US }}</h6>
                     <form>
                         <div class="form-row">
                             <div class="col-md-6">
@@ -49,7 +49,7 @@
                         </div>
                         <div>
                             <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;"
-                                type="submit">Send Message</button>
+                                type="submit">{{ SEND_MESSAGE }}</button>
                         </div>
                     </form>
                 </div>

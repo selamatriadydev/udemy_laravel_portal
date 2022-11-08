@@ -97,7 +97,7 @@
      @if ($global_sidebar_ad_data && $global_sidebar_ad_data->above_ad)
         <div class="mb-3">
             <div class="section-title mb-0">
-                <h4 class="m-0 text-uppercase font-weight-bold">Advertisement</h4>
+                <h4 class="m-0 text-uppercase font-weight-bold">{{ ADVERTISEMENT }}</h4>
             </div>
             <div class="bg-white text-center border border-top-0 p-3">
                 {{-- setting global_sidebar_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}
@@ -115,7 +115,7 @@
     <!-- Category Start -->
     <div class="mb-3">
         <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">CATEGORIES</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">{{ CATEGORIES }}</h4>
         </div>
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
@@ -130,7 +130,7 @@
     <!-- Tags Start -->
     <div class="mb-3">
         <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Tags</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">{{ TAGS }}</h4>
         </div>
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
@@ -145,7 +145,7 @@
     <!-- Category Start -->
     <div class="mb-3">
         <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Archive News</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">{{ ARCHIVE_NEWS }}</h4>
         </div>
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
@@ -166,7 +166,7 @@
                 <form action="{{ route('archive') }}" method="post" style="width: 100%;">
                     @csrf
                     <select class="form-control" id="archive_news" name="archive_news" onchange="this.form.submit()">
-                        <option value="">Select Month </option>
+                        <option value="">{{ SELECT_MONTH }} </option>
                         @foreach ($archive_arr as $item)
                             @php
                                 $arr_item = explode('-', $item);
@@ -183,13 +183,13 @@
     <!-- Popular News Start -->
     <div class="mb-3">
         <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Popular & Recent News</h4>
+            <h4 class="m-0 text-uppercase font-weight-bold">{{ POPULAR_RECENT_NEWS }}</h4>
         </div>
         <div class="bg-white border border-top-0 p-3">
             <nav>
                 <div class="nav nav-tabs nav-fill popular_recent" id="nav-tab" role="tablist">
-                  <a class="nav-item nav-link active" id="nav-RecentNews-tab" data-toggle="tab" href="#nav-RecentNews" role="tab" aria-controls="nav-RecentNews" aria-selected="true"> Recent News</a>
-                  <a class="nav-item nav-link" id="nav-PopularNews-tab" data-toggle="tab" href="#nav-PopularNews" role="tab" aria-controls="nav-PopularNews" aria-selected="false">Popular News</a>
+                  <a class="nav-item nav-link active" id="nav-RecentNews-tab" data-toggle="tab" href="#nav-RecentNews" role="tab" aria-controls="nav-RecentNews" aria-selected="true"> {{ RECENT_NEWS }}</a>
+                  <a class="nav-item nav-link" id="nav-PopularNews-tab" data-toggle="tab" href="#nav-PopularNews" role="tab" aria-controls="nav-PopularNews" aria-selected="false">{{ POPULAR_NEWS }}</a>
                 </div>
             </nav>
             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -215,7 +215,7 @@
                             </div>
                         @endforeach
                     @else
-                        NO Data
+                        {{ NO_DATA }}
                     @endif
                 </div>
                 <div class="tab-pane fade" id="nav-PopularNews" role="tabpanel" aria-labelledby="nav-PopularNews-tab">
@@ -240,7 +240,7 @@
                             </div>
                         @endforeach
                     @else
-                        NO Data
+                        {{ NO_DATA }}
                     @endif
                 </div>
             </div>
@@ -248,32 +248,11 @@
     </div>
     <!-- Popular News End -->
 
-    <!-- Newsletter Start -->
-    {{-- <div class="mb-3"> 
-        <div class="section-title mb-0">
-            <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
-        </div>
-        <div class="bg-white text-center border border-top-0 p-3">
-            <form action="{{ route('subscriber') }}" method="post" class="subcriber_form_ajax">
-                @csrf
-                <div class="input-group mb-2" style="width: 100%;">
-                    <input type="text" class="form-control form-control-lg" name="email" placeholder="Your Email">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary font-weight-bold px-3" type="submit">Subscibe Now</button>
-                    </div>
-                </div>
-                <div class="alert alert-success email_success" role="alert" style="display: none"></div> 
-                <div class="alert alert-danger email_error" role="alert" style="display: none"></div> 
-            </form>
-        </div>
-    </div> --}}
-    <!-- Newsletter End -->
-
     <!-- Online Poll Start -->
     @if ($global_online_poll_data)
         <div class="mb-3">
             <div class="section-title mb-0">
-                <h4 class="m-0 text-uppercase font-weight-bold">Online Poll</h4>
+                <h4 class="m-0 text-uppercase font-weight-bold">{{ ONLINE_POLL }}</h4>
             </div>
             <div class="bg-white border border-top-0 p-3">
                 <div class="d-flex flex-wrap m-n1">
@@ -301,20 +280,20 @@
                     <table class="table table-border">
                         <tbody>
                             <tr>
-                                <td width="100px"><span id="tb_lb_yes_vote">Yes ({{ $global_online_poll_data->yes_vote }}) </span></td>                  
+                                <td width="100px"><span id="tb_lb_yes_vote">{{ YES }} ({{ $global_online_poll_data->yes_vote }}) </span></td>                  
                                 <td>
                                     <div class="progress-bar bg-success" id="tb_td_yes_vote" role="progressbar" style="width: {{ $total_yes_percentage }}%;" aria-valuenow="{{ $total_yes_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_yes_percentage }}%</div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span id="tb_lb_no_vote">No ({{ $global_online_poll_data->no_vote }})</span></td>
+                                <td><span id="tb_lb_no_vote">{{ NO }} ({{ $global_online_poll_data->no_vote }})</span></td>
                                 <td>
                                     <div class="progress-bar bg-danger" id="tb_td_no_vote" role="progressbar" style="width: {{ $total_no_percentage }}%;" aria-valuenow="{{ $total_no_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_no_percentage }}%</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="{{ route('poll_previous') }}" class="btn btn-primary">Previous Poll</a>
+                                    <a href="{{ route('poll_previous') }}" class="btn btn-primary">{{ OLD_RESULT }}</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -327,16 +306,16 @@
                             <input type="hidden" name="poll_id" value="{{ $global_online_poll_data->id }}">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="vote_question" id="vote_question" value="yes" checked>
-                                <label class="form-check-label" for="vote_question">Yes</label>
+                                <label class="form-check-label" for="vote_question">{{ YES }}</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="vote_question" id="vote_question" value="no">
-                                <label class="form-check-label" for="vote_question"> No</label>
+                                <label class="form-check-label" for="vote_question"> {{ NO }}</label>
                             </div>
                             <br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('poll_previous') }}" class="btn btn-light">Previous Poll</a>
+                                <button type="submit" class="btn btn-primary">{{ SUBMIT }}</button>
+                                <a href="{{ route('poll_previous') }}" class="btn btn-light">{{ OLD_RESULT }}</a>
                             </div>
                             {{-- <span class="text-danger error-text email_error"></span> --}}
                             <div class="alert alert-success vote_success" role="alert" style="display: none"></div> 

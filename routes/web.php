@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminFagController;
 use App\Http\Controllers\Admin\AdminFrontSettingController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminLanguageController;
 use App\Http\Controllers\Admin\AdminLiveChannelController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminOnlinePollController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\Front\FrontContactController;
 use App\Http\Controllers\Front\FrontDisclaimerController;
 use App\Http\Controllers\Front\FrontFaqController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\FrontLanguageController;
 use App\Http\Controllers\Front\FrontLoginController;
 use App\Http\Controllers\Front\FrontOnlinePollController;
 use App\Http\Controllers\Front\FrontPhotoController;
@@ -52,6 +54,7 @@ use Illuminate\Support\Facades\Route;
 */
 // front 
 Route::get('/', [FrontHomeController::class, 'index'])->name('home');
+Route::post('/front/language-switch', [FrontLanguageController::class, 'switch_language'])->name('front_language_switch');
 Route::post('/search/result', [FrontHomeController::class, 'search'])->name('search_result');
 
 Route::get('/about', [FrontAboutController::class, 'index'])->name('about');
@@ -251,4 +254,15 @@ Route::get('/admin/author/{id}/edit', [AdminAuthorcontroller::class, 'edit'])->n
 Route::post('/admin/author/{id}/edit-submit', [AdminAuthorcontroller::class, 'edit_submit'])->name('admin_author_section_edit_submit')->middleware('admin:admin');
 Route::get('/admin/author/{id}/delete', [AdminAuthorcontroller::class, 'delete'])->name('admin_author_section_delete')->middleware('admin:admin');
 //admin >Author Section list post
-Route::get('/admin/author/posts', [AdminAuthorcontroller::class, 'posts'])->name('admin_author_section_posts')->middleware('admin:admin');
+// Route::get('/admin/author/posts', [AdminAuthorcontroller::class, 'posts'])->name('admin_author_section_posts')->middleware('admin:admin');
+
+//admin >language
+Route::get('/admin/language/show', [AdminLanguageController::class, 'index'])->name('admin_language')->middleware('admin:admin');
+Route::get('/admin/language/add', [AdminLanguageController::class, 'create'])->name('admin_language_add')->middleware('admin:admin');
+Route::post('/admin/language/add-submit', [AdminLanguageController::class, 'create_submit'])->name('admin_language_add_submit')->middleware('admin:admin');
+Route::get('/admin/language/{id}/edit', [AdminLanguageController::class, 'edit'])->name('admin_language_edit')->middleware('admin:admin');
+Route::post('/admin/language/{id}/edit-submit', [AdminLanguageController::class, 'edit_submit'])->name('admin_language_edit_submit')->middleware('admin:admin');
+Route::get('/admin/language/{id}/delete', [AdminLanguageController::class, 'delete'])->name('admin_language_delete')->middleware('admin:admin');
+//admin >language update detail
+Route::get('/admin/language/{id}/edit-detail', [AdminLanguageController::class, 'edit_detail'])->name('admin_language_edit_detail')->middleware('admin:admin');
+Route::post('/admin/language/{id}/edit-detail-submit', [AdminLanguageController::class, 'edit_detail_submit'])->name('admin_language_edit_detail_submit')->middleware('admin:admin');

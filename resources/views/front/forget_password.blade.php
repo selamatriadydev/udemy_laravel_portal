@@ -6,8 +6,8 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Forget Password</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ FORGET_PASSWORD }}</li>
         </ol>
     </nav>
 </div>
@@ -18,18 +18,18 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title mb-0">
-                    <h4 class="m-0 text-uppercase font-weight-bold">Forget Password</h4>
+                    <h4 class="m-0 text-uppercase font-weight-bold">{{ FORGET_PASSWORD }}</h4>
                 </div>
                 <div class="bg-white border border-top-0 p-4 mb-3">
                     <form action="{{ route('author_forget_password_submit') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="text" class="form-control p-4 @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Email Address">
+                            <label for="email">{{ EMAIL_ADDRESS }} *</label>
+                            <input type="text" class="form-control p-4 @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="{{ EMAIL_ADDRESS }}">
                         </div>
                         <div>
-                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">Forget password</button>
-                            <a href="{{ route('login') }}">login</a>
+                            <button class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;" type="submit">{{ FORGET_PASSWORD }}</button>
+                            <a href="{{ route('login') }}">{{ LOGIN }}</a>
                         </div>
                     </form>
                 </div>

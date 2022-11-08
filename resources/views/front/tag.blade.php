@@ -6,8 +6,8 @@
 <div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page">Tag</li>
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ HOME }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ TAGS }}</li>
         <li class="breadcrumb-item active" aria-current="page">{{ $tagName ? $tagName : 'Tag' }}</li>
         </ol>
     </nav>
@@ -21,7 +21,7 @@
                         <div class="row"> 
                             <div class="col-12">
                                 <div class="section-title">
-                                    <h4 class="m-0 text-uppercase font-weight-bold">All posts of tag : {{ $tagName ? $tagName : 'Tag' }}</h4>
+                                    <h4 class="m-0 text-uppercase font-weight-bold">{{ ALL_POSTS_OF }} {{ TAGS }} : {{ $tagName ? $tagName : 'Tag' }}</h4>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-12 mb-3">
@@ -84,7 +84,7 @@
                                     
                             @else
                                 <div class="col-lg-12 mb-3">
-                                    <h2 class="text-danger">No result is found</h2>
+                                    <h2 class="text-danger">{{ NO_DATA }}</h2>
                                 </div>
                             @endif
                             {{-- <div class="col-lg-12 mb-3">
