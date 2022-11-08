@@ -46,6 +46,11 @@
                     <i class="far fa-file-alt"></i> Google Analytic
                 </a>
             </li>
+            <li class="nav-item">
+                <a data-toggle="collapse" href="#disqus" aria-expanded="false" class="nav-link collapsed">
+                    <i class="far fa-file-alt"></i> Disqus Comment
+                </a>
+            </li>
         </ul>
       </div>
       <div class="col-9">
@@ -63,6 +68,8 @@
             $theme_color_2 = "";
             $analytic_id = "";
             $analytic_id_status = "";
+            $disqus_code = "";
+            $disqus_status = "";
             if($front_setting){
                 $news_tranding_total = $front_setting->news_tranding_total;
                 $news_tranding_status = $front_setting->news_tranding_status;
@@ -75,6 +82,8 @@
                 $theme_color_2 = $front_setting->theme_color_2;
                 $analytic_id = $front_setting->analytic_id;
                 $analytic_id_status = $front_setting->analytic_id_status;
+                $disqus_code = $front_setting->disqus_code;
+                $disqus_status = $front_setting->disqus_status;
             }
             @endphp
             <div id="home" class="collapse show" data-parent="#setting_front" style="">
@@ -201,6 +210,23 @@
                         data-on-color="success" data-on-text="Show" data-off-text="Hide" {{ old('analytic_id_status', $analytic_id_status) == 'Show' ? 'checked' : '' }} >
                     </div>
                 </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+                </div>
+            </div>
+
+            <div id="disqus" class="collapse" data-parent="#setting_front" style="">
+                
+                    <div class="form-group">
+                        <label for="disqus_code">Disqus Code *</label>
+                        <textarea name="disqus_code" id="disqus_code" cols="30" rows="10" class="form-control @error('disqus_code') is_invalid @enderror" style="height: 200px;">{{ old('disqus_code', $disqus_code) }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="disqus_status">Disqus Status</label> <br>
+                        <input type="checkbox" name="disqus_status"  data-bootstrap-switch data-off-color="danger" value="Show"
+                        data-on-color="success" data-on-text="Show" data-off-text="Hide" {{ old('disqus_status', $disqus_status) == 'Show' ? 'checked' : '' }} >
+                    </div>
+                
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
                 </div>

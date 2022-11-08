@@ -78,6 +78,8 @@ class AdminFrontSettingController extends Controller
             $front_setting->theme_color_2 = $request->theme_color_2 ? $request->theme_color_2  : '';
             $front_setting->analytic_id = $request->analytic_id ? $request->analytic_id  : '';
             $front_setting->analytic_id_status = $request->analytic_id_status == 'Show' ? 'Show' : 'Hide';
+            $front_setting->disqus_code = $request->disqus_code ? $request->disqus_code  : '';
+            $front_setting->disqus_status = $request->disqus_status == 'Show' ? 'Show' : 'Hide';
             $front_setting->save();
         }else{
             $front_setting = FrontSetting::find($front_setting_jml->id);
@@ -114,6 +116,10 @@ class AdminFrontSettingController extends Controller
                 $front_setting->analytic_id = $request->analytic_id;
             }
             $front_setting->analytic_id_status = $request->analytic_id_status == 'Show' ? 'Show' : 'Hide';
+            if($request->disqus_code !=""){
+                $front_setting->disqus_code = $request->disqus_code;
+            }
+            $front_setting->disqus_status = $request->disqus_status == 'Show' ? 'Show' : 'Hide';
             $front_setting->update();
         }
 

@@ -35,11 +35,13 @@ Portal news
 - Online Poll/vote
 - Social Media
 - news Search 
+- news share 
 - Related News
 - Page Author (Dashbord, Post)
 - reset password author
 - change theme color
 - google analytic
+- disqus
 
 ## tips Portal
 - laravel clear route : php artisan route:clear

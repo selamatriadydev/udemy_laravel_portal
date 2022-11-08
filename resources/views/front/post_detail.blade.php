@@ -97,6 +97,7 @@
                             <span class="ml-3"><i class="far fa-eye mr-2"></i>{{ $news_detail->visitor }}</span>
                             @if ($news_detail->is_comment)
                                 <span class="ml-3"><i class="far fa-comment mr-2"></i>123</span>
+                               
                             @endif
                         </div>
                     </div>
@@ -104,6 +105,16 @@
                 <!-- News Detail End -->
                 @if ($news_detail->is_comment)
                     <!-- Comment List Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">3 Comments</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-4">
+                            @if ($global_setting_data && $global_setting_data->disqus_status == 'Show')
+                            {!! $global_setting_data->disqus_code !!}
+                            @endif
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <div class="section-title mb-0">
                             <h4 class="m-0 text-uppercase font-weight-bold">3 Comments</h4>

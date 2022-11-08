@@ -28,6 +28,8 @@ class CreateFrontSettingsTable extends Migration
             $table->text('theme_color_2')->nullable();
             $table->text('analytic_id')->nullable();
             $table->string('analytic_id_status')->default('Hide');
+            $table->text('disqus_code')->nullable();
+            $table->string('disqus_status')->default('Hide');
             $table->timestamps();
         });
     }
