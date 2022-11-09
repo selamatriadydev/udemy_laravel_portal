@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
 use App\Models\Author;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,8 @@ use File;
 class AuthorProfileController extends Controller
 {
     public function index(){
-        return view('author.profile.profile');
+        $total_news         = Post::where('author_id', Auth::guard('author')->user()->id)->count();
+        return view('author.profile.profile',compact('total_news'));
     }
 
     public function profile_submit(Request $request){

@@ -24,10 +24,7 @@
 
           <ul class="list-group list-group-unbordered mb-3">
             <li class="list-group-item">
-              <b>Post</b> <a class="float-right">1,322</a>
-            </li>
-            <li class="list-group-item">
-              <b>Comment</b> <a class="float-right">543</a>
+              <b>Post</b> <a class="float-right">{{ $total_news }}</a>
             </li>
           </ul>
         </div>
