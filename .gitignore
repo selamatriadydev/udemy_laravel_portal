@@ -3,6 +3,8 @@
 /public/hot
 /public/storage
 /public/upload
+!public/upload/logo
+!public/upload/setting
 /storage/*.key
 /vendor
 .env
