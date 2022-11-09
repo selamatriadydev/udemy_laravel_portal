@@ -6,6 +6,7 @@
 !public/upload
 public/upload/*
 !public/upload/advertisement/default
+public/upload/advertisement/*
 !public/upload/logo
 !public/upload/setting
 
