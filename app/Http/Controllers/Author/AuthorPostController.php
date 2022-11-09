@@ -19,7 +19,7 @@ class AuthorPostController extends Controller
     public function index(Request $request){ 
         $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'status'=>'Status','language'=> 'Language'];
 
-        $posts = Post::with('rSubCategory.rCategory')
+        $posts = Post::with('rSubCategory.rCategory', 'rLanguage')
         ->when($request->key_search, function($q) use ($request){
             if($request->key_search == 'title'){
                 $q->where('post_title',  'like', '%'.$request->val_search.'%');
