@@ -21,20 +21,31 @@
                 <a href="{{ route('author_post') }}" class="btn btn-warning" ><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
             </div>
         </div>
-        <div class="card-body">
-            <form action="{{ route('author_post_add_submit') }}" method="post" enctype="multipart/form-data">
+        <div class="card-body"> 
+            <form action="{{ route('author_post_add_submit') }}" method="post" enctype="multipart/form-data" id="new_post">
                 @csrf
-                <div class="form-group">
-                    <label for="category_name"> Category Name *</label>
-                    <select name="category_name" id="category_name" class="form-control select2bs4 @error('category_name') is-invalid @enderror">
-                        @foreach ($category as $item)
-                            <optgroup label="{{ $item->category_name }}">
-                                @foreach ($item->rSubCategory as $sub)
-                                    <option value="{{ $sub->id }}" {{ old('category_name') == $sub->id ? 'selected' : '' }}>{{ $sub->sub_category_name }}</option>
-                                @endforeach
-                            </optgroup>
-                        @endforeach
-                    </select>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="category_order">Language *</label>
+                        <select name="language" id="language" class="form-control language @error('language') is-invalid @enderror">
+                            {{-- <option value="">Select Language</option>  --}}
+                            @foreach ($language_data as $item)
+                            <option value="{{ $item->id }}" {{ old('language') == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="category_name"> Category Name *</label>
+                        <select name="category_name" id="category_name" class="form-control @error('category_name') is-invalid @enderror">
+                            @foreach ($category as $item)
+                                <optgroup id="{{ $item->language_id }}" label="{{ $item->category_name }}">
+                                    @foreach ($item->rSubCategory as $sub)
+                                        <option value="{{ $sub->id }}" {{ old('category_name') == $sub->id ? 'selected' : '' }}>{{ $sub->sub_category_name }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="post_title">Post Title *</label>
@@ -101,7 +112,31 @@
         // Bootstrap Switch
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
-        })
+        });
+        $(document).ready( function(){
+            var $category = $("#category_name > optgroup").clone();
+            var postSelected = $('#language').val();
+            if(postSelected){
+                if($category.clone().filter('[id="' + postSelected + '"]').length){
+                    $('#new_post').find("#category_name").html($category.clone().filter('[id="' + postSelected + '"]'));
+                }else{
+                    $('#new_post').find("#category_name").html('<option>Select Language</option>');
+                }
+            }
+            $('#language').on("change", function() {
+                var selectedLang = $(this).val();
+                // alert(selectedLang)
+                if(selectedLang){ 
+                    if($category.clone().filter('[id="' + selectedLang + '"]').length){
+                        $(this).closest('#new_post').find("#category_name").html($category.clone().filter('[id="' + selectedLang + '"]'));
+                    }else{
+                        $(this).closest('#new_post').find("#category_name").html('<option>Data is Not Found</option>');
+                    }
+                }else{
+                    $(this).closest('#new_post').find("#category_name").html($category);
+                }
+            });
+        });
     });
 </script>
 @endpush

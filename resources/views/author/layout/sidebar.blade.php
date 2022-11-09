@@ -68,67 +68,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item {{ Request::is('admin/galery/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/galery/*') ? 'active' :'' }}">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Galery
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">2</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_photo') }}" class="nav-link {{ Request::is('admin/galery/photo/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Photo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_video') }}" class="nav-link {{ Request::is('admin/galery/video/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Video</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item {{ Request::is('admin/live-channel/*') ? 'menu-open' :'' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/live-channel/*') ? 'active' :'' }}">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Live Channels
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin_live_channel_add') }}" class="nav-link {{ Request::is('admin/live-channel/add') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>New Live Channels</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_live_channel_active') }}" class="nav-link {{ Request::is('admin/live-channel/active-show') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Live Channels</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('admin_live_channel') }}" class="nav-link {{ Request::is('admin/live-channel/*') ? 'active' :'' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Live Channels</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin_online_poll_show') }}" class="nav-link {{ Request::is('admin/online-poll/*') ? 'active' :'' }}">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Online Poll
-              </p>
-            </a>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

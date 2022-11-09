@@ -47,7 +47,7 @@
                         <th>Author</th>
                         <th>Admin</th>
                         <th>Status</th>
-                        <th>Language</th>
+                        <th>Language</th> 
                         <th>Action</th>
                     </tr>
                 </thead>

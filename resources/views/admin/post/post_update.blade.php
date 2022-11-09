@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin_post_edit_submit', $post_single->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin_post_edit_submit', $post_single->id) }}" method="post" enctype="multipart/form-data" id="update_post">
                 @csrf
                 <div class="form-group row">
                     <div class="col-md-6">
@@ -167,7 +167,31 @@
         // Bootstrap Switch
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
-        })
+        });
+        $(document).ready( function(){
+            var $category = $("#category_name > optgroup").clone();
+            var postSelected = $('#language').val();
+            if(postSelected){
+                if($category.clone().filter('[id="' + postSelected + '"]').length){
+                    $('#update_post').find("#category_name").html($category.clone().filter('[id="' + postSelected + '"]'));
+                }else{
+                    $('#update_post').find("#category_name").html('<option>Select Language</option>');
+                }
+            }
+            $('#language').on("change", function() {
+                var selectedLang = $(this).val();
+                // alert(selectedLang)
+                if(selectedLang){ 
+                    if($category.clone().filter('[id="' + selectedLang + '"]').length){
+                        $(this).closest('#update_post').find("#category_name").html($category.clone().filter('[id="' + selectedLang + '"]'));
+                    }else{
+                        $(this).closest('#update_post').find("#category_name").html('<option>Data is Not Found</option>');
+                    }
+                }else{
+                    $(this).closest('#update_post').find("#category_name").html($category);
+                }
+            });
+        });
     });
 </script>
 @endpush

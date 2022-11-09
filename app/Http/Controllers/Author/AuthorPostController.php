@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\websiteMail;
 use App\Models\Subscriber;
 use App\Models\Category;
+use App\Models\Language;
 use App\Models\Post;
 use App\Models\SubCategory;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 
 class AuthorPostController extends Controller
 {
     public function index(Request $request){ 
-        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'status'=>'Status'];
+        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'status'=>'Status','language'=> 'Language'];
 
         $posts = Post::with('rSubCategory.rCategory')
         ->when($request->key_search, function($q) use ($request){
@@ -33,6 +34,10 @@ class AuthorPostController extends Controller
                 });
             }elseif($request->key_search == 'status'){
                 $q->where('is_publish', 'like', '%'.$request->val_search.'%');
+            }elseif($request->key_search == 'language'){
+                $q->whereHas('rLanguage', function ($query) use ($request) {
+                    $query->where('name', 'like', '%'.$request->val_search.'%')->orWhere('short_name', 'like', '%'.$request->val_search.'%');
+                });
             }
         })
         ->where('author_id', Auth::guard('author')->user()->id)->paginate(10);
@@ -40,12 +45,14 @@ class AuthorPostController extends Controller
     }
 
     public function create(){
+        $language_data = Language::get();
         $category = Category::orderBy('category_order', 'asc')->get();
-        return view('author.post.post_add', compact('category'));
+        return view('author.post.post_add', compact('category','language_data'));
     }
     public function create_submit(Request $request){
         // dd($tag_array);
         $request->validate([
+            'language' => 'required',
             'category_name' => 'required',
             'post_title' => 'required',
             'post_detail' => 'required',
@@ -83,6 +90,7 @@ class AuthorPostController extends Controller
         $post->is_share = $is_share;
         $post->is_comment = $is_comment;
         $post->is_publish = $is_publish;
+        $post->language_id = $request->language;
         $post->save();
 
         if($request->post_tag !=""){
@@ -118,16 +126,18 @@ class AuthorPostController extends Controller
     public function edit($id){
         $category = Category::orderBy('category_order', 'asc')->get();
         $post_single = Post::with('rTag')->find($id);
+        $language_data = Language::get();
         if(!$post_single){
             return redirect()->route('author_post')->with('error', 'Data is not found!!');
         }elseif($post_single->author_id != Auth::guard('author')->user()->id){
             return redirect()->route('author_post')->with('error', 'Data is not found!!');
         }
-        return view('author.post.post_update', compact('category','post_single'));
+        return view('author.post.post_update', compact('category','post_single','language_data'));
     }
 
     public function edit_submit(Request $request,$id){
         $request->validate([
+            'language' => 'required',
             'category_name' => 'required',
             'post_title' => 'required',
             'post_detail' => 'required',
@@ -169,6 +179,7 @@ class AuthorPostController extends Controller
         $post_single->is_share = $is_share;
         $post_single->is_comment = $is_comment;
         $post_single->is_publish = $is_publish;
+        $post_single->language_id = $request->language;
         $post_single->update();
 
         if($request->post_tag !=""){
