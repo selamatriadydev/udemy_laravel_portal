@@ -11,7 +11,7 @@ class FrontPrivacyController extends Controller
 {
     public function index(){
         Helpers::read_json();
-        $page_privacy = Page::select('privacy_title', 'privacy_detail','privacy_status')->first();
+        $page_privacy = Page::select('privacy_title', 'privacy_detail','privacy_status')->where('language_id', CURRENT_LANG_ID)->first();
         return view('front.privacy', compact('page_privacy'));
     }
 }

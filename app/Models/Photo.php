@@ -16,4 +16,8 @@ class Photo extends Model
     public function rAdmin(){
         return $this->belongsTo(Admin::class, 'admin_id');
     }
+
+    public function rLanguage(){
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

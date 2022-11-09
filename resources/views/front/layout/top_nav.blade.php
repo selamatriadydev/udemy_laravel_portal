@@ -30,36 +30,39 @@
                         {{-- <li class="nav-item border-right border-secondary">
                             <a class="nav-link small text-white" href="#">FAQ</a>
                         </li> --}}
-                        @if ($global_page_data)
-                            @if ($global_page_data->faq_status == 'Show')
+                        @php
+                            $page_data = \App\Models\Page::where('language_id', CURRENT_LANG_ID)->first();
+                        @endphp
+                        @if ($page_data)
+                            @if ($page_data->faq_status == 'Show')
                                 <li class="nav-item">
-                                    <a class="nav-link small text-white" href="{{ route('faq') }}">{{ $global_page_data->faq_title }}</a>
+                                    <a class="nav-link small text-white" href="{{ route('faq') }}">{{ $page_data->faq_title }}</a>
                                 </li>
                             @endif
-                            @if ($global_page_data->about_status == 'Show')
+                            @if ($page_data->about_status == 'Show')
                                 <li class="nav-item">
-                                    <a class="nav-link small text-white" href="{{ route('about') }}">{{ $global_page_data->about_title }}</a>
+                                    <a class="nav-link small text-white" href="{{ route('about') }}">{{ $page_data->about_title }}</a>
                                 </li>
                             @endif
-                            @if ($global_page_data->contact_status == 'Show')
+                            @if ($page_data->contact_status == 'Show')
                                 <li class="nav-item">
-                                    <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $global_page_data->contact_title }}</a>
+                                    <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $page_data->contact_title }}</a>
                                 </li>
                             @endif
-                            @if ($global_page_data->login_status == 'Show')
+                            @if ($page_data->login_status == 'Show')
                                 @if (Auth::guard('author')->user())
                                     <li class="nav-item dropdown">
                                         <a class="nav-link small text-white dropdown-toggle" href="#" id="navbarDropdownLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             {{ Auth::guard('author')->user()->name }}
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
-                                        <a class="dropdown-item" href="#">Author Panel</a>
-                                        <a class="dropdown-item" href="{{ route('author_logout') }}">Logout</a>
+                                        <a class="dropdown-item" href="{{ route('author_home') }}">{{ AUTHOR_PANEL }}</a>
+                                        <a class="dropdown-item" href="{{ route('author_logout') }}">{{ LOGOUT }}</a>
                                         </div>
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="nav-link small text-white" href="{{ route('login') }}">{{ $global_page_data->login_title }}</a>
+                                        <a class="nav-link small text-white" href="{{ route('login') }}">{{ $page_data->login_title }}</a>
                                     </li>
                                 @endif
                             @endif

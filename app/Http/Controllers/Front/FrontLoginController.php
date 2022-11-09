@@ -17,15 +17,21 @@ class FrontLoginController extends Controller
 {
     public function index(){
         Helpers::read_json();
-        $page_login = Page::select('login_title','login_status')->first();
+        $page_login = Page::select('login_title','login_status')->where('language_id', CURRENT_LANG_ID)->first();
         return view('front.login', compact('page_login'));
     }
 
     public function login_submit(Request $request){
+        Helpers::read_json(); 
+        $validator_message = [
+            'email.required' => ERROR_EMAIL_REQUIRED,
+            'email.email' => ERROR_EMAIL_VALID,
+            'password.required' => ERROR_PASSWORD_REQUIRED
+        ];
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
-        ]);
+        ], $validator_message);
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
@@ -62,9 +68,14 @@ class FrontLoginController extends Controller
         return view('front.forget_password');
     }
     public function forget_password_submit(Request $request){
+        Helpers::read_json(); 
+        $validator_message = [
+            'email.required' => ERROR_EMAIL_REQUIRED,
+            'email.email' => ERROR_EMAIL_VALID
+        ];
         $request->validate([
             'email' => 'required|email',
-        ]);
+        ],$validator_message);
         $token = hash('sha256', time());
         $author = Author::where('email', $request->email)->first();
         if(!$author){
@@ -91,10 +102,16 @@ class FrontLoginController extends Controller
         return view('front.reset_password', compact('token', 'email'));
     }
     public function reset_password_submit(Request $request ){
+        Helpers::read_json(); 
+        $validator_message = [
+            'password.required' => ERROR_PASSWORD_REQUIRED,
+            'confirm_password.required' => ERROR_PASSWORD_CONFIRM_REQUIRED,
+            'confirm_password.same' => ERROR_PASSWORD_CONFIRM_SAME
+        ];
         $request->validate([
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-        ]);
+        ],$validator_message);
         $author = Author::where('token', $request->token)->where('email', $request->email)->first();
         if(!$author){
             return redirect()->route('login')->with('error', 'Email address not found!!');

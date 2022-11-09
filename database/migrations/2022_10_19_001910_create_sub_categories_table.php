@@ -20,6 +20,7 @@ class CreateSubCategoriesTable extends Migration
             $table->string('show_on_home')->default('Hide');
             $table->string('sub_category_order');
             $table->integer('category_id');
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

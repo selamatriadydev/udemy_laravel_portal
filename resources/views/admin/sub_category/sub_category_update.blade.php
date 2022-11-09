@@ -13,13 +13,26 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin_sub_category_edit_submit', $sub_category->id) }}" method="post">
+            <form action="{{ route('admin_sub_category_edit_submit', $sub_category->id) }}" method="post" id="update_sub_category">
                 @csrf
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control language @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option> 
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language', $sub_category->language_id) == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="category_id"> Category Name *</label>
-                    <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                        @foreach ($category as $item)
-                        <option value="{{ $item->id }}" {{ old('category_id', $sub_category->category_id) == $item->id ? 'selected' : '' }}>{{ $item->category_name }}</option>
+                    <select name="category_id" id="category_id" class="form-control category_value @error('category_id') is-invalid @enderror">
+                        @foreach ($language_data as $item)
+                            <optgroup id="{{ $item->id }}" label="Language {{ $item->name }}">
+                                @foreach ($item->rCategory as $cat)
+                                    <option value="{{ $cat->id }}" {{ old('category_id', $sub_category->category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->category_name }}</option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>
@@ -54,8 +67,37 @@
 <script src="{{ asset('admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <script>
     $(function () {
+        $(document).ready( function(){
+            var $category = $(".category_value > optgroup").clone();
+            var postSelected = $('#language').val();
+            if(postSelected){
+                if($category.clone().filter('[id="' + postSelected + '"]').length){
+                    $('#update_sub_category').find(".category_value").html($category.clone().filter('[id="' + postSelected + '"]'));
+                }else{
+                    $('#update_sub_category').find(".category_value").html('<option>Select Language</option>');
+                }
+            }
+            $('#language').on("change", function() {
+                var selectedLang = $(this).val();
+                // alert(selectedLang)
+                if(selectedLang){ 
+                    if($category.clone().filter('[id="' + selectedLang + '"]').length){
+                        if( $category.clone().filter('[id="' + selectedLang + '"]')[0].childElementCount ){
+                            $(this).closest('#update_sub_category').find(".category_value").html($category.clone().filter('[id="' + selectedLang + '"]'));
+                        }else{
+                            $(this).closest('#update_sub_category').find(".category_value").html('<option>Data is Not Found</option>');
+                        }
+                        // $(this).closest('#update_sub_category').find(".category_value").html($category.clone().filter('[id="' + selectedLang + '"]'));
+                    }else{
+                        $(this).closest('#update_sub_category').find(".category_value").html('<option>Data is Not Found</option>');
+                    }
+                }else{
+                    $(this).closest('#update_sub_category').find(".category_value").html($category);
+                }
+            });
+        });
         $("input[data-bootstrap-switch]").each(function(){
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
         })
     });
 </script>

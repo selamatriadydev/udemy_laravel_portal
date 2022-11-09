@@ -53,7 +53,7 @@ class AdminLanguageController extends Controller
         // dd($request->all());
         $request->validate([
             'language_name' => 'required',
-            'language_short_name' => 'required|unique:languages,short_name,'.$id,
+            // 'language_short_name' => 'required|unique:languages,short_name,'.$id,
         ]);
         $check_default_ready = Language::where('is_default', 'Yes')->where('id', '!=', $id)->count();
         if($check_default_ready){
@@ -66,7 +66,7 @@ class AdminLanguageController extends Controller
             return redirect()->route('admin_language')->with('error', 'Data is not found!!');
         }
         $language_update->name = $request->language_name;
-        $language_update->short_name = $request->language_short_name;
+        // $language_update->short_name = $request->language_short_name;
         $language_update->is_default = $request->language_default == 'Yes' ? 'Yes' : 'No';
         $language_update->update();
 
@@ -107,9 +107,10 @@ class AdminLanguageController extends Controller
             $language_set_default->update();
         }
 
-        // if(file_exists(resource_path('languages/'.$language_delete->short_name.'.json'))){
-        //     File::deleteDirectory(resource_path('languages/'.$language_delete->short_name.'.json'));
-        // }
+        if(file_exists(resource_path('languages/'.$language_delete->short_name.'.json'))){
+            File::delete(resource_path('languages/'.$language_delete->short_name.'.json'));
+        }
+        // dd($language_delete);
 
         $language_delete->delete();
 

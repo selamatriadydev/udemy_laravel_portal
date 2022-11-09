@@ -20,11 +20,11 @@
                     <label for="language_name">Name *</label>
                     <input type="text" class="form-control @error('language_name') is-invalid @enderror" id="language_name" name="language_name" value="{{ old('language_name', $language_single->name) }}" placeholder="Language name">
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="language_short_name">Short Name *</label>
                     <input type="text" class="form-control @error('language_short_name') is-invalid @enderror" id="language_short_name" name="language_short_name"  value="{{ old('language_short_name', $language_single->short_name) }}" placeholder="Language short name">
                     <span>Referency code <a href="https://www.w3schools.com/tags/ref_language_codes.asp" class="badge badge-primary" target="_blank" rel="noopener noreferrer">Click Here</a></span>
-                </div>
+                </div> --}}
     
                 <div class="form-group">
                     <label for="language_default">Is Default ?</label> <br>

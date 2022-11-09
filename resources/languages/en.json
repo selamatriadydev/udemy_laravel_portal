@@ -56,5 +56,16 @@
     "LOGIN":"Login",
     "SHARE":"Share",
     "TRANDING":"Tranding",
-    "SEARCH_RESULT" :"Seach Result"
+    "SEARCH_RESULT" :"Seach Result",
+    "FOLLOW_US" :"Follow Us",
+    "LOGOUT" :"Logout",
+    "AUTHOR_PANEL" :"Author Panel",
+    "ERROR_NAME_REQUIRED" :"Name is required",
+    "ERROR_EMAIL_REQUIRED" :"Email is required",
+    "ERROR_EMAIL_VALID" :"Email must be valid",
+    "ERROR_MESSAGE_REQUIRED" :"Message is required",
+    "ERROR_PASSWORD_REQUIRED" :"Password is required",
+    "ERROR_PASSWORD_CONFIRM_REQUIRED" :"Password Confirm is required",
+    "ERROR_PASSWORD_CONFIRM_SAME" :"Password not match",
+    "SUCCESS_CONTACT" :"Email is Send successfully. we will contact you soon"
 }

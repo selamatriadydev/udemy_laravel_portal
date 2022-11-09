@@ -17,9 +17,13 @@ class FrontSubscriberController extends Controller
     public function index(Request $request){
         Helpers::read_json();
         // $subscriber = Subscriber::get();
+        $validator_message = [
+            'email.required' => ERROR_EMAIL_REQUIRED,
+            'email.email' => ERROR_EMAIL_VALID
+        ];
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-        ]);
+        ],$validator_message);
         if($validator->fails()){
             return response()->json( ['code'=> 0, 'error_message' => $validator->errors()->toArray()] );
         }else{

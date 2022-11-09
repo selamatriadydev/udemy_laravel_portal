@@ -24,4 +24,8 @@ class Post extends Model
     public function rTag(){
         return $this->hasMany(Tag::class, 'post_id');
     }
+
+    public function rLanguage(){
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

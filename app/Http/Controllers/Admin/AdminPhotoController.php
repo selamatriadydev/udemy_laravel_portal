@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,15 +12,17 @@ use File;
 class AdminPhotoController extends Controller
 {
     public function index(){
-        $photo = Photo::orderBy('id', 'asc')->paginate(10);
+        $photo = Photo::with('rLanguage')->orderBy('id', 'asc')->paginate(10);
         return view('admin.photo.photo_show', compact('photo'));
     }
 
     public function create(){
-        return view('admin.photo.photo_add');
+        $language_data = Language::get();
+        return view('admin.photo.photo_add', compact('language_data'));
     }
     public function create_submit(Request $request){
         $request->validate([
+            'language' => 'required',
             'photo' => 'required|image|mimes:png,jpg,jpeg,gif',
             'caption' => 'required',
         ]);
@@ -40,6 +43,7 @@ class AdminPhotoController extends Controller
         $photo->author_id = Auth::guard('web')->user() ? Auth::guard('web')->user()->id : 0;
         $photo->admin_id = Auth::guard('admin')->user() ? Auth::guard('admin')->user()->id : 0;
         $photo->is_publish = $is_publish;
+        $photo->language_id = $request->language;
         $photo->save();
 
         return redirect()->route('admin_photo')->with('success', 'Data is created successfully');
@@ -50,11 +54,13 @@ class AdminPhotoController extends Controller
         if(!$photo_single){
             return redirect()->route('admin_photo')->with('error', 'Data is not found!!');
         }
-        return view('admin.photo.photo_update', compact('photo_single'));
+        $language_data = Language::get();
+        return view('admin.photo.photo_update', compact('photo_single', 'language_data'));
     }
 
     public function edit_submit(Request $request,$id){
         $request->validate([
+            'language' => 'required',
             'caption' => 'required',
         ]);
         $photo = Photo::find($id);
@@ -82,6 +88,7 @@ class AdminPhotoController extends Controller
         }
         $photo->caption = $request->caption;
         $photo->is_publish = $is_publish;
+        $photo->language_id = $request->language;
         $photo->update();
 
         return redirect()->route('admin_photo')->with('success', 'Data is updated successfully');

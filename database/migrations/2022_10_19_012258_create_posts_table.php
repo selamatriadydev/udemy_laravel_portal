@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->integer('is_share')->default(0);
             $table->integer('is_comment')->default(0);
             $table->integer('is_publish')->default(0);
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

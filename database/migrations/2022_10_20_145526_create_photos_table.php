@@ -21,6 +21,7 @@ class CreatePhotosTable extends Migration
             $table->integer('author_id')->default(0);
             $table->integer('admin_id')->default(0);
             $table->integer('is_publish')->default(0);
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

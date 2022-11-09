@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\DB;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\websiteMail;
+use App\Models\Language;
 use App\Models\Subscriber;
 
 class AdminPostController extends Controller
 {
     public function index(Request $request){ 
-        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'author'=>'Author', 'status'=>'Status'];
+        $filter_list = ['title'=>'Title', 'category'=>'Category', 'sub_category'=>'Sub Category', 'author'=>'Author', 'status'=>'Status','language'=> 'Language'];
 
-        $posts = Post::with('rSubCategory.rCategory')
+        $posts = Post::with('rSubCategory.rCategory', 'rLanguage')
         ->when($request->key_search, function($q) use ($request){
             if($request->key_search == 'title'){
                 $q->where('post_title',  'like', '%'.$request->val_search.'%');
@@ -38,19 +39,25 @@ class AdminPostController extends Controller
                 });
             }elseif($request->key_search == 'status'){
                 $q->where('is_publish', 'like', '%'.$request->val_search.'%');
+            }elseif($request->key_search == 'language'){
+                $q->whereHas('rLanguage', function ($query) use ($request) {
+                    $query->where('name', 'like', '%'.$request->val_search.'%')->orWhere('short_name', 'like', '%'.$request->val_search.'%');
+                });
             }
         })
         ->paginate(10);
         return view('admin.post.post_show', compact('posts', 'filter_list'));
     }
 
-    public function create(){
+    public function create(){ 
+        $language_data = Language::get();
         $category = Category::orderBy('category_order', 'asc')->get();
         // $sub_category = SubCategory::orderBy('sub_category_order', 'asc')->get();
-        return view('admin.post.post_add', compact('category'));
+        return view('admin.post.post_add', compact('category','language_data'));
     }
     public function create_submit(Request $request){
         $request->validate([
+            'language' => 'required',
             'category_name' => 'required',
             'post_title' => 'required',
             'post_detail' => 'required',
@@ -88,6 +95,7 @@ class AdminPostController extends Controller
         $post->is_share = $is_share;
         $post->is_comment = $is_comment;
         $post->is_publish = $is_publish;
+        $post->language_id = $request->language;
         $post->save();
 
         if($request->post_tag !=""){
@@ -122,6 +130,7 @@ class AdminPostController extends Controller
 
     public function edit($id){
         $category = Category::orderBy('category_order', 'asc')->get();
+        $language_data = Language::get();
         $post_single = Post::with('rTag')->find($id);
         // $existing_tag = Tag::where('post_id', $post_single->id)->get();
         // dd($existing_tag);
@@ -130,11 +139,12 @@ class AdminPostController extends Controller
         }elseif($post_single->author_id !=0){
             return redirect()->route('admin_home')->with('error', 'Data is not found!!');
         }
-        return view('admin.post.post_update', compact('category','post_single'));
+        return view('admin.post.post_update', compact('category','post_single','language_data'));
     }
 
     public function edit_submit(Request $request,$id){
         $request->validate([
+            'language' => 'required',
             'category_name' => 'required',
             'post_title' => 'required',
             'post_detail' => 'required',
@@ -173,6 +183,7 @@ class AdminPostController extends Controller
         $post_single->is_share = $is_share;
         $post_single->is_comment = $is_comment;
         $post_single->is_publish = $is_publish;
+        $post_single->language_id = $request->language;
         $post_single->update();
 
         if($request->post_tag !=""){

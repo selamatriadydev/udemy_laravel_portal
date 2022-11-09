@@ -1,3 +1,14 @@
+@php
+    $cat_lang_short_name = "en";
+    if (!session()->get('lang_short_name')){
+        if ($global_lang_default_data && $global_lang_default_data->short_name !=""){
+            $cat_lang_short_name = $global_lang_default_data->short_name;
+        }
+    }else {
+        $cat_lang_short_name = session()->get('lang_short_name');
+    }
+    $current_lang_id = \App\Models\Language::where('short_name', $cat_lang_short_name)->first()->id;
+@endphp
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
         <a href="{{ route('home') }}" class="navbar-brand d-block d-lg-none">
@@ -21,14 +32,16 @@
                 </div> --}}
                 {{-- setting global_nav_categories di app/provider/AppServiceProvider.php di bagian boot  --}}
                 @foreach ($global_nav_categories as $item)
-                    <div class="nav-item dropdown">
-                    <a href="javascript:void;" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $item->category_name }}</a>
-                    <div class="dropdown-menu rounded-0 m-0">
-                        @foreach ($item->rSubCategory as $sub)
-                            <a href="{{ route('news_category_detail', $sub->id) }}" class="dropdown-item">{{ $sub->sub_category_name }}</a>
-                        @endforeach
-                    </div>
-                </div>
+                    @if ($current_lang_id == $item->language_id)
+                        <div class="nav-item dropdown">
+                            <a href="javascript:void;" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ $item->category_name }}</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                @foreach ($item->rSubCategory as $sub)
+                                    <a href="{{ route('news_category_detail', $sub->id) }}" class="dropdown-item">{{ $sub->sub_category_name }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle {{ Request::is('galery/*') ? 'active' :'' }}" data-toggle="dropdown">{{ GALLERY }}</a>

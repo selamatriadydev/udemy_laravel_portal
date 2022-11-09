@@ -20,20 +20,22 @@ class FrontHomeController extends Controller
         $home_ad_top = HomeAdvertisement::where('above_ad_position', 'home-top')->where('above_ad_status', 'Show')->first();
         $home_ad_bottom = HomeAdvertisement::where('above_ad_position', 'home-bottom')->where('above_ad_status', 'Show')->first();
         $news_setting  = FrontSetting::where('news_tranding_status', 'Show')->first();
-        $news_data = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('id','DESC')->limit(10)->get();
-        $featured_news_data = Post::with('rSubCategory')->where('is_publish', 1)->orderBy('visitor', 'DESC')->limit(20)->get();
-        $news_data_all = Post::with('rSubCategory', 'rAuthor', 'rAdmin')->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
+        //post
+        $news_data = Post::with('rSubCategory')->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('id','DESC')->limit(10)->get();
+        $featured_news_data = Post::with('rSubCategory')->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('visitor', 'DESC')->limit(20)->get();
+        $news_data_all = Post::with('rSubCategory', 'rAuthor', 'rAdmin')->where('language_id', CURRENT_LANG_ID)->where('is_publish', 1)->orderBy('id','DESC')->paginate(10);
         //search
-        $search_category_data = Category::with('rSubCategory')->get();
+        $search_category_data = Category::with('rSubCategory')->where('language_id', CURRENT_LANG_ID)->get();
         //video 
         $setting_video = FrontSetting::orderBy('id', 'asc')->first();
-        $video_data = Video::where('is_publish', 1)->orderBy('id','desc')->get();
+        $video_data = Video::where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('id','desc')->get();
         // dd($video_data);
         // dd($search_subCategory_data);
         return view('front.home', compact('home_ad_top', 'home_ad_bottom', 'news_setting', 'news_data','news_data_all', 'featured_news_data', 'search_category_data','video_data','setting_video'));
     }
 
     public function search(Request $request){
+        Helpers::read_json();
         $search_item = $request->search_item;
         $search_category = $request->search_category;
         $search_sub_category = $request->search_sub_category;

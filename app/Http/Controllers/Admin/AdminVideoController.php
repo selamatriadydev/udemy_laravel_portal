@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,15 +11,17 @@ use Illuminate\Support\Facades\Auth;
 class AdminVideoController extends Controller
 {
     public function index(){
-        $video_show = Video::orderBy('id', 'asc')->paginate(10);
+        $video_show = Video::with('rLanguage')->orderBy('id', 'asc')->paginate(10);
         return view('admin.video.video_show', compact('video_show'));
     }
 
     public function create(){
-        return view('admin.video.video_add');
+        $language_data = Language::get();
+        return view('admin.video.video_add', compact('language_data'));
     }
     public function create_submit(Request $request){
         $request->validate([
+            'language' => 'required',
             'video_id' => 'required',
             'caption' => 'required',
         ]);
@@ -30,6 +33,7 @@ class AdminVideoController extends Controller
         $video_create->author_id = Auth::guard('web')->user() ? Auth::guard('web')->user()->id : 0;
         $video_create->admin_id = Auth::guard('admin')->user() ? Auth::guard('admin')->user()->id : 0;
         $video_create->is_publish = $is_publish;
+        $video_create->language_id = $request->language;
         $video_create->save();
 
         return redirect()->route('admin_video')->with('success', 'Data is created successfully');
@@ -40,11 +44,13 @@ class AdminVideoController extends Controller
         if(!$video_single){
             return redirect()->route('admin_video')->with('error', 'Data is not found!!');
         }
-        return view('admin.video.video_update', compact('video_single'));
+        $language_data = Language::get();
+        return view('admin.video.video_update', compact('video_single','language_data'));
     }
 
     public function edit_submit(Request $request,$id){
         $request->validate([
+            'language' => 'required',
             'video_id' => 'required',
             'caption' => 'required',
         ]);
@@ -55,6 +61,7 @@ class AdminVideoController extends Controller
         $is_publish = $request->is_publish == '1' ? '1' : '0';
         $video_update->video_id = $request->video_id;
         $video_update->is_publish = $is_publish;
+        $video_update->language_id = $request->language;
         $video_update->update();
 
         return redirect()->route('admin_video')->with('success', 'Data is updated successfully');

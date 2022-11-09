@@ -79,9 +79,12 @@
     <!-- Social Follow End -->
 
     <!-- Live channel Start -->
-    @if ($global_live_channel_data)
+    @php
+        $live_channel_data = \App\Models\LiveChannel::where('status', 'Active')->where('language_id', CURRENT_LANG_ID)->get();
+    @endphp
+    @if ($live_channel_data) 
         <div class="mb-3">
-            @foreach ($global_live_channel_data as $item)
+            @foreach ($live_channel_data as $item)
                 <div class="section-title mb-0">
                     <h4 class="m-0 text-uppercase font-weight-bold">{{ $item->heading }}</h4>
                 </div>
@@ -97,7 +100,7 @@
      @if ($global_sidebar_ad_data && $global_sidebar_ad_data->above_ad)
         <div class="mb-3">
             <div class="section-title mb-0">
-                <h4 class="m-0 text-uppercase font-weight-bold">{{ ADVERTISEMENT }}</h4>
+                <h4 class="m-0 text-uppercase font-weight-bold">{{ ADVERTISEMENT }} </h4>
             </div>
             <div class="bg-white text-center border border-top-0 p-3">
                 {{-- setting global_sidebar_ad_data di app/provider/AppServiceProvider.php di bagian boot  --}}
@@ -120,7 +123,9 @@
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
                 @foreach ($global_news_sub_category as $item)
-                    <a href="{{ route('news_category_detail', $item->id) }}" class="btn btn-sm btn-outline-secondary text-uppercase m-1">{{ $item->sub_category_name }} <span class="right badge badge-primary">{{ $item->r_front_post_count }}</span></a>
+                    @if (CURRENT_LANG_ID == $item->language_id)
+                        <a href="{{ route('news_category_detail', $item->id) }}" class="btn btn-sm btn-outline-secondary text-uppercase m-1">{{ $item->sub_category_name }} <span class="right badge badge-primary">{{ $item->r_front_post_count }}</span></a>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -134,7 +139,12 @@
         </div>
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
-                @foreach ($global_news_tags as $item)
+                @php
+                    $news_tags = \App\Models\Tag::select('tag_name')->distinct()->whereHas('rFrontPost', function($q){ 
+                        $q->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID);
+                    })->get();
+                @endphp
+                @foreach ($news_tags as $item) 
                     <a href="{{ route('news_tag', $item->tag_name) }}" class="btn btn-sm btn-outline-secondary text-uppercase m-1">{{ $item->tag_name }}</a>
                 @endforeach
             </div>
@@ -150,8 +160,9 @@
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex flex-wrap m-n1">
                 @php
+                    $archive_news_data =  \App\Models\Post::select('created_at')->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('id', 'desc')->get();
                     $archive_arr = [];
-                    foreach ($global_archive_news_data as $item){
+                    foreach ($archive_news_data as $item){
                         $ts = strtotime($item->created_at);
                         // $created_date = date('d F, Y', $ts);
                         $created_month = date('F', $ts);
@@ -194,8 +205,11 @@
             </nav>
             <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-RecentNews" role="tabpanel" aria-labelledby="nav-RecentNews-tab">
-                    @if ($global_sidebar_recent_news)
-                        @foreach ($global_sidebar_recent_news as $item)
+                    @php
+                         $sidebar_recent_news = \App\Models\Post::with('rSubCategory')->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('id', 'DESC')->limit(5)->get();
+                    @endphp
+                    @if ($sidebar_recent_news)
+                        @foreach ($sidebar_recent_news as $item)
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
                                 <img class="img-fluid" src="{{ asset('upload/post/'.$item->post_photo)}}" style="width: 110px" alt="">
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
@@ -219,8 +233,11 @@
                     @endif
                 </div>
                 <div class="tab-pane fade" id="nav-PopularNews" role="tabpanel" aria-labelledby="nav-PopularNews-tab">
-                    @if ($global_sidebar_popular_news)
-                        @foreach ($global_sidebar_popular_news as $item)
+                    @php
+                         $sidebar_popular_news = \App\Models\Post::with('rSubCategory')->where('is_publish', 1)->where('language_id', CURRENT_LANG_ID)->orderBy('visitor', 'DESC')->limit(5)->get();
+                    @endphp
+                    @if ($sidebar_popular_news)
+                        @foreach ($sidebar_popular_news as $item)
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
                                 <img class="img-fluid" src="{{ asset('upload/post/'.$item->post_photo)}}" style="width: 110px" alt="">
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
@@ -233,7 +250,7 @@
                                             $updated_date = date('d F, Y', $ts);
                                         }
                                         @endphp
-                                         <br><a class="text-body" href=""><small>{{ $updated_date }}</small></a>
+                                        <br><a class="text-body" href=""><small>{{ $updated_date }}</small></a>
                                     </div>
                                     <a class="h6 m-0 text-secondary text-uppercase font-weight-bold post-title-short-text" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a>
                                 </div>
@@ -249,30 +266,33 @@
     <!-- Popular News End -->
 
     <!-- Online Poll Start -->
-    @if ($global_online_poll_data)
+    @php
+        $online_poll_data = \App\Models\OnlinePoll::where('language_id', CURRENT_LANG_ID)->orderBy('id', 'DESC')->first();
+    @endphp
+    @if ($online_poll_data)
         <div class="mb-3">
             <div class="section-title mb-0">
                 <h4 class="m-0 text-uppercase font-weight-bold">{{ ONLINE_POLL }}</h4>
             </div>
             <div class="bg-white border border-top-0 p-3">
                 <div class="d-flex flex-wrap m-n1">
-                    <p>{{ $global_online_poll_data->question }}</p>
+                    <p>{{ $online_poll_data->question }}</p>
                 </div>
                 @php
-                    $total_vote = $global_online_poll_data->yes_vote+$global_online_poll_data->no_vote;
+                    $total_vote = $online_poll_data->yes_vote+$online_poll_data->no_vote;
                     $total_yes_percentage = 0;
-                    if($global_online_poll_data->yes_vote > 0){
-                        $total_yes_percentage = ($global_online_poll_data->yes_vote*100)/$total_vote;
+                    if($online_poll_data->yes_vote > 0){
+                        $total_yes_percentage = ($online_poll_data->yes_vote*100)/$total_vote;
                         $total_yes_percentage = ceil($total_yes_percentage);
                     }
                     $total_no_percentage = 0;
-                    if($global_online_poll_data->no_vote > 0){
-                        $total_no_percentage = ($global_online_poll_data->no_vote*100)/$total_vote;
+                    if($online_poll_data->no_vote > 0){
+                        $total_no_percentage = ($online_poll_data->no_vote*100)/$total_vote;
                         $total_no_percentage = ceil($total_no_percentage);
                     }
                 @endphp
 
-                @if ( session()->get('current_poll_id') == $global_online_poll_data->id ) 
+                @if ( session()->get('current_poll_id') == $online_poll_data->id ) 
                 <div id="poll_table">
                 @else
                 <div  id="poll_table" style="display: none">
@@ -280,13 +300,13 @@
                     <table class="table table-border">
                         <tbody>
                             <tr>
-                                <td width="100px"><span id="tb_lb_yes_vote">{{ YES }} ({{ $global_online_poll_data->yes_vote }}) </span></td>                  
+                                <td width="100px"><span id="tb_lb_yes_vote">{{ YES }} ({{ $online_poll_data->yes_vote }}) </span></td>                  
                                 <td>
                                     <div class="progress-bar bg-success" id="tb_td_yes_vote" role="progressbar" style="width: {{ $total_yes_percentage }}%;" aria-valuenow="{{ $total_yes_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_yes_percentage }}%</div>
                                 </td>
                             </tr>
                             <tr>
-                                <td><span id="tb_lb_no_vote">{{ NO }} ({{ $global_online_poll_data->no_vote }})</span></td>
+                                <td><span id="tb_lb_no_vote">{{ NO }} ({{ $online_poll_data->no_vote }})</span></td>
                                 <td>
                                     <div class="progress-bar bg-danger" id="tb_td_no_vote" role="progressbar" style="width: {{ $total_no_percentage }}%;" aria-valuenow="{{ $total_no_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $total_no_percentage }}%</div>
                                 </td>
@@ -299,11 +319,11 @@
                         </tbody>
                     </table>
                 </div>
-                @if ( session()->get('current_poll_id') != $global_online_poll_data->id ) 
+                @if ( session()->get('current_poll_id') != $online_poll_data->id ) 
                     <div id="poll_form">
                         <form action="{{ route('poll_submit') }}" method="post" class="poll_form_ajax">
                             @csrf
-                            <input type="hidden" name="poll_id" value="{{ $global_online_poll_data->id }}">
+                            <input type="hidden" name="poll_id" value="{{ $online_poll_data->id }}">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="vote_question" id="vote_question" value="yes" checked>
                                 <label class="form-check-label" for="vote_question">{{ YES }}</label>

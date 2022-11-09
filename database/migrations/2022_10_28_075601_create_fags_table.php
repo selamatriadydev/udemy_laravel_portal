@@ -18,6 +18,7 @@ class CreateFagsTable extends Migration
             $table->text('faq_title');
             $table->text('faq_detail');
             $table->string('faq_status')->default('Show');
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

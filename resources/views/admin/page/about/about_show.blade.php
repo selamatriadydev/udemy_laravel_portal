@@ -13,10 +13,26 @@
       <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Update Page About Content</h3> 
-        </div>
+        </div> 
         <div class="card-body">
+            <div class="btn-group d-flex">
+                @foreach ($language_data as $item)
+                    @php
+                        $btn_class = "btn-outline-secondary";
+                        $page_ready = \App\Models\Page::where('language_id', $item->id)->count();
+                        if($page_ready){
+                            $btn_class = "btn-outline-success";
+                        }
+                        if($lang_id==$item->id){
+                            $btn_class = "btn-success";
+                        }
+                    @endphp
+                    <a href="{{ route('admin_page_about_lang', $item->id) }}" class="btn {{ $btn_class }}"> <strong>{{ $item->short_name }}</strong> {{ $item->name }}</a>
+                @endforeach
+              </div>
             <form action="{{ route('admin_page_about_edit_submit') }}" method="post">
                 @csrf
+                <input type="hidden" name="lang_id" value="{{ $lang_id }}">
                 <div class="form-group">
                     <label for="about_title">Title *</label>
                     <input type="text" class="form-control @error('about_title') is-invalid @enderror" id="about_title" name="about_title" value="{{ old('about_title', $about_title) }}" placeholder="About Title">

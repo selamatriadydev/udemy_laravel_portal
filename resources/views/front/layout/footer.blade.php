@@ -13,7 +13,7 @@
                 <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>{{ FOOTER_PHONE }}</p>
                 <p class="font-weight-medium"><i class="fa fa-envelope mr-2"></i>{{ FOOTER_EMAIL }}</p>
                 @if ($global_footer_social_items)
-                <h6 class="mt-4 mb-3 text-white text-uppercase font-weight-bold">Follow Us</h6>
+                <h6 class="mt-4 mb-3 text-white text-uppercase font-weight-bold">{{ FOLLOW_US }}</h6> 
                 <div class="d-flex justify-content-start social-item">
                     @foreach ($global_footer_social_items as $item)
                         <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="{{ $item->url }}" target="_blank"><i class="{{ $item->icon }}"></i></a>
@@ -29,25 +29,28 @@
                     <li class="nav-item">
                         <a class="nav-link small text-white" href="{{ route('home') }}">{{ HOME }}</a>
                     </li>
-                    @if ($global_page_data)
-                        @if ($global_page_data->terms_status == 'Show')
+                    @php
+                        $page_data = \App\Models\Page::where('language_id', CURRENT_LANG_ID)->first();
+                    @endphp
+                    @if ($page_data)
+                        @if ($page_data->terms_status == 'Show')
                             <li class="nav-item">
-                                <a class="nav-link small text-white" href="{{ route('terms') }}">{{ $global_page_data->terms_title }}</a>
+                                <a class="nav-link small text-white" href="{{ route('terms') }}">{{ $page_data->terms_title }}</a>
                             </li>
                         @endif
-                        @if ($global_page_data->privacy_status == 'Show')
+                        @if ($page_data->privacy_status == 'Show')
                             <li class="nav-item">
-                                <a class="nav-link small text-white" href="{{ route('privacy') }}">{{ $global_page_data->privacy_title }}</a>
+                                <a class="nav-link small text-white" href="{{ route('privacy') }}">{{ $page_data->privacy_title }}</a>
                             </li>
                         @endif
-                        @if ($global_page_data->disclaimer_status == 'Show')
+                        @if ($page_data->disclaimer_status == 'Show')
                             <li class="nav-item">
-                                <a class="nav-link small text-white" href="{{ route('disclaimer') }}">{{ $global_page_data->disclaimer_title }}</a>
+                                <a class="nav-link small text-white" href="{{ route('disclaimer') }}">{{ $page_data->disclaimer_title }}</a>
                             </li>
                         @endif
-                        @if ($global_page_data->contact_status == 'Show')
+                        @if ($page_data->contact_status == 'Show')
                             <li class="nav-item">
-                                <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $global_page_data->contact_title }}</a>
+                                <a class="nav-link small text-white" href="{{ route('contact') }}">{{ $page_data->contact_title }}</a>
                             </li>
                         @endif
                     @endif

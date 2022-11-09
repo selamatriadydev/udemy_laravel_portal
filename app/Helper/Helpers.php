@@ -23,7 +23,8 @@ class Helpers
             }
             $current_short_name = session()->get('lang_short_name');
         }
-        
+        $current_lang_id = Language::where('short_name', $current_short_name)->first()->id;
+        define('CURRENT_LANG_ID', $current_lang_id);
         $json_data = json_decode(file_get_contents(resource_path('languages/'.$current_short_name.'.json')));
         foreach ($json_data as $key => $value) {
             define($key, $value);

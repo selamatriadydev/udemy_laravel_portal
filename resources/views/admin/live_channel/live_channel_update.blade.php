@@ -20,6 +20,15 @@
                     <iframe  style="width: 500px;height:250px" src="https://www.youtube.com/embed/{{ $channel_single->video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language', $channel_single->language_id) == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="heading">heading *</label>
                     <input type="text" class="form-control @error('heading') is-invalid @enderror" id="heading" name="heading" value="{{ old('heading', $channel_single->heading) }}" placeholder="Heading">
                 </div>

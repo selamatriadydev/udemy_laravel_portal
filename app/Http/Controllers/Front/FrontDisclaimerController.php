@@ -11,7 +11,7 @@ class FrontDisclaimerController extends Controller
 {
     public function index(){
         Helpers::read_json();
-        $page_disclaimer = Page::select('disclaimer_title', 'disclaimer_detail','disclaimer_status')->first();
+        $page_disclaimer = Page::select('disclaimer_title', 'disclaimer_detail','disclaimer_status')->where('language_id', CURRENT_LANG_ID)->first();
         return view('front.disclaimer', compact('page_disclaimer'));
     }
 }

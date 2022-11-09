@@ -20,6 +20,15 @@
                     <iframe  style="width: 500px;height:250px" src="https://www.youtube.com/embed/{{ $video_single->video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language', $video_single->language_id) == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="video_id">Video ID *</label>
                     <input type="text" class="form-control @error('video_id') is-invalid @enderror" id="video_id" name="video_id" value="{{ old('video_id', $video_single->video_id) }}" placeholder="Vedio ID">
                     <span>Tips got <strong>Video Id</strong> from youtube : link <i>https://www.youtube.com/watch?v=</i><strong>ulOb9gIGGd0</strong>, and copy paste video id <strong>ulOb9gIGGd0</strong> </span>

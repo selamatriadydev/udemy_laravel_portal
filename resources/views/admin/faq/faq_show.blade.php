@@ -21,6 +21,7 @@
                         <th>Title</th>
                         <th>Detail</th>
                         <th>Status?</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                             <td>{{ $item->faq_title }} </td>
                             <td>{!! $item->faq_detail !!} </td>
                             <td><span class="badge bg-{{ $item->faq_status =='Show' ? 'success' : 'danger' }}">{{ $item->faq_status }}</span></td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_faq_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

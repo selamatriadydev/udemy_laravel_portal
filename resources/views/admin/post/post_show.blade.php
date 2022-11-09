@@ -47,6 +47,7 @@
                         <th>Author</th>
                         <th>Admin</th>
                         <th>Status</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -81,6 +82,7 @@
                                 @endif
                             </td>
                             <td> <span class="badge badge-{{ $item->is_publish == 1 ? 'success' : 'danger' }}"> {{ $item->is_publish == 1 ? 'Publish' : 'Draft' }}</span> </td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 <a class="btn btn-primary btn-sm" href="{{ route('news_detail', $item->id) }}" target="_blank"><i class="fas fa-eye"></i> Show</a>
                                 @if ($item->admin_id !=0)

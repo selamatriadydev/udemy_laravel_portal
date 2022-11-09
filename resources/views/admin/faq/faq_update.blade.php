@@ -23,6 +23,15 @@
             <form action="{{ route('admin_faq_edit_submit', $faq_single->id) }}" method="post">
                 @csrf
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language', $faq_single->language_id) == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="faq_title">Title *</label>
                     <input type="text" class="form-control @error('faq_title') is-invalid @enderror" id="faq_title" name="faq_title" value="{{ old('faq_title', $faq_single->faq_title) }}" placeholder="FAQ Title">
                 </div>

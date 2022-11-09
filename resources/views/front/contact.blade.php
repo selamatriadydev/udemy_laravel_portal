@@ -90,7 +90,7 @@
                         <div class="form-row">
                             <div class="col-md-6"> 
                                 <div class="form-group">
-                                    <label for="name">Name *</label>
+                                    <label for="name">{{ NAME }} *</label>
                                     <input type="text" class="form-control p-4" name="name" value="{{ old('name') }}" placeholder="{{ NAME }}" />
                                     <span class="text-danger error-text name_error"></span>
                                 </div>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">{{ MESSAGE }} *</label>
-                            <textarea class="form-control" rows="4" name="message" placeholder="Message" >{{ old('message') }}</textarea>
+                            <textarea class="form-control" rows="4" name="message" placeholder="{{ MESSAGE }}" >{{ old('message') }}</textarea>
                             <span class="text-danger error-text message_error"></span>
                         </div>
                         <div>

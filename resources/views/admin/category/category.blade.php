@@ -21,6 +21,7 @@
                         <th>Name</th>
                         <th>Show On Menu</th>
                         <th>Order</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                             </td>
                             <td><span class="badge bg-{{ $item->show_on_menu =='Show' ? 'success' : 'danger' }}">{{ $item->show_on_menu }}</span></td>
                             <td>{{ $item->category_order }}</td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_category_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

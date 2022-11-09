@@ -27,7 +27,9 @@
                     <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center bg-white border border-left-0"
                         style="width: calc(100% - 180px); padding-right: 100px;">
                         @foreach ($global_news_tranding as $item)
-                            <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a></div>
+                            @if (CURRENT_LANG_ID == $item->language_id)
+                                <div class="text-truncate"><a class="text-secondary text-uppercase font-weight-semi-bold" href="{{ route('news_detail', $item->id) }}">{{ $item->post_title }}</a></div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -95,10 +97,9 @@
                                 <span>{{ $news_author->name }}</span>
                             @endif
                             <span class="ml-3"><i class="far fa-eye mr-2"></i>{{ $news_detail->visitor }}</span>
-                            @if ($news_detail->is_comment)
+                            {{-- @if ($news_detail->is_comment)
                                 <span class="ml-3"><i class="far fa-comment mr-2"></i>123</span>
-                               
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>
@@ -107,7 +108,7 @@
                     <!-- Comment List Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">3 Comments</h4>
+                            <h4 class="m-0 text-uppercase font-weight-bold">Comments</h4>
                         </div>
                         <div class="bg-white border border-top-0 p-4">
                             @if ($global_setting_data && $global_setting_data->disqus_status == 'Show')
@@ -115,7 +116,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <div class="section-title mb-0">
                             <h4 class="m-0 text-uppercase font-weight-bold">3 Comments</h4>
                         </div>
@@ -150,11 +151,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- Comment List End -->
 
                     <!-- Comment Form Start -->
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <div class="section-title mb-0">
                             <h4 class="m-0 text-uppercase font-weight-bold">Leave a comment</h4>
                         </div>
@@ -189,7 +190,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- Comment Form End -->
                 @endif
                 
@@ -242,7 +243,7 @@
                 <!-- News Detail Start -->
                 <div class="position-relative mb-3">
                     <div class="bg-white border border-top-0 p-4">
-                        <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">Not Found</h1>
+                        <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{ NO_DATA }}</h1>
                     </div>
                 </div>
                 <!-- News Detail End -->

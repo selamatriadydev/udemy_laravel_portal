@@ -182,30 +182,37 @@ Route::get('/admin/galery/video/{id}/delete', [AdminVideoController::class, 'del
 
 //admin >page > about
 Route::get('/admin/page/about/show', [AdminPageController::class, 'about'])->name('admin_page_about')->middleware('admin:admin');
+Route::get('/admin/page/about/show/language/{lang}', [AdminPageController::class, 'about'])->name('admin_page_about_lang')->middleware('admin:admin');
 Route::post('/admin/page/about/edit-submit', [AdminPageController::class, 'about_edit_submit'])->name('admin_page_about_edit_submit')->middleware('admin:admin');
 
 //admin >page > faq
 Route::get('/admin/page/faq/show', [AdminPageController::class, 'faq'])->name('admin_page_faq')->middleware('admin:admin');
+Route::get('/admin/page/faq/show/language/{lang}', [AdminPageController::class, 'faq'])->name('admin_page_faq_lang')->middleware('admin:admin');
 Route::post('/admin/page/faq/edit-submit', [AdminPageController::class, 'faq_edit_submit'])->name('admin_page_faq_edit_submit')->middleware('admin:admin');
 
 //admin >page > contact
 Route::get('/admin/page/contact/show', [AdminPageController::class, 'contact'])->name('admin_page_contact')->middleware('admin:admin');
+Route::get('/admin/page/contact/show/language/{lang}', [AdminPageController::class, 'contact'])->name('admin_page_contact_lang')->middleware('admin:admin');
 Route::post('/admin/page/contact/edit-submit', [AdminPageController::class, 'contact_edit_submit'])->name('admin_page_contact_edit_submit')->middleware('admin:admin');
 
 //admin >page > login
 Route::get('/admin/page/login/show', [AdminPageController::class, 'login'])->name('admin_page_login')->middleware('admin:admin');
+Route::get('/admin/page/login/show/language/{lang}', [AdminPageController::class, 'login'])->name('admin_page_login_lang')->middleware('admin:admin');
 Route::post('/admin/page/login/edit-submit', [AdminPageController::class, 'login_edit_submit'])->name('admin_page_login_edit_submit')->middleware('admin:admin');
 
 //admin >page > terms
 Route::get('/admin/page/terms/show', [AdminPageController::class, 'terms'])->name('admin_page_terms')->middleware('admin:admin');
+Route::get('/admin/page/terms/show/language/{lang}', [AdminPageController::class, 'terms'])->name('admin_page_terms_lang')->middleware('admin:admin');
 Route::post('/admin/page/terms/edit-submit', [AdminPageController::class, 'terms_edit_submit'])->name('admin_page_terms_edit_submit')->middleware('admin:admin');
 
 //admin >page > privacy
 Route::get('/admin/page/privacy/show', [AdminPageController::class, 'privacy'])->name('admin_page_privacy')->middleware('admin:admin');
+Route::get('/admin/page/privacy/show/language/{lang}', [AdminPageController::class, 'privacy'])->name('admin_page_privacy_lang')->middleware('admin:admin');
 Route::post('/admin/page/privacy/edit-submit', [AdminPageController::class, 'privacy_edit_submit'])->name('admin_page_privacy_edit_submit')->middleware('admin:admin');
 
 //admin >page > disclaimer
 Route::get('/admin/page/disclaimer/show', [AdminPageController::class, 'disclaimer'])->name('admin_page_disclaimer')->middleware('admin:admin');
+Route::get('/admin/page/disclaimer/show/language/{lang}', [AdminPageController::class, 'disclaimer'])->name('admin_page_disclaimer_lang')->middleware('admin:admin');
 Route::post('/admin/page/disclaimer/edit-submit', [AdminPageController::class, 'disclaimer_edit_submit'])->name('admin_page_disclaimer_edit_submit')->middleware('admin:admin');
 
 //admin >FAQ

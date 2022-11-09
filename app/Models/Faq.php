@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     use HasFactory;
+
+    public function rLanguage(){
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

@@ -18,4 +18,7 @@ class SubCategory extends Model
     public function rFrontPost(){
         return $this->hasMany(Post::class, 'sub_category_id')->where('is_publish', 1)->orderBy('id', 'DESC');
     }
+    public function rLanguage(){
+        return $this->belongsTo(Language::class, 'language_id');
+    }
 }

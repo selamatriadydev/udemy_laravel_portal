@@ -21,7 +21,8 @@
                         <th>Category</th>
                         <th>Show On Menu</th>
                         <th>Show On Home</th>
-                        <th>Order</th>
+                        <th>Order</th> 
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@
                             <td><span class="badge bg-{{ $item->show_on_menu =='Show' ? 'success' : 'danger' }}">{{ $item->show_on_menu }}</span></td>
                             <td><span class="badge bg-{{ $item->show_on_home =='Show' ? 'success' : 'danger' }}">{{ $item->show_on_home }}</span></td>
                             <td>{{ $item->sub_category_order }}</td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_sub_category_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

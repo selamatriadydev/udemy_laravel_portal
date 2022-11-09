@@ -12,4 +12,9 @@ class Category extends Model
     public function rSubCategory(){
         return $this->hasMany(SubCategory::class, 'category_id')->orderBy('sub_category_order', 'asc');
     }
+
+    public function rLanguage(){
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+
 }

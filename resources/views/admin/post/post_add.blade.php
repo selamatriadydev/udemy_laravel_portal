@@ -21,19 +21,30 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin_post_add_submit') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin_post_add_submit') }}" method="post" enctype="multipart/form-data" id="new_post">
                 @csrf
-                <div class="form-group">
-                    <label for="category_name"> Category Name *</label>
-                    <select name="category_name" id="category_name" class="form-control select2bs4 @error('category_name') is-invalid @enderror">
-                        @foreach ($category as $item)
-                            <optgroup label="{{ $item->category_name }}">
-                                @foreach ($item->rSubCategory as $sub)
-                                    <option value="{{ $sub->id }}" {{ old('category_name') == $sub->id ? 'selected' : '' }}>{{ $sub->sub_category_name }}</option>
-                                @endforeach
-                            </optgroup>
-                        @endforeach
-                    </select>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="category_order">Language *</label>
+                        <select name="language" id="language" class="form-control language @error('language') is-invalid @enderror">
+                            {{-- <option value="">Select Language</option>  --}}
+                            @foreach ($language_data as $item)
+                            <option value="{{ $item->id }}" {{ old('language') == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="category_name"> Category Name *</label>
+                        <select name="category_name" id="category_name" class="form-control @error('category_name') is-invalid @enderror">
+                            @foreach ($category as $item)
+                                <optgroup id="{{ $item->language_id }}" label="{{ $item->category_name }}">
+                                    @foreach ($item->rSubCategory as $sub)
+                                        <option value="{{ $sub->id }}" {{ old('category_name') == $sub->id ? 'selected' : '' }}>{{ $sub->sub_category_name }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="post_title">Post Title *</label>
@@ -52,25 +63,28 @@
                     <label for="post_tag">Tags</label>
                     <input type="text" class="form-control @error('post_tag') is-invalid @enderror" id="post_tag" name="post_tag" value="{{ old('post_tag') }}" placeholder="Post Tags">
                 </div>
-                <div class="form-group">
-                    <label for="is_share">Is Share ?</label> <br>
-                    <input type="checkbox" name="is_share"  data-bootstrap-switch data-off-color="danger" value="1"
-                    data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('is_share') == '1' ? 'checked' : '' }} >
-                </div>
-                <div class="form-group">
-                    <label for="is_comment">Is Comment ?</label> <br>
-                    <input type="checkbox" name="is_comment"  data-bootstrap-switch data-off-color="danger" value="1"
-                    data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('is_comment') == '1' ? 'checked' : '' }} >
-                </div>
-                <div class="form-group">
-                    <label for="is_publish">Is Publish ?</label> <br>
-                    <input type="checkbox" name="is_publish"  data-bootstrap-switch data-off-color="danger" value="1"
-                    data-on-color="success" data-on-text="PUBLISH" data-off-text="DRAFT" {{ old('is_publish') == '1' ? 'checked' : '' }} >
-                </div>
-                <div class="form-group">
-                    <label for="subscriber_send_option">Want to send this to subscribers ?</label> <br>
-                    <input type="checkbox" name="subscriber_send_option"  data-bootstrap-switch data-off-color="danger" value="1"
-                    data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('subscriber_send_option') == '1' ? 'checked' : '' }} >
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="is_share">Is Share ?</label> <br>
+                        <input type="checkbox" name="is_share"  data-bootstrap-switch data-off-color="danger" value="1"
+                        data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('is_share') == '1' ? 'checked' : '' }} >
+                    </div>
+                    <div class="col-md-3">
+                        <label for="is_comment">Is Comment ?</label> <br>
+                        <input type="checkbox" name="is_comment"  data-bootstrap-switch data-off-color="danger" value="1"
+                        data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('is_comment') == '1' ? 'checked' : '' }} >
+                    </div>
+                    <div class="col-md-3">
+                        <label for="is_publish">Is Publish ?</label> <br>
+                        <input type="checkbox" name="is_publish"  data-bootstrap-switch data-off-color="danger" value="1"
+                        data-on-color="success" data-on-text="PUBLISH" data-off-text="DRAFT" {{ old('is_publish') == '1' ? 'checked' : '' }} >
+                    </div>
+                    <div class="col-md-3">
+                        <label for="subscriber_send_option">Want to send this to subscribers ?</label> <br>
+                        <input type="checkbox" name="subscriber_send_option"  data-bootstrap-switch data-off-color="danger" value="1"
+                        data-on-color="success" data-on-text="YES" data-off-text="NO" {{ old('subscriber_send_option') == '1' ? 'checked' : '' }} >
+                    </div>
                 </div>
                 <button class="btn btn-primary" type="submit"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
             </form>
@@ -100,7 +114,32 @@
         // Bootstrap Switch
         $("input[data-bootstrap-switch]").each(function(){
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
-        })
+        });
+
+        $(document).ready( function(){
+            var $category = $("#category_name > optgroup").clone();
+            var postSelected = $('#language').val();
+            if(postSelected){
+                if($category.clone().filter('[id="' + postSelected + '"]').length){
+                    $('#new_post').find("#category_name").html($category.clone().filter('[id="' + postSelected + '"]'));
+                }else{
+                    $('#new_post').find("#category_name").html('<option>Select Language</option>');
+                }
+            }
+            $('#language').on("change", function() {
+                var selectedLang = $(this).val();
+                // alert(selectedLang)
+                if(selectedLang){ 
+                    if($category.clone().filter('[id="' + selectedLang + '"]').length){
+                        $(this).closest('#new_post').find("#category_name").html($category.clone().filter('[id="' + selectedLang + '"]'));
+                    }else{
+                        $(this).closest('#new_post').find("#category_name").html('<option>Data is Not Found</option>');
+                    }
+                }else{
+                    $(this).closest('#new_post').find("#category_name").html($category);
+                }
+            });
+        });
     });
 </script>
 @endpush

@@ -36,6 +36,7 @@ class CreatePagesTable extends Migration
             $table->text('disclaimer_status')->nullable();
             $table->text('login_title')->nullable();
             $table->text('login_status')->nullable();
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

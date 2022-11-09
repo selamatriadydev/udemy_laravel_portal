@@ -17,6 +17,15 @@
             <form action="{{ route('admin_category_add_submit') }}" method="post">
                 @csrf
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language') == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="category_name">Category Name *</label>
                     <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name" name="category_name" value="{{ old('category_name') }}" placeholder="Category Name">
                 </div>

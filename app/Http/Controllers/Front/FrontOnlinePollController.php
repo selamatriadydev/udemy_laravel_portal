@@ -12,7 +12,7 @@ class FrontOnlinePollController extends Controller
 {
     public function poll_previous(){
         Helpers::read_json();
-        $poll_results = OnlinePoll::orderBy('id','desc')->paginate(10);
+        $poll_results = OnlinePoll::where('language_id', CURRENT_LANG_ID)->orderBy('id','desc')->paginate(10);
         return view('front.poll_results', compact('poll_results'));
     }
     public function poll_submit(Request $request){

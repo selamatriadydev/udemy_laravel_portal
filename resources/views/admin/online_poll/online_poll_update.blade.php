@@ -17,6 +17,15 @@
             <form action="{{ route('admin_online_poll_edit_submit', $question_single->id) }}" method="post">
                 @csrf
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language', $question_single->language_id) == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="question">Question *</label>
                     <textarea class="form-control @error('question') is-invalid @enderror" name="question" id="question" cols="30" rows="5">{{ old('question', $question_single->question) }}</textarea>
                     @error('question') <span class="text-danger">{{ $message }}</span> @enderror

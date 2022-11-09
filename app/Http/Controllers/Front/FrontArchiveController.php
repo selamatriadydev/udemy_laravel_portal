@@ -33,6 +33,7 @@ class FrontArchiveController extends Controller
     }
 
     public function detail($year, $month){
+        Helpers::read_json();
         if($year && $month){
         $archive_news_data = Post::with('rSubCategory')->whereMonth('created_at', '=', $month)->whereYear('created_at', '=', $year)->paginate();
         $archive_data      = Post::with('rSubCategory')->whereMonth('created_at', '=', $month)->whereYear('created_at', '=', $year)->first();

@@ -4,25 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Language;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class AdminSubCategoryController extends Controller
 {
     public function index(){ 
-        $sub_category = SubCategory::with('rCategory')->orderBy('sub_category_order', 'asc')->paginate(10);
+        $sub_category = SubCategory::with('rCategory', 'rLanguage')->orderBy('sub_category_order', 'asc')->paginate(10);
         return view('admin.sub_category.sub_category', compact('sub_category'));
     }
 
     public function create(){
-        $category = Category::orderBy('category_order', 'asc')->get();
-        return view('admin.sub_category.sub_category_add', compact('category'));
+        $category = Category::orderBy('category_order', 'asc')->get(); 
+        $language_data = Language::with('rCategory')->get();
+        return view('admin.sub_category.sub_category_add', compact('category','language_data'));
     }
     public function create_submit(Request $request){
         $request->validate([
             'category_id' => 'required',
             'sub_category_name' => 'required',
             'sub_category_order' => 'required',
+            'language' => 'required',
         ]);
         $show_on_menu = $request->sub_category_on_menu == 'Show' ? 'Show' : 'Hide';
         $show_on_home = $request->sub_category_on_home == 'Show' ? 'Show' : 'Hide';
@@ -32,18 +35,20 @@ class AdminSubCategoryController extends Controller
         $sub_category->show_on_menu = $show_on_menu;
         $sub_category->show_on_home = $show_on_home;
         $sub_category->sub_category_order = $request->sub_category_order ? $request->sub_category_order : 0;
+        $sub_category->language_id = $request->language;
         $sub_category->save();
 
         return redirect()->route('admin_sub_category')->with('success', 'Data is created successfully');
     }
 
     public function edit($id){
+        $language_data = Language::with('rCategory')->get();
         $category = Category::orderBy('category_order', 'asc')->get();
         $sub_category = SubCategory::find($id);
         if(!$sub_category){
             return redirect()->route('admin_sub_category')->with('error', 'Data is not found!!');
         }
-        return view('admin.sub_category.sub_category_update', compact('category','sub_category'));
+        return view('admin.sub_category.sub_category_update', compact('category','sub_category','language_data'));
     }
 
     public function edit_submit(Request $request,$id){
@@ -51,6 +56,7 @@ class AdminSubCategoryController extends Controller
             'category_id' => 'required',
             'sub_category_name' => 'required',
             'sub_category_order' => 'required',
+            'language' => 'required',
         ]);
         $sub_category = SubCategory::find($id);
         if(!$sub_category){
@@ -63,6 +69,7 @@ class AdminSubCategoryController extends Controller
         $sub_category->show_on_menu = $show_on_menu;
         $sub_category->show_on_home = $show_on_home;
         $sub_category->sub_category_order = $request->sub_category_order ? $request->sub_category_order : 0;
+        $sub_category->language_id = $request->language;
         $sub_category->update();
 
         return redirect()->route('admin_sub_category')->with('success', 'Data is updated successfully');

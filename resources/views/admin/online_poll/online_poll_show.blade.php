@@ -21,6 +21,7 @@
                         <th>Question</th>
                         <th>Yes Vote</th>
                         <th>No Vote</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                             <td>{{ $item->question }}</td>
                             <td><span class="badge bg-success">{{ $item->yes_vote }}</span></td>
                             <td><span class="badge bg-danger">{{ $item->no_vote }}</span></td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_online_poll_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

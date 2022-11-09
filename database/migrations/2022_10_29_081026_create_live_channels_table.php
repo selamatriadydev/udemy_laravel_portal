@@ -18,6 +18,7 @@ class CreateLiveChannelsTable extends Migration
             $table->text('heading');
             $table->text('video_id');
             $table->text('status');
+            $table->integer('language_id');
             $table->timestamps();
         });
     }

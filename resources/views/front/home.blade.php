@@ -365,7 +365,7 @@
                                         }
                                     @endphp
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="">{{ $news_author->name }}</a>
+                                        href="">{{ $video_author ? $video_author->name : '' }}</a>
                                         @php
                                         $updated_date = "";
                                         if($item->updated_at){

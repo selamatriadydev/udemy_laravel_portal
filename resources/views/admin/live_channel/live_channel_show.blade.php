@@ -21,6 +21,7 @@
                         <th>Video</th>
                         <th>Status</th>
                         <th>Date</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                                 @endphp
                                 {{ $updated_date }}
                             </td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_live_channel_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

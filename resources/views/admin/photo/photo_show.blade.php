@@ -20,6 +20,7 @@
                         <th>Photo</th>
                         <th>Caption</th>
                         <th>Is Publish</th>
+                        <th>Language</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                             <td> <img class="img-fluid" style="width: 200px" src="{{ asset('upload/galery/photo/'.$item->photo)}}" alt="Photo" > </td>
                             <td>{{ $item->caption }}</td>
                             <td><span class="badge bg-{{ $item->is_publish =='1' ? 'success' : 'danger' }}">{{ $item->is_publish == 1 ? 'Publish' : 'Daft' }}</span></td>
+                            <td>{{ $item->rLanguage ? $item->rLanguage->name : '' }}</td>
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-folder"></i> View</a> --}}
                                 <a class="btn btn-warning btn-sm text-white" href="{{ route('admin_photo_edit', $item->id) }}"> <i class="fas fa-pencil-alt"></i> Edit</a>

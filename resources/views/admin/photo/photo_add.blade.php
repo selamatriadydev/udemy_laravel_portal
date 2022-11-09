@@ -16,6 +16,15 @@
             <form action="{{ route('admin_photo_add_submit') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
+                    <label for="category_order">Language *</label>
+                    <select name="language" id="language" class="form-control @error('language') is-invalid @enderror">
+                        <option value="">Select Language</option>
+                        @foreach ($language_data as $item)
+                        <option value="{{ $item->id }}" {{ old('language') == $item->id ? 'selected' : '' }}>{{ $item->short_name }}-{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="photo">Photo *</label>
                     <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo">
                 </div>
