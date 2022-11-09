@@ -46,7 +46,7 @@
                         <th>Category</th>
                         <th>Sub Category</th>
                         <th>Visitor</th>
-                        <th>Status</th>
+                        <th>Status?</th>
                         <th>Language</th>
                         <th>Action</th>
                     </tr>

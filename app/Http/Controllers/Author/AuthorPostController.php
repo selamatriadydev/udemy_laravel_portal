@@ -11,7 +11,6 @@ use App\Models\Subscriber;
 use App\Models\Category;
 use App\Models\Language;
 use App\Models\Post;
-use App\Models\SubCategory;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth; 
 
@@ -62,16 +61,9 @@ class AuthorPostController extends Controller
         $is_comment = $request->is_comment == '1' ? '1' : '0';
         $is_publish = $request->is_publish == '1' ? '1' : '0';
 
-        // $q = DB::select("SHOW TABLE STATUS LIKE 'posts'");
-        // $ai_id = $q[0]->Auto_increment;
-        // dd($ai_id);
-
         if($request->hasFile('post_photo')){
             $ext = $request->file('post_photo')->extension();
             $now = time();
-            // $name = str_replace(' ', '-', $request->post_title);
-            // $name = strtolower($name);
-            // $final_name = $name.'-'.$now.'.'.$ext;
             $final_name = 'post-photo-'.$now.'.'.$ext;
             $date = date('Y');
             $path = 'upload/post/'.$date."/";
@@ -163,9 +155,6 @@ class AuthorPostController extends Controller
 
             $ext = $request->file('post_photo')->extension();
             $now = time();
-            // $name = str_replace(' ', '-', $request->post_title);
-            // $name = strtolower($name);
-            // $final_name = $name.'-'.$now.'.'.$ext;
             $final_name = 'post-photo-'.$now.'.'.$ext;
             $date = date('Y');
             $path = 'upload/post/'.$date."/";
