@@ -39,23 +39,22 @@ class FrontSubscriberController extends Controller
             $messge = 'Please Click On the following link in order to verify as subscriber <br>';
             $messge .= '<a href="'.$verification_link.'"> Click Here</a>';
             Mail::to($request->email)->send( new websiteMail($subject, $messge));
-
-            // return response()->json( ['code'=> 1, 'success_message' => 'Email is Send!'] );
-            return response()->json( ['code'=> 1, 'success_message' => 'Please check your email to verify as subscriber'] );
+            return response()->json( ['code'=> 1, 'success_message' => SUCCESS_SUBSCRIBER] );
         }
     }
 
     public function subscriber_verify($token, $email){
+        Helpers::read_json();
         $subscriber = Subscriber::where('token', $token)->where('email', $email)->first();
         if(!$subscriber){
-            $error_verify = "Email address not found!!";
+            $error_verify = VERIFY_ERROR_SUBSCRIBER;
             return view('front.subscriber_verify', compact('error_verify'));
         }
         $subscriber->token = "";
         $subscriber->status = "Active";
         $subscriber->update();
 
-        $success_verify = "You are successfully verified as a subscriber";
+        $success_verify = VERIFY_SUCCESS_SUBSCRIBER;
         return view('front.subscriber_verify', compact('success_verify'));
     }
 }

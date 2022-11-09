@@ -67,5 +67,14 @@
     "ERROR_PASSWORD_REQUIRED" :"Password is required",
     "ERROR_PASSWORD_CONFIRM_REQUIRED" :"Password Confirm is required",
     "ERROR_PASSWORD_CONFIRM_SAME" :"Password must match",
-    "SUCCESS_CONTACT" :"Email is Send successfully. we will contact you soon"
+    "SUCCESS_CONTACT" :"Email is Send successfully. we will contact you soon",
+    "SUCCESS_SUBSCRIBER" :"Please check your email to verify as subscriber",
+    "VERIFY_SUCCESS_SUBSCRIBER" :"You are successfully verified as a subscriber",
+    "VERIFY_ERROR_SUBSCRIBER" :"Email address not found!!",
+    "LOGIN_SUCCESS" :"Login is succesfully",
+    "LOGIN_ERROR" :"User not found!!",
+    "RESET_PASSWORD_SUCCESS" :"Success change password",
+    "RESET_PASSWORD_ERROR" :"Email address not found!!",
+    "FORGET_PASSWORD_SUCCESS" :"Check your email",
+    "FORGET_PASSWORD_ERROR" :"Email address not found!!"
 }

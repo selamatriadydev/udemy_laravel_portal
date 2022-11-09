@@ -34,13 +34,13 @@ class FrontLoginController extends Controller
         ], $validator_message);
         $credentials = [
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password 
         ];
 
         if( Auth::guard('author')->attempt($credentials) ){
-            return redirect()->route('author_home')->with('success', 'Welcome back '.Auth::guard('author')->user()->name);
+            return redirect()->route('author_home')->with('success', LOGIN_SUCCESS);
         }
-        return redirect()->route('login')->with('error', 'User not found!!');
+        return redirect()->route('login')->with('error', LOGIN_ERROR);
     } 
 
     public function register(Request $request){
@@ -79,7 +79,7 @@ class FrontLoginController extends Controller
         $token = hash('sha256', time());
         $author = Author::where('email', $request->email)->first();
         if(!$author){
-            return redirect()->route('author_forget_password')->with('error', 'Email address not found!!');
+            return redirect()->route('author_forget_password')->with('error', FORGET_PASSWORD_ERROR);
         }
         $author->token = $token;
         $author->update();
@@ -90,14 +90,14 @@ class FrontLoginController extends Controller
 
         Mail::to($request->email)->send( new websiteMail($subject, $messge));
         
-        return redirect()->route('author_forget_password')->with('success', 'Check your email');
+        return redirect()->route('author_forget_password')->with('success', FORGET_PASSWORD_SUCCESS);
     }
 
     public function reset_password($token, $email){
         Helpers::read_json();
         $author = Author::where('token', $token)->where('email', $email)->first();
         if(!$author){
-            return redirect()->route('home')->with('error', 'Email address not found!!');
+            return redirect()->route('home')->with('error', RESET_PASSWORD_ERROR);
         }
         return view('front.reset_password', compact('token', 'email'));
     }
@@ -114,12 +114,12 @@ class FrontLoginController extends Controller
         ],$validator_message);
         $author = Author::where('token', $request->token)->where('email', $request->email)->first();
         if(!$author){
-            return redirect()->route('login')->with('error', 'Email address not found!!');
+            return redirect()->route('login')->with('error', RESET_PASSWORD_ERROR);
         }
         $author->token = "";
         $author->password = Hash::make($request->password);
         $author->update();
-        return redirect()->route('login')->with('success', 'Success change password');
+        return redirect()->route('login')->with('success', RESET_PASSWORD_SUCCESS);
     }
     public function logout(){
         Auth::guard('author')->logout();

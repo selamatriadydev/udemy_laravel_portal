@@ -67,5 +67,14 @@
     "ERROR_PASSWORD_REQUIRED" :"Password harus di isi",
     "ERROR_PASSWORD_CONFIRM_REQUIRED" :"Konfirmasi password harus di isi",
     "ERROR_PASSWORD_CONFIRM_SAME" :"Password tidak sama",
-    "SUCCESS_CONTACT" :"Email berhasil dikirim. kami akan segera menghubungi anda."
+    "SUCCESS_CONTACT" :"Email berhasil dikirim. kami akan segera menghubungi anda.",
+    "SUCCESS_SUBSCRIBER" :"Silakan periksa email Anda untuk memverifikasi sebagai pelanggan.",
+    "VERIFY_SUCCESS_SUBSCRIBER" :"Anda berhasil diverifikasi sebagai pelanggan",
+    "VERIFY_ERROR_SUBSCRIBER" :"Alamat email tidak ditemukan!!",
+    "LOGIN_SUCCESS" :"Login berhasil",
+    "LOGIN_ERROR" :"User tidak ditemukan",
+    "RESET_PASSWORD_SUCCESS" :"Success change password",
+    "RESET_PASSWORD_ERROR" :"Email address not found!!",
+    "FORGET_PASSWORD_SUCCESS" :"Check your email",
+    "FORGET_PASSWORD_ERROR" :"Email address not found!!"
 }

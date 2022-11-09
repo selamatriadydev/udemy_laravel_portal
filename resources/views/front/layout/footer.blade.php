@@ -1,3 +1,47 @@
+
+    <style>
+        #form_subcriber_loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 10000;
+        }
+        .form_subcriber_spinner.form_subcriber_loading {
+            display: none;
+            padding: 50px;
+            text-align: center;
+        }
+        #form_subcriber_spinner_primary {
+            border-color: #FFCC00 #ccc #ccc !important;
+        }
+        .form_subcriber_spinner.form_subcriber_loading:before {
+            content: "";
+            height: 90px;
+            width: 90px;
+            margin: -15px auto auto -15px;
+            position: absolute;
+            top: calc(50% - 45px);
+            left: calc(50% - 45px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: #FFCC00 #ccc #ccc;
+            border-radius: 100%;
+            animation: rotation_subcriber_form .7s infinite linear;
+        }
+        @keyframes rotation_subcriber_form {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(359deg);
+            }
+        }
+    </style>
 <div class="container-fluid pt-5 px-sm-3 px-md-5 mt-5" style="background-color: #1E2024">
     <div class="row py-4">
         <div class="col-lg-3 col-md-6 mb-5">
@@ -61,14 +105,18 @@
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">{{ FOOTER_COL_4_HEADING }}</h5>
             <div class="row news_letter">
                 <P>{{ NEWSLETTER_TEXT }}</P>
-                <form action="{{ route('subscriber') }}" method="post" class="subcriber_form_ajax">
+                <form action="{{ route('subscriber') }}" method="post" class="subcriber_form_ajax" style="width: 100%;">
                     @csrf
-                    <div class="input-group mb-2" style="width: 100%;">
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="email" name="email" placeholder="{{ EMAIL_ADDRESS }}">
+                        <button class="btn btn-primary btn-lg btn-block font-weight-bold" type="submit">{{ SUBSCRIBE_NOW }}</button>
+                    </div>
+                    {{-- <div class="input-group" style="width: 100%;">
                         <input type="text" class="form-control form-control-lg" name="email" placeholder="{{ EMAIL_ADDRESS }}">
                         <div class="input-group-append">
                             <button class="btn btn-primary font-weight-bold px-3" type="submit">{{ SUBSCRIBE_NOW }}</button>
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <span class="text-danger error-text email_error"></span> --}}
                     <div class="alert alert-success email_success" role="alert" style="display: none"></div> 
                     <div class="alert alert-danger email_error" role="alert" style="display: none"></div> 
