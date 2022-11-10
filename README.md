@@ -44,6 +44,12 @@ Portal news
 - disqus
 - multi languages
 
+## Laravel Extension
+- laravel blade snippets
+- laravel snippets
+- laravel blade spacer
+- laravel-goto-controller
+
 ## tips Portal
 - laravel clear route : php artisan route:clear
 - laravel clear cache : php artisan cache:clear
